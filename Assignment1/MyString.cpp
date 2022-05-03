@@ -19,7 +19,7 @@ namespace assignment1
 
     MyString::~MyString()
     {   
-        delete[] mString;   // 생성할 때 배열로 생성했으므로 배열표시[]를 넣어줌
+        delete[] mString;   // 생성할 때 배열로 생성했으므로 배열표시[]를 넣어줌dd
     }
 
     unsigned int MyString::GetLength() const
