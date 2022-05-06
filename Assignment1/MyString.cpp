@@ -6,14 +6,14 @@ namespace assignment1
     MyString::MyString(const char* s)
         : mSize(strlen(s))
     {
-        mString = new char[mSize];
+        mString = new char[mSize + 1];  // 널 문자를 위해 + 1을 하였음 -> 이게 맞나 알아보기
         memcpy(mString, s, mSize);
     }
 
     MyString::MyString(const MyString& other)
         : mSize(other.mSize)
     {
-        mString = new char[mSize];
+        mString = new char[mSize + 1];
         memcpy(mString, other.mString, mSize);
     }
 
@@ -24,16 +24,22 @@ namespace assignment1
 
     unsigned int MyString::GetLength() const
     {
-        return 0;
+        return MyString::mSize;
     }
 
     const char* MyString::GetCString() const
     {
-        return 0;
+        return MyString::mString;
     }
 
     void MyString::Append(const char* s)
     {
+        int sSize = strlen(s);
+        char* result = new char[mSize + sSize + 1];
+        memcpy(result, mString, mSize);
+        delete[] mString;   // 이전 mString 메모리 해제 
+        strncat(result, s, sSize);
+        mString = result;
     }
 
     MyString MyString::operator+(const MyString& other) const
