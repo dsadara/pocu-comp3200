@@ -28,5 +28,8 @@ namespace assignment1
 	private:
 		char* mString;
 		size_t mSize;
+		int myStrlen(const char* str);
+		void myMemcpy(char* dst, const char* src, int size);
+		void myStrncat(char* dst, const char* src, int size);
 	};
 }
