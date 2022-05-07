@@ -1,5 +1,4 @@
 #include "MyString.h"
-#include <String.h>
 
 namespace assignment1
 {
@@ -40,7 +39,7 @@ namespace assignment1
 	{
 		int sSize = myStrlen(s);
 		char* result = new char[mSize + sSize + 1];
-		memcpy(result, mString, mSize + 1);
+		//memcpy(result, mString, mSize + 1);
 		myMemcpy(result, mString, mSize + 1);
 		delete[] mString;   // 이전 mString 메모리 해제
 		//strncat(result, s, sSize + 1);
@@ -122,7 +121,7 @@ namespace assignment1
 
 	int MyString::myStrlen(const char* s)
 	{
-		const char* ptr = s; 
+		const char* ptr = s;
 		int count = 0;
 		while (*ptr != 0)
 		{
@@ -147,7 +146,8 @@ namespace assignment1
 	{
 		// find null character
 		char* ptr = dst;
-		while (*ptr != 0) {
+		while (*ptr != 0) 
+		{
 			ptr++;
 		}
 		// memcpy from null character
