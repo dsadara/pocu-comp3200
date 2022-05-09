@@ -64,6 +64,16 @@ namespace assignment1
 
 	int MyString::IndexOf(const char* s)
 	{
+		char const* ptr1 = mString; // char값을 변경시키지 못하게 하기 위해 const 설정
+		char const* ptr2 = s;
+		int index = 0;
+		
+		// find first match 
+		/*while (*ptr1 != 0)
+		{
+			
+		}*/
+
 		return 0;
 	}
 
@@ -103,11 +113,36 @@ namespace assignment1
 
 	bool MyString::operator==(const MyString& rhs) const
 	{
-		return false;
+		// size 변수가 다르면 early return
+		if (mSize != rhs.GetLength())
+			return false;
+
+		const char* ptrR = mString;
+		const char* ptrL = rhs.GetCString();
+
+		while (*ptrR != 0 && *ptrL != 0)	// 두 포인터중 하나 또는 둘이 null문자에 도달하면 반복문 탈출
+		{
+			if (*ptrR != *ptrL)
+				return false;
+			ptrR++;
+			ptrL++;
+		}
+
+		// 포인터에 아직 문자열이 남아있으면 같지 않으므로 false 반환 (사실 이거 없어도 될듯한데)
+		if (*ptrR != 0 || *ptrL != 0)
+			return false;
+
+		return true;
 	}
 
 	MyString& MyString::operator=(const MyString& rhs)
 	{
+		int rSize = rhs.GetLength();
+		char* tmp = new char[rSize + 1];
+		myMemcpy(tmp, rhs.GetCString(), rSize + 1);
+		delete[] mString;
+		mString = tmp;
+		mSize = rSize;
 		return *this;
 	}
 
