@@ -66,20 +66,85 @@ namespace assignment1
 	{
 		char const* ptr1 = mString; // char값을 변경시키지 못하게 하기 위해 const 설정
 		char const* ptr2 = s;
-		int index = 0;
+		int index = -1;
+		bool isFirstChar = false;
 		
-		// find first match 
-		/*while (*ptr1 != 0)
+		for (int i = 0; i <= mSize; i++)	// iterate mString once
 		{
-			
-		}*/
+			if (ptr1[i] == *ptr2)
+			{
+				// 첫번쨰 문자 플래그 온, 색인 저장 
+				if (!isFirstChar)
+				{
+					isFirstChar = true;
+					index = i;
+				}
+				ptr2++;
+				// 비교 성공시(널문자에 도달했을시) 첫번쨰 문자 위치 반환
+				if (*ptr2 == 0)
+				{
+					return index;
+				}
+			}
+			else 
+			{
+				// 비교에 실패했을 때 플래그와 포인터 초기화
+				if (isFirstChar)
+				{
+					isFirstChar = false;
+					ptr2 = s;
+					index = -1;
+				}
+			}
 
-		return 0;
+			
+		}
+
+		return index;
 	}
 
 	int MyString::LastIndexOf(const char* s)
 	{
-		return 0;
+		char const* ptr1 = mString; // char값을 변경시키지 못하게 하기 위해 const 설정
+		char const* ptr2 = s;
+		int index = -1;
+		int lastIndex = -1;
+		bool isFirstChar = false;
+
+		for (int i = 0; i <= mSize; i++)	// iterate mString once
+		{
+			if (ptr1[i] == *ptr2)
+			{
+				// 첫번쨰 문자 플래그 온, 색인 저장 
+				if (!isFirstChar)
+				{
+					isFirstChar = true;
+					index = i;
+				}
+				ptr2++;
+				// 비교 성공시(널문자에 도달했을시) lastIndex에 첫번째 문자 인덱스 저장, 플래그와 포인터 초기화
+				if (*ptr2 == 0)
+				{
+					lastIndex = index;
+					isFirstChar = false;
+					ptr2 = s;
+				}
+			}
+			else
+			{
+				// 비교에 실패했을 때 플래그와 포인터 초기화
+				if (isFirstChar)
+				{
+					isFirstChar = false;
+					ptr2 = s;
+					index = -1;
+				}
+			}
+
+
+		}
+
+		return lastIndex;
 	}
 
 	void MyString::Interleave(const char* s)
