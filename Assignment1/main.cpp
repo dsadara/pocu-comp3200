@@ -106,7 +106,74 @@ int main()
 	cout << s53.IndexOf("ell") << endl;   // 1
 	cout << s54.IndexOf("ell") << endl;   // -1
 
+	// interleave()
+	MyString s55("Hello");
+	s55.Interleave(" World"); // s1은 "H eWlolrold"	
+	cout << s55.GetCString() << endl;
 
+	// toUpper() toLower()
+	MyString s56("HEllo 123K");
+	s56.ToLower(); // s1: "hello 123k"
+	cout << s56.GetCString() << endl;
+	s56.ToUpper();
+	cout << s56.GetCString() << endl;
 
+	// reverse()
+	MyString s57("Hello");
+	s57.Reverse(); // s: "olleH"
+	cout << s57.GetCString() << endl;
 
+	MyString s58("abba");
+	s58.Reverse();
+	cout << s58.GetCString() << endl;
+
+	MyString s59("");
+	s59.Reverse();
+	cout << s59.GetCString() << endl;
+
+	// Append()
+	MyString s60("");
+	s60.Append("Hello!!!");
+	cout << s60.GetCString() << endl;
+
+	MyString s61("Hello");
+	s61.Append("");
+	cout << s61.GetCString() << endl;
+
+	//operator+
+	MyString s62("");
+	MyString s63("Hello");
+	MyString s64 = s62 + s63;
+	cout << s64.GetCString() << endl;
+
+	// removeAt()
+	MyString s65("Hello");
+	bool b1 = s65.RemoveAt(0); // s는 "ello", b1은 true
+	cout << b1 << endl;
+	bool b2 = s65.RemoveAt(2); // s는 "elo", b2은 true
+	cout << b2 << endl;
+	bool b3 = s65.RemoveAt(4); // s는 "elo", b3은 false
+	cout << b3 << endl;
+
+	// padLeft()
+
+	MyString p1("Hello");
+
+	p1.PadLeft(2); // s1: "Hello"
+	p1.PadLeft(8); // s1: "   Hello"
+
+	MyString p2("World");
+	p2.PadLeft(3, '-'); // s2: "World"
+	p2.PadLeft(7, '-'); // s2: "--World"
+
+	// padRight()
+
+	MyString p3("Hello");
+
+	p3.PadRight(2); // p3: "Hello"
+	p3.PadRight(8); // p3: "Hello   "
+
+	MyString p4("World");
+	p4.PadRight(3, '-'); // p4: "World"
+	p4.PadRight(7, '-'); // p4: "World--"
 }

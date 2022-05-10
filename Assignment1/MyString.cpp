@@ -54,7 +54,7 @@ namespace assignment1
 		delete[] mString;   // 이전 mString 메모리 해제
 		//strncat(result, s, sSize + 1);
 		myStrncat(result, s, sSize + 1);
-		mSize = mSize + sSize + 1;
+		mSize = mSize + sSize;
 		mString = result;
 	}
 
@@ -180,31 +180,205 @@ namespace assignment1
 
 	void MyString::Interleave(const char* s)
 	{
+		int sSize = myStrlen(s);
+		int size = mSize + sSize + 1;
+		char* result = new char[size];
+
+		char const* ptr1 = mString;
+		char const* ptr2 = s;
+		char* ptrResult = result;
+		bool bFirstString = true;
+
+
+		while (*ptr1 != 0 && *ptr2 != 0)
+		{
+			if (bFirstString)
+			{
+				*ptrResult = *ptr1;
+				ptr1++;
+				ptrResult++;
+				bFirstString = false;
+			}
+			else 
+			{
+				*ptrResult = *ptr2;
+				ptr2++;
+				ptrResult++;
+				bFirstString = true;
+			}
+		}
+
+		// 남은 스트링 집어넣기	
+		while (*ptr1 != 0)
+		{
+			*ptrResult = *ptr1;
+			ptr1++;
+			ptrResult++;
+		}
+		while (*ptr2 != 0)
+		{
+			*ptrResult = *ptr2;
+			ptr2++;
+			ptrResult++;
+		}
+		*ptrResult = 0;
+
+		delete[] mString;
+		mString = result;
 	}
 
 	bool MyString::RemoveAt(unsigned int i)
 	{
-		return false;
+		if (mSize <= i)
+		{
+			return false;
+		}
+
+		char* ptr = mString + i;
+		char* lastPtr = ptr;
+		ptr++;
+
+		while (*ptr != 0)
+		{
+			*lastPtr = *ptr;
+			lastPtr = ptr;
+			ptr++;
+		}
+		*lastPtr = 0;
+		mSize--;
+
+		return true;
 	}
 
 	void MyString::PadLeft(unsigned int totalLength)
 	{
+		if (totalLength <= mSize)
+		{
+			return;
+		}
+		int numToPad = totalLength - mSize;
+
+		char* result = new char[totalLength + 1];
+		char* resultPtr = result;
+		for (int i = 0; i < numToPad; i++)
+		{
+			*resultPtr = ' ';
+			resultPtr++;
+		}
+		
+		char* ptrM = mString;
+		while (*ptrM != 0)
+		{
+			*resultPtr = *ptrM;
+			ptrM++;
+			resultPtr++;
+		}
+		*resultPtr = 0;
+		
+		delete[] mString;
+		mString = result;
+
 	}
 
 	void MyString::PadLeft(unsigned int totalLength, const char c)
 	{
+		if (totalLength <= mSize)
+		{
+			return;
+		}
+		int numToPad = totalLength - mSize;
+
+		char* result = new char[totalLength + 1];
+		char* resultPtr = result;
+		for (int i = 0; i < numToPad; i++)
+		{
+			*resultPtr = c;
+			resultPtr++;
+		}
+
+		char* ptrM = mString;
+		while (*ptrM != 0)
+		{
+			*resultPtr = *ptrM;
+			ptrM++;
+			resultPtr++;
+		}
+		*resultPtr = 0;
+
+		delete[] mString;
+		mString = result;
 	}
 
 	void MyString::PadRight(unsigned int totalLength)
 	{
+		if (totalLength <= mSize)
+		{
+			return;
+		}
+		int numToPad = totalLength - mSize;
+		char* result = new char[totalLength + 1];
+		char* resultPtr = result;
+		char* ptrM = mString;
+
+		while (*ptrM != 0)
+		{
+			*resultPtr = *ptrM;
+			ptrM++;
+			resultPtr++;
+		}
+
+		for (int i = 0; i < numToPad; i++)
+		{
+			*resultPtr = ' ';
+			resultPtr++;
+		}
+		*resultPtr = 0;
+
+		delete[] mString;
+		mString = result;
+
 	}
 
 	void MyString::PadRight(unsigned int totalLength, const char c)
 	{
+		if (totalLength <= mSize)
+		{
+			return;
+		}
+		int numToPad = totalLength - mSize;
+		char* result = new char[totalLength + 1];
+		char* resultPtr = result;
+		char* ptrM = mString;
+
+		while (*ptrM != 0)
+		{
+			*resultPtr = *ptrM;
+			ptrM++;
+			resultPtr++;
+		}
+
+		for (int i = 0; i < numToPad; i++)
+		{
+			*resultPtr = c;
+			resultPtr++;
+		}
+		*resultPtr = 0;
+
+		delete[] mString;
+		mString = result;
 	}
 
 	void MyString::Reverse()
 	{
+		char* ptr = mString;
+		char tmp;
+
+		for (size_t i = 0; i < mSize / 2; i++)
+		{
+			tmp = ptr[i];
+			ptr[i] = ptr[mSize - 1 - i];
+			ptr[mSize - 1 - i] = tmp;
+		}
 	}
 
 	bool MyString::operator==(const MyString& rhs) const
@@ -244,10 +418,29 @@ namespace assignment1
 
 	void MyString::ToLower()
 	{
+		char* ptr = mString;
+		while (*ptr != 0)
+		{
+			if (65 <= *ptr && *ptr <= 90)
+			{
+				*ptr += 32;
+			}
+			ptr++;
+		}
+
 	}
 
 	void MyString::ToUpper()
 	{
+		char* ptr = mString;
+		while (*ptr != 0)
+		{
+			if (97 <= *ptr && *ptr <= 122)
+			{
+				*ptr -= 32;
+			}
+			ptr++;
+		}
 	}
 
 	int MyString::myStrlen(const char* s)
