@@ -5,6 +5,11 @@ namespace assignment1
 	MyString::MyString(const char* s)
 		: mSize(myStrlen(s))
 	{
+		if (s == nullptr)
+		{
+			mString = nullptr;
+			return;
+		}
 		mString = new char[mSize + 1];
 		//memset(mString, 0, mSize + 1);
 		//memcpy(mString, s, mSize + 1);
@@ -14,6 +19,11 @@ namespace assignment1
 	MyString::MyString(const MyString& other)
 		: mSize(other.mSize)
 	{
+		if (other == nullptr)
+		{
+			mString = nullptr;
+			return;
+		}
 		mString = new char[mSize + 1];
 		//memset(mString, 0, mSize + 1);
 		//memcpy(mString, other.mString, mSize + 1);
@@ -64,19 +74,29 @@ namespace assignment1
 
 	int MyString::IndexOf(const char* s)
 	{
+		if (mString == nullptr || s == nullptr)
+		{
+			return -1;
+		}
+		// if s is ""
+		if (*s == 0)
+		{
+			return 0;
+		}
+
 		char const* ptr1 = mString; // char값을 변경시키지 못하게 하기 위해 const 설정
 		char const* ptr2 = s;
 		int index = -1;
-		bool isFirstChar = false;
+		bool bFirstChar = false;
 		
-		for (int i = 0; i <= mSize; i++)	// iterate mString once
+		for (size_t i = 0; i <= mSize; i++)	// iterate mString once
 		{
 			if (ptr1[i] == *ptr2)
 			{
 				// 첫번쨰 문자 플래그 온, 색인 저장 
-				if (!isFirstChar)
+				if (!bFirstChar)
 				{
-					isFirstChar = true;
+					bFirstChar = true;
 					index = i;
 				}
 				ptr2++;
@@ -89,9 +109,9 @@ namespace assignment1
 			else 
 			{
 				// 비교에 실패했을 때 플래그와 포인터 초기화
-				if (isFirstChar)
+				if (bFirstChar)
 				{
-					isFirstChar = false;
+					bFirstChar = false;
 					ptr2 = s;
 					index = -1;
 				}
@@ -105,20 +125,30 @@ namespace assignment1
 
 	int MyString::LastIndexOf(const char* s)
 	{
+		if (mString == nullptr || s == nullptr)
+		{
+			return -1;
+		}
+		// if s is ""
+		if (*s == 0)
+		{
+			return mSize;
+		}
+
 		char const* ptr1 = mString; // char값을 변경시키지 못하게 하기 위해 const 설정
 		char const* ptr2 = s;
 		int index = -1;
 		int lastIndex = -1;
-		bool isFirstChar = false;
+		bool bFirstChar = false;
 
-		for (int i = 0; i <= mSize; i++)	// iterate mString once
+		for (size_t i = 0; i <= mSize; i++)	// iterate mString once
 		{
 			if (ptr1[i] == *ptr2)
 			{
 				// 첫번쨰 문자 플래그 온, 색인 저장 
-				if (!isFirstChar)
+				if (!bFirstChar)
 				{
-					isFirstChar = true;
+					bFirstChar = true;
 					index = i;
 				}
 				ptr2++;
@@ -126,16 +156,16 @@ namespace assignment1
 				if (*ptr2 == 0)
 				{
 					lastIndex = index;
-					isFirstChar = false;
+					bFirstChar = false;
 					ptr2 = s;
 				}
 			}
 			else
 			{
 				// 비교에 실패했을 때 플래그와 포인터 초기화
-				if (isFirstChar)
+				if (bFirstChar)
 				{
-					isFirstChar = false;
+					bFirstChar = false;
 					ptr2 = s;
 					index = -1;
 				}
@@ -221,6 +251,10 @@ namespace assignment1
 
 	int MyString::myStrlen(const char* s)
 	{
+		if (s == nullptr) 
+		{
+			return -1;
+		}
 		const char* ptr = s;
 		int count = 0;
 		while (*ptr != 0)
