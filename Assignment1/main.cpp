@@ -87,6 +87,26 @@ int main()
 	assert(my1 == copied);					// value
 	assert(my1.GetCString() == cString);				// reference
 
+	/* IndexOf() Ex */
+	cout << "-----------------------" << endl;
+	cout << "IndexOf()" << endl;
+	MyString s8("Hello");
+	cout << s8.IndexOf("ell") << endl;   // 1
+	cout << s8.IndexOf("l") << endl;     // 2
+	cout << s8.IndexOf("This") << endl;  // -1
+	cout << s8.IndexOf("") << endl;   // 0
+	cout << s8.IndexOf("lo") << endl;   // 3
+
+	MyString s52("");
+	cout << s52.IndexOf("") << endl;   // 0
+	cout << s52.IndexOf("A") << endl; // -1
+
+	MyString s53("Hellello");
+	MyString s54("Heloo");
+	cout << s53.IndexOf("ell") << endl;   // 1
+	cout << s54.IndexOf("ell") << endl;   // -1
+
+
 
 
 }

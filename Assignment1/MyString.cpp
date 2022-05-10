@@ -114,6 +114,7 @@ namespace assignment1
 					bFirstChar = false;
 					ptr2 = s;
 					index = -1;
+					i--;
 				}
 			}
 
