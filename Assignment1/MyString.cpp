@@ -47,6 +47,11 @@ namespace assignment1
 
 	void MyString::Append(const char* s)
 	{
+		if (*s == 0)
+		{
+			return;
+		}
+
 		int sSize = myStrlen(s);
 		char* result = new char[mSize + sSize + 1];
 		//memcpy(result, mString, mSize + 1);
@@ -259,6 +264,7 @@ namespace assignment1
 		int numToPad = totalLength - mSize;
 
 		char* result = new char[totalLength + 1];
+		mSize = totalLength;
 		char* resultPtr = result;
 		for (int i = 0; i < numToPad; i++)
 		{
@@ -289,6 +295,7 @@ namespace assignment1
 		int numToPad = totalLength - mSize;
 
 		char* result = new char[totalLength + 1];
+		mSize = totalLength;
 		char* resultPtr = result;
 		for (int i = 0; i < numToPad; i++)
 		{
@@ -317,6 +324,7 @@ namespace assignment1
 		}
 		int numToPad = totalLength - mSize;
 		char* result = new char[totalLength + 1];
+		mSize = totalLength;
 		char* resultPtr = result;
 		char* ptrM = mString;
 
@@ -347,6 +355,7 @@ namespace assignment1
 		}
 		int numToPad = totalLength - mSize;
 		char* result = new char[totalLength + 1];
+		mSize = totalLength;
 		char* resultPtr = result;
 		char* ptrM = mString;
 
