@@ -7,7 +7,8 @@ namespace assignment1
 	{
 		if (s == nullptr)
 		{
-			mString = nullptr;
+			mString = new char[1];
+			*mString = 0;
 			return;
 		}
 		mString = new char[mSize + 1];
@@ -185,6 +186,10 @@ namespace assignment1
 
 	void MyString::Interleave(const char* s)
 	{
+		if (*s == 0)
+		{
+			return;
+		}
 		int sSize = myStrlen(s);
 		int size = mSize + sSize + 1;
 		char* result = new char[size];
@@ -230,6 +235,7 @@ namespace assignment1
 
 		delete[] mString;
 		mString = result;
+		mSize = size - 1;
 	}
 
 	bool MyString::RemoveAt(unsigned int i)
@@ -456,7 +462,7 @@ namespace assignment1
 	{
 		if (s == nullptr) 
 		{
-			return -1;
+			return 0;
 		}
 		const char* ptr = s;
 		int count = 0;
