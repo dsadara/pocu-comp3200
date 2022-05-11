@@ -15,10 +15,6 @@ namespace lab2
         while (true)
         {
             in >> number;
-            if (in.eof())
-            {
-                break;
-            }
             if (in.fail())
             {
                 in.clear();
@@ -28,8 +24,15 @@ namespace lab2
             if (bFirstInput)
             {
                 out << setfill(' ') << setw(12) << "oct" << setw(11) << "dec" << setw(9) << "hex" << endl;
-                out << setfill('-') << setw(12) << "." << setw(11) << "." << setw(9) << "" << endl;
+                out << setfill('-') << setw(12) << " " << setw(11) << " " << setw(9) << "" << endl;
                 bFirstInput = false;
+            }
+            if (in.eof())
+            {
+                // eof전 출력하지 못한 number 출력
+                out << setfill(' ') << setw(12) << oct << number
+                    << setw(11) << dec << number << setw(9) << uppercase << hex << number << endl;
+                break;
             }
             out << setfill(' ') << setw(12) << oct << number
                 << setw(11) << dec << number << setw(9) << uppercase << hex << number << endl;
