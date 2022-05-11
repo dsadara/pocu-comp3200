@@ -15,12 +15,6 @@ namespace lab2
 		while (true)
 		{
 			in >> number;
-			if (in.fail())
-			{
-				in.clear();
-				in >> str;
-				continue;
-			}
 			if (bFirstInput)
 			{
 				out << setfill(' ') << setw(12) << "oct" << setw(11) << "dec" << setw(9) << "hex" << endl;
@@ -29,10 +23,19 @@ namespace lab2
 			}
 			if (in.eof())
 			{
-				// eof 전 출력하지 못한 number 출력
-				out << setfill(' ') << setw(12) << oct << number
+				if (!in.fail())
+				{
+					// eof 전 출력하지 못한 number 출력
+					out << setfill(' ') << setw(12) << oct << number
 					<< setw(11) << dec << number << setw(9) << uppercase << hex << number << endl;
+				}
 				break;
+			}
+			if (in.fail())
+			{
+				in.clear();
+				in >> str;
+				continue;
 			}
 			out << setfill(' ') << setw(12) << oct << number
 				<< setw(11) << dec << number << setw(9) << uppercase << hex << number << endl;
