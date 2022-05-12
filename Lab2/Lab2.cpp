@@ -49,9 +49,11 @@ namespace lab2
 		bool bFirstInput = true;
 		float maxNumber;
 
+
+		out << showpoint << showpos << internal << fixed << setprecision(3);
 		in >> number;
 		maxNumber = number;
-		out << showpoint << showpos << internal << fixed << setprecision(3);
+		
 
 		while (true)
 		{
@@ -61,6 +63,11 @@ namespace lab2
 				{
 					// eof 전 출력하지 못한 number 출력
 					out << setw(5) << "" << setw(15) << number << endl;
+					// maxNumber인지 확인
+					if (number > maxNumber)
+					{
+						maxNumber = number;
+					}
 				}
 				break;
 			}
@@ -69,18 +76,14 @@ namespace lab2
 				in.clear();
 				in >> str;
 				in >> number;
-				if (number > maxNumber)
-				{
-					maxNumber = number;
-				}
 				continue;
 			}
-			out << setw(5) << "" << setw(15) << number << endl;
-			in >> number;
 			if (number > maxNumber)
 			{
 				maxNumber = number;
 			}
+			out << setw(5) << "" << setw(15) << number << endl;
+			in >> number;
 		}
 		out << setw(5) << left << "max:" << setw(15) << internal << maxNumber << endl;
 	}
