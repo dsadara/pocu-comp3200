@@ -68,6 +68,11 @@ namespace lab2
 			{
 				in.clear();
 				in >> str;
+				in >> number;
+				if (number > maxNumber)
+				{
+					maxNumber = number;
+				}
 				continue;
 			}
 			out << setw(5) << "" << setw(15) << number << endl;
