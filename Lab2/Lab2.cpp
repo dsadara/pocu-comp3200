@@ -27,7 +27,7 @@ namespace lab2
 				{
 					// eof 전 출력하지 못한 number 출력
 					out << setfill(' ') << setw(12) << oct << number
-					<< setw(11) << dec << number << setw(9) << uppercase << hex << number << endl;
+						<< setw(11) << dec << number << setw(9) << uppercase << hex << number << endl;
 				}
 				break;
 			}
@@ -44,6 +44,39 @@ namespace lab2
 
 	void PrintMaxFloat(std::istream& in, std::ostream& out)
 	{
+		float number;
+		string str;
+		bool bFirstInput = true;
+		float maxNumber;
 
+		in >> number;
+		maxNumber = number;
+		out << showpoint << showpos << internal << fixed << setprecision(3);
+
+		while (true)
+		{
+			if (in.eof())
+			{
+				if (!in.fail())
+				{
+					// eof 전 출력하지 못한 number 출력
+					out << setw(5) << "" << setw(15) << number << endl;
+				}
+				break;
+			}
+			if (in.fail())
+			{
+				in.clear();
+				in >> str;
+				continue;
+			}
+			out << setw(5) << "" << setw(15) << number << endl;
+			in >> number;
+			if (number > maxNumber)
+			{
+				maxNumber = number;
+			}
+		}
+		out << setw(5) << left << "max:" << setw(15) << internal << maxNumber << endl;
 	}
 }
