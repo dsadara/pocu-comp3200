@@ -31,14 +31,14 @@ namespace lab3
 	{
 		mName = rhs.mName;
 		mMaxEntries = rhs.mMaxEntries;
-		int* tmp = rhs.mWorkTimes;  // 자기 자신을 대입하는 경우 원래 배열 포인터를 잃지 않기 위해 저장
-		mWorkTimes = new int[mMaxEntries];
+		int* tmp = mWorkTimes;  // 자기 자신을 대입하는 경우 원래 배열 포인터를 잃지 않기 위해 저장
+		mWorkTimes = new int[rhs.mMaxEntries];
 		mWorkTimesIndex = rhs.mWorkTimesIndex;
 		for (size_t i = 0; i < mWorkTimesIndex; i++)
 		{
-			mWorkTimes[i] = tmp[i];
+			mWorkTimes[i] = rhs.mWorkTimes[i];
 		}
-		//delete tmp;
+		delete tmp;
 	}
 
 	TimeSheet::~TimeSheet()
