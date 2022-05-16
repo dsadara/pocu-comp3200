@@ -87,6 +87,10 @@ namespace lab3
 
 	float TimeSheet::GetAverageTime() const
 	{
+		if (mWorkTimesIndex == 0)
+		{
+			return 0;
+		}
 		int totalTime = GetTotalTime();
 
 
@@ -95,6 +99,10 @@ namespace lab3
 
 	float TimeSheet::GetStandardDeviation() const
 	{
+		if (mWorkTimesIndex == 0)
+		{
+			return 0;
+		}
 		int sum = 0;
 		int squaredSum = 0;
 		for (size_t i = 0; i < mWorkTimesIndex; i++)
