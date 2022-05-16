@@ -43,7 +43,7 @@ namespace lab3
 
 	TimeSheet::~TimeSheet()
 	{
-		delete mWorkTimes;
+		delete[] mWorkTimes;
 	}
 
 	void TimeSheet::AddTime(int timeInHours)
