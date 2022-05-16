@@ -38,7 +38,7 @@ namespace lab3
 		{
 			mWorkTimes[i] = tmp[i];
 		}
-		delete tmp;
+		//delete tmp;
 	}
 
 	TimeSheet::~TimeSheet()
@@ -52,7 +52,7 @@ namespace lab3
 		{
 			return;
 		}
-		if (mWorkTimesIndex >= mMaxEntries - 1)
+		if (mWorkTimesIndex > mMaxEntries - 1)
 		{
 			return;
 		}
@@ -90,7 +90,7 @@ namespace lab3
 		int totalTime = GetTotalTime();
 
 
-		return (float)totalTime / mWorkTimesIndex;
+		return static_cast<float>(totalTime) / mWorkTimesIndex;
 	}
 
 	float TimeSheet::GetStandardDeviation() const
@@ -102,8 +102,8 @@ namespace lab3
 			squaredSum += mWorkTimes[i] * mWorkTimes[i];
 			sum += mWorkTimes[i];
 		}
-		float average = (float)sum / mWorkTimesIndex;
-		float squaredAverage = (float)squaredSum / mWorkTimesIndex;
+		float average = static_cast<float>(sum) / mWorkTimesIndex;
+		float squaredAverage = static_cast<float>(squaredSum) / mWorkTimesIndex;
 
 
 		return sqrtf(squaredAverage - average * average);
