@@ -7,10 +7,10 @@ namespace lab3
 	{
 		mName = name;
 		mWorkTimes = new int[mMaxEntries];
-		for (size_t i = 0; i < mMaxEntries; i++)
+		/*for (size_t i = 0; i < mMaxEntries; i++)
 		{
 			mWorkTimes[i] = 0;
-		}
+		}*/
 		mWorkTimesIndex = 0;
 
 	}
@@ -61,15 +61,15 @@ namespace lab3
 
 	int TimeSheet::GetTimeEntry(unsigned int index) const
 	{
-		if (index >= mMaxEntries)
+		if (index >= mWorkTimesIndex)
 		{
 			return -1;
 		}
 		int time = mWorkTimes[index];
-		if (time == 0)
+		/*if (time == 0)
 		{
 			return -1;
-		}
+		}*/
 
 		return time;
 	}
