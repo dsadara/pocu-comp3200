@@ -18,7 +18,7 @@ namespace lab4
 
 		const Point* operator[](unsigned int i) const;
 	private:
-		Point* mPoints[10];
+		Point* mPoints;
 		size_t mCurrPointIndex;
 	};
 }
