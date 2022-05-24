@@ -13,6 +13,7 @@ namespace lab4
 	PolyLine::PolyLine(const PolyLine& other)
 	{
 		// PolyLine의 복사생성자
+		mPoints = new Point[10];
 
 		// 기존 Point 삭제
 		//delete[] mPoints;
