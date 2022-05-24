@@ -132,4 +132,16 @@ namespace lab4
 
 		return new Point(mPoints[i].GetX(), mPoints[i].GetY());
 	}
+
+	void PolyLine::operator=(const PolyLine& other)
+	{
+		for (size_t i = 0; i < other.mCurrPointIndex; i++)
+		{
+			//AddPoint(mPoints[i]);
+			mPoints[i].SetX(other.mPoints[i].GetX());
+			mPoints[i].SetY(other.mPoints[i].GetY());
+		}
+
+		mCurrPointIndex = other.mCurrPointIndex;
+	}
 }
