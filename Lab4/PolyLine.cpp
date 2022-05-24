@@ -67,7 +67,7 @@ namespace lab4
 
 		delete mPoints[i];
 
-		for (size_t j = i; j < mCurrPointIndex; j++)
+		for (size_t j = i; j < mCurrPointIndex - 1; j++)
 		{
 			mPoints[j] = mPoints[j + 1];
 		}
