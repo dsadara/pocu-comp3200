@@ -27,7 +27,7 @@ namespace lab4
 	PolyLine::~PolyLine()
 	{
 		deletePoints();
-		delete mPoints;
+		delete[] mPoints;
 	}
 
 	bool PolyLine::AddPoint(float x, float y)
