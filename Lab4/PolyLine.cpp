@@ -7,23 +7,18 @@ namespace lab4
 	PolyLine::PolyLine()
 		: mCurrPointIndex(0)
 	{
-		mPoints = new Point[10];
 	}
 
 	PolyLine::PolyLine(const PolyLine& other)
+		: mCurrPointIndex(0)
 	{
-		// PolyLine의 복사생성자
-		mPoints = new Point[10];
-
 		// 기존 Point 삭제
-		//delete[] mPoints;
+		deletePoints();
 
 		// Point 깊은 복사
 		for (size_t i = 0; i < other.mCurrPointIndex; i++)
 		{
-			//AddPoint(mPoints[i]);
-			mPoints[i].SetX(other.mPoints[i].GetX());
-			mPoints[i].SetY(other.mPoints[i].GetY());
+			AddPoint(other.mPoints[i]);
 		}
 
 		mCurrPointIndex = other.mCurrPointIndex;
@@ -31,7 +26,7 @@ namespace lab4
 
 	PolyLine::~PolyLine()
 	{
-		delete[] mPoints;
+		deletePoints();
 	}
 
 	bool PolyLine::AddPoint(float x, float y)
@@ -41,8 +36,7 @@ namespace lab4
 			return false;
 		}
 
-		mPoints[mCurrPointIndex].SetX(x);
-		mPoints[mCurrPointIndex].SetY(y);
+		mPoints[mCurrPointIndex] = new Point(x, y);
 		mCurrPointIndex++;
 		return true;
 	}
@@ -53,7 +47,7 @@ namespace lab4
 		{
 			return false;
 		}
-		mPoints[mCurrPointIndex] = *point;	// 암시적 대입 연산자 사용
+		mPoints[mCurrPointIndex] = new Point(point->GetX(), point->GetY());
 		mCurrPointIndex++;
 		return true;
 	}
@@ -65,7 +59,7 @@ namespace lab4
 			return false;
 		}
 
-		//delete mPoints[i];
+		delete mPoints[i];
 
 		for (size_t j = i; j < mCurrPointIndex - 1; j++)
 		{
@@ -85,18 +79,18 @@ namespace lab4
 			return false;
 		}
 
-		float minX = mPoints[0].GetX();
-		float minY = mPoints[0].GetY();
-		float maxX = mPoints[0].GetX();
-		float maxY = mPoints[0].GetY();
+		float minX = mPoints[0]->GetX();
+		float minY = mPoints[0]->GetY();
+		float maxX = mPoints[0]->GetX();
+		float maxY = mPoints[0]->GetY();
 
 		// find min x, y max x, y by one pass
 		float currX;
 		float currY;
 		for (size_t i = 0; i < mCurrPointIndex; i++)
 		{
-			currX = mPoints[i].GetX();
-			currY = mPoints[i].GetY();
+			currX = mPoints[i]->GetX();
+			currY = mPoints[i]->GetY();
 			if (minX > currX)
 			{
 				minX = currX;
@@ -130,7 +124,7 @@ namespace lab4
 			return nullptr;
 		}
 
-		return new Point(mPoints[i].GetX(), mPoints[i].GetY());
+		return new Point(mPoints[i]->GetX(), mPoints[i]->GetY());
 	}
 
 	void PolyLine::operator=(const PolyLine& other)
@@ -138,10 +132,18 @@ namespace lab4
 		for (size_t i = 0; i < other.mCurrPointIndex; i++)
 		{
 			//AddPoint(mPoints[i]);
-			mPoints[i].SetX(other.mPoints[i].GetX());
-			mPoints[i].SetY(other.mPoints[i].GetY());
+			mPoints[i]->SetX(other.mPoints[i]->GetX());
+			mPoints[i]->SetY(other.mPoints[i]->GetY());
 		}
 
 		mCurrPointIndex = other.mCurrPointIndex;
+	}
+
+	void PolyLine::deletePoints()
+	{
+		for (int i = 0; i < mCurrPointIndex; i++)
+		{
+			delete mPoints[i];
+		}
 	}
 }
