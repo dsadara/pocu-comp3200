@@ -126,7 +126,7 @@ namespace lab4
 			return nullptr;
 		}
 
-		return new Point(mPoints[i]->GetX(), mPoints[i]->GetY());
+		return mPoints[i];
 	}
 
 	void PolyLine::operator=(const PolyLine& other)
