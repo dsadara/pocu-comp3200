@@ -144,6 +144,9 @@ namespace lab4
 		for (int i = 0; i < mCurrPointIndex; i++)
 		{
 			delete mPoints[i];
+			mPoints[i] = nullptr;
 		}
+
+
 	}
 }
