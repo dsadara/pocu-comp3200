@@ -45,12 +45,13 @@ namespace lab4
 
 	bool PolyLine::AddPoint(const Point* point)
 	{
-		if (mCurrPointIndex >= 10)
+		if (mCurrPointIndex >= 10 || point == nullptr)
 		{
 			return false;
 		}
 		mPoints[mCurrPointIndex] = new Point(point->GetX(), point->GetY());
 		mCurrPointIndex++;
+		delete point;
 		return true;
 	}
 
@@ -148,7 +149,6 @@ namespace lab4
 			delete mPoints[i];
 			mPoints[i] = nullptr;
 		}
-
 
 	}
 }
