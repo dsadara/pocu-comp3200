@@ -6,14 +6,16 @@ namespace lab4
 {
 	PolyLine::PolyLine()
 		: mCurrPointIndex(0)
+		, mPoints{nullptr, }
 	{
 	}
 
 	PolyLine::PolyLine(const PolyLine& other)
 		: mCurrPointIndex(0)
+		, mPoints{nullptr, }
 	{
 		// 기존 Point 삭제
-		deletePoints();
+		//deletePoints(); 삭제 할 필요 없는듯
 
 		// Point 깊은 복사
 		for (size_t i = 0; i < other.mCurrPointIndex; i++)
@@ -141,7 +143,7 @@ namespace lab4
 
 	void PolyLine::deletePoints()
 	{
-		for (int i = 0; i < mCurrPointIndex; i++)
+		for (size_t i = 0; i < mCurrPointIndex; i++)
 		{
 			delete mPoints[i];
 			mPoints[i] = nullptr;
