@@ -131,11 +131,19 @@ namespace lab4
 
 	void PolyLine::operator=(const PolyLine& other)
 	{
+		deletePoints();
+
+		//for (size_t i = 0; i < other.mCurrPointIndex; i++)
+		//{
+		//	//AddPoint(mPoints[i]);
+		//	mPoints[i]->SetX(other.mPoints[i]->GetX());
+		//	mPoints[i]->SetY(other.mPoints[i]->GetY());
+		//}
+		// 
+
 		for (size_t i = 0; i < other.mCurrPointIndex; i++)
 		{
-			//AddPoint(mPoints[i]);
-			mPoints[i]->SetX(other.mPoints[i]->GetX());
-			mPoints[i]->SetY(other.mPoints[i]->GetY());
+			AddPoint(other.mPoints[i]);
 		}
 
 		mCurrPointIndex = other.mCurrPointIndex;
