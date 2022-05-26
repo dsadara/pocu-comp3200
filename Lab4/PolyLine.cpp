@@ -129,12 +129,13 @@ namespace lab4
 	{
 		const Point* tmp[10] = { nullptr, };
 		size_t otherCurrPointIndex = other.mCurrPointIndex;
-		this->mCurrPointIndex = 0;
+		size_t prevCurrPointIndex = mCurrPointIndex;
+		mCurrPointIndex = 0;
 
-		// other 얕은 복사 
-		for (size_t i = 0; i < otherCurrPointIndex; i++)
+		// 나 자신 얕은 복사 
+		for (size_t i = 0; i < prevCurrPointIndex; i++)
 		{
-			tmp[i] = other.mPoints[i];
+			tmp[i] = mPoints[i];
 		}
 
 
@@ -144,8 +145,8 @@ namespace lab4
 			AddPoint(other.mPoints[i]->GetX(), other.mPoints[i]->GetY());
 		}
 
-		// tmp 삭제
-		for (size_t i = 0; i < otherCurrPointIndex; i++)
+		// 이전 mPoints 메모리 해제
+		for (size_t i = 0; i < prevCurrPointIndex; i++)
 		{
 			delete tmp[i];
 		}
