@@ -18,10 +18,8 @@ namespace lab4
 		// Point 깊은 복사
 		for (size_t i = 0; i < other.mCurrPointIndex; i++)
 		{
-			AddPoint(other.mPoints[i]);
+			AddPoint(other.mPoints[i]->GetX(), other.mPoints[i]->GetY());
 		}
-
-		mCurrPointIndex = other.mCurrPointIndex;
 	}
 
 	PolyLine::~PolyLine()
@@ -128,23 +126,30 @@ namespace lab4
 	}
 
 	void PolyLine::operator=(const PolyLine& other)
-	{
-		DeletePoints();
+	{ 
+		const Point* tmp[10] = {nullptr, };
+		size_t otherCurrPointIndex = other.mCurrPointIndex;
+		this->mCurrPointIndex = 0;
 
-		//for (size_t i = 0; i < other.mCurrPointIndex; i++)
-		//{
-		//	//AddPoint(mPoints[i]);
-		//	mPoints[i]->SetX(other.mPoints[i]->GetX());
-		//	mPoints[i]->SetY(other.mPoints[i]->GetY());
-		//}
-		// 
-
-		for (size_t i = 0; i < other.mCurrPointIndex; i++)
+		// other 얕은 복사 
+		for (size_t i = 0; i < otherCurrPointIndex; i++)
 		{
-			AddPoint(other.mPoints[i]);
+			tmp[i] = other.mPoints[i];
 		}
 
-		mCurrPointIndex = other.mCurrPointIndex;
+
+		// 대입
+		for (size_t i = 0; i < otherCurrPointIndex; i++)
+		{
+			AddPoint(other.mPoints[i]->GetX(), other.mPoints[i]->GetY());
+		}
+
+		// tmp 삭제
+		for (size_t i = 0; i < otherCurrPointIndex; i++)
+		{
+			delete tmp[i];
+		}
+
 	}
 
 	void PolyLine::DeletePoints()
