@@ -7,13 +7,13 @@ namespace lab4
 	PolyLine::PolyLine()
 		: mCurrPointIndex(0)
 	{
-		mPoints = new Point * [10];
+		mPoints = new Point const *[10];
 	}
 
 	PolyLine::PolyLine(const PolyLine& other)
 		: mCurrPointIndex(0)
 	{
-		mPoints = new Point * [10];
+		mPoints = new Point const *[10];
 
 		// Point ±Ì¿∫ ∫πªÁ
 		for (size_t i = 0; i < other.mCurrPointIndex; i++)
@@ -48,9 +48,8 @@ namespace lab4
 		{
 			return false;
 		}
-		mPoints[mCurrPointIndex] = new Point(point->GetX(), point->GetY());
+		mPoints[mCurrPointIndex] = point;
 		mCurrPointIndex++;
-		delete point;
 		return true;
 	}
 
