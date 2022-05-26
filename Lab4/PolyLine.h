@@ -18,7 +18,7 @@ namespace lab4
 		void operator=(const PolyLine& other);
 		void DeletePoints();
 	private:
-		Point const ** mPoints;
+		Point const** mPoints;
 		size_t mCurrPointIndex;
 	};
 }

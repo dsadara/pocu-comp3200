@@ -13,7 +13,7 @@ namespace lab4
 		, mY(0)
 	{
 	}
-		
+
 	Point::~Point()
 	{
 	}
