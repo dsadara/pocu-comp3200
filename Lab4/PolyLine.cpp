@@ -126,8 +126,8 @@ namespace lab4
 	}
 
 	void PolyLine::operator=(const PolyLine& other)
-	{ 
-		const Point* tmp[10] = {nullptr, };
+	{
+		const Point* tmp[10] = { nullptr, };
 		size_t otherCurrPointIndex = other.mCurrPointIndex;
 		this->mCurrPointIndex = 0;
 
