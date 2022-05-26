@@ -74,8 +74,7 @@ namespace lab4
 
 	bool PolyLine::TryGetMinBoundingRectangle(Point* outMin, Point* outMax) const
 	{
-		// point가 두개 이상이여야 직사각형이 성립
-		if (mCurrPointIndex < 2)
+		if (mCurrPointIndex < 1)
 		{
 			return false;
 		}
