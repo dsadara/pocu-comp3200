@@ -26,7 +26,7 @@ namespace lab4
 
 	PolyLine::~PolyLine()
 	{
-		deletePoints();
+		DeletePoints();
 		delete[] mPoints;
 	}
 
@@ -130,7 +130,7 @@ namespace lab4
 
 	void PolyLine::operator=(const PolyLine& other)
 	{
-		deletePoints();
+		DeletePoints();
 
 		//for (size_t i = 0; i < other.mCurrPointIndex; i++)
 		//{
@@ -148,7 +148,7 @@ namespace lab4
 		mCurrPointIndex = other.mCurrPointIndex;
 	}
 
-	void PolyLine::deletePoints()
+	void PolyLine::DeletePoints()
 	{
 		for (size_t i = 0; i < mCurrPointIndex; i++)
 		{
