@@ -1,8 +1,9 @@
 #pragma once
+#include "Vehicle.h"
 
 namespace assignment2
 {
-	class Trailer
+	class Trailer : public Vehicle	// trailerµµ vehicle »ó¼Ó?
 	{
 	public:
 		Trailer(unsigned int weight);
