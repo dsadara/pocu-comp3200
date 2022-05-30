@@ -17,9 +17,10 @@ namespace assignment2
 		const Person* GetPassenger(unsigned int i) const;
 		unsigned int GetPassengersCount() const;
 		unsigned int GetMaxPassengersCount() const;
+		unsigned int GetPassengersWeightSum() const;
 	private:
-		size_t mMaxPassengersCount;
+		unsigned int mMaxPassengersCount;
 		const Person** mPeople;
-		size_t mCurrIndexOfPerson;
+		unsigned int mCurrIndexOfPerson;
 	};
 }

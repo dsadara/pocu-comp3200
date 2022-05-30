@@ -6,23 +6,23 @@ namespace assignment2
 		: mMaxPassengersCount(maxPassengersCount)
 		, mCurrIndexOfPerson(0)
 	{
-		mPeople = new Person * [maxPassengersCount];
+		mPeople = new const Person * [maxPassengersCount];
 	}
 
 	Vehicle::~Vehicle()
 	{
-		for (size_t i = 0; i < mMaxPassengersCount; i++)
+		for (size_t i = 0; i < mCurrIndexOfPerson; i++)
 		{
 			delete mPeople[i];
 		}
-		delete mPeople;
+		delete[] mPeople;
 	}
 
 	Vehicle::Vehicle(const Vehicle& other)
 		: mMaxPassengersCount(other.mMaxPassengersCount)
 		, mCurrIndexOfPerson(0)
 	{
-		mPeople = new Person * [other.mMaxPassengersCount];
+		mPeople = new const Person * [other.mMaxPassengersCount];
 
 		for (size_t i = 0; i < other.mCurrIndexOfPerson; i++)
 		{
@@ -31,14 +31,14 @@ namespace assignment2
 
 
 		// 나 자신을 복사하는 경우도 생각 -> 이거는 대입 연산자에서 생각
-		
+
 	}
 
 	void Vehicle::operator=(const Vehicle& rhs)
 	{
 		size_t tmpCurrIndexOfPerson = mCurrIndexOfPerson;
 		size_t tmpMaxPassengersCount = mMaxPassengersCount;
-		const Person** tmpPeople = new Person * [tmpCurrIndexOfPerson];
+		const Person** tmpPeople = new const Person * [tmpCurrIndexOfPerson];
 		mMaxPassengersCount = rhs.mMaxPassengersCount;
 		mCurrIndexOfPerson = 0;
 
@@ -60,7 +60,7 @@ namespace assignment2
 		{
 			delete tmpPeople[i];
 		}
-		delete tmpPeople;
+		delete[] tmpPeople;
 
 	}
 
@@ -88,7 +88,7 @@ namespace assignment2
 		{
 			mPeople[j] = mPeople[j + 1];
 		}
-
+		mCurrIndexOfPerson--;
 		return true;
 	}
 
@@ -106,8 +106,21 @@ namespace assignment2
 	{
 		if (i >= mCurrIndexOfPerson)
 		{
-			return NULL;
+			return nullptr;
 		}
 		return mPeople[i];
+	}
+
+	unsigned int Vehicle::GetPassengersWeightSum() const
+	{
+		unsigned int passengerCount = GetPassengersCount();
+		unsigned int weightSum = 0;
+
+		for (unsigned int i = 0; i < passengerCount; i++)
+		{
+			weightSum += GetPassenger(i)->GetWeight();
+		}
+
+		return weightSum;
 	}
 }
