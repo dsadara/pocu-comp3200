@@ -3,7 +3,7 @@
 namespace assignment2
 {
 	Motorcycle::Motorcycle()
-		:Vehicle(2)
+		: Vehicle(2)
 	{
 	}
 
