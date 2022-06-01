@@ -8,7 +8,7 @@ namespace assignment2
 	public:
 		Trailer(unsigned int weight);
 		~Trailer();
-
+		unsigned int GetMaxSpeed() const;
 		unsigned int GetWeight() const;
 	private:
 		unsigned int mWeight;

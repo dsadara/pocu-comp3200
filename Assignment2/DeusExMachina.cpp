@@ -4,7 +4,9 @@ namespace assignment2
 {
 	DeusExMachina* DeusExMachina::GetInstance()
 	{
-		return NULL;
+		static DeusExMachina* deus = new DeusExMachina();
+		deus->currVehiclesIndex = 0;
+		return deus;
 	}
 
 	void DeusExMachina::Travel() const
@@ -13,12 +15,30 @@ namespace assignment2
 
 	bool DeusExMachina::AddVehicle(Vehicle* vehicle)
 	{
-		return false;
+		if (currVehiclesIndex >= 10)
+		{
+			return false;
+		}
+		Vehicles[currVehiclesIndex++] = vehicle;
+		return true;
 	}
 
 	bool DeusExMachina::RemoveVehicle(unsigned int i)
 	{
-		return false;
+		if (i >= currVehiclesIndex)
+		{
+			return false;
+		}
+
+		delete Vehicles[i];
+		for (int j = i; j < currVehiclesIndex - 1; j++)
+		{
+			Vehicles[j] = Vehicles[j + 1];
+		}
+
+		currVehiclesIndex--;
+
+		return true;
 	}
 
 	const Vehicle* DeusExMachina::GetFurthestTravelled() const

@@ -9,7 +9,7 @@ namespace assignment2
 	public:
 		Motorcycle();
 		~Motorcycle();
-		unsigned int GetMaxSpeed() const = 0;
-		unsigned int GetDriveSpeed() const = 0;
+		unsigned int GetMaxSpeed() const;
+		unsigned int GetDriveSpeed() const;
 	};
 }

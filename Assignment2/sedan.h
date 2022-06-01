@@ -13,8 +13,8 @@ namespace assignment2
 		Sedan();
 		~Sedan();
 
-		unsigned int GetMaxSpeed() const = 0;
-		unsigned int GetDriveSpeed() const = 0;
+		unsigned int GetMaxSpeed() const;
+		unsigned int GetDriveSpeed() const;
 		bool AddTrailer(const Trailer* trailer);
 		bool RemoveTrailer();
 	private:

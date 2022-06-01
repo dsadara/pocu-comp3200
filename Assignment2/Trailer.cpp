@@ -16,4 +16,9 @@ namespace assignment2
 	{
 		return mWeight;
 	}
+
+	unsigned int Trailer::GetMaxSpeed() const
+	{
+		return 0;
+	}
 }
