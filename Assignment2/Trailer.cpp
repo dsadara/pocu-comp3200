@@ -4,7 +4,6 @@ namespace assignment2
 {
 	Trailer::Trailer(unsigned int weight)
 		: mWeight(weight)
-		, Vehicle(0)
 	{
 	}
 
@@ -17,8 +16,4 @@ namespace assignment2
 		return mWeight;
 	}
 
-	unsigned int Trailer::GetMaxSpeed() const
-	{
-		return 0;
-	}
 }
