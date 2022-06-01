@@ -14,5 +14,6 @@ namespace assignment2
 		unsigned int GetMaxSpeed() const;
 		unsigned int GetSailSpeed() const;
 		unsigned int GetFlySpeed() const;
+		const char* GetVehicleType() const = 0;
 	};
 }

@@ -68,4 +68,9 @@ namespace assignment2
 		unsigned int driveSpeed = GetDriveSpeed();
 		return flySpeed > driveSpeed ? flySpeed : driveSpeed;
 	}
+
+	const char* Airplane::GetVehicleType() const
+	{
+		return "Airplane";
+	}
 }

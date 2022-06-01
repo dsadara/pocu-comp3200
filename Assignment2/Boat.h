@@ -16,6 +16,7 @@ namespace assignment2
 		~Boat();
 		unsigned int GetSailSpeed() const;
 		unsigned int GetMaxSpeed() const;
+		const char* GetVehicleType() const = 0;
 		Boatplane operator+(Airplane& plane);
 	};
 }

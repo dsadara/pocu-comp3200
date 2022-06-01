@@ -11,5 +11,6 @@ namespace assignment2
 		~Motorcycle();
 		unsigned int GetMaxSpeed() const;
 		unsigned int GetDriveSpeed() const;
+		const char* GetVehicleType() const = 0;
 	};
 }

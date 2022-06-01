@@ -72,4 +72,9 @@ namespace assignment2
 
 		return true;
 	}
+
+	const char* Sedan::GetVehicleType() const
+	{
+		return "Sedan";
+	}
 }

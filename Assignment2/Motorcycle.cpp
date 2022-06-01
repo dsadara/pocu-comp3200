@@ -15,6 +15,7 @@ namespace assignment2
 	{
 		return GetDriveSpeed();
 	}
+
 	unsigned int Motorcycle::GetDriveSpeed() const
 	{
 		int x = static_cast<int>(GetPassengersWeightSum());
@@ -24,5 +25,10 @@ namespace assignment2
 			return 0;
 		}
 		return static_cast<unsigned int>(result + 0.5);
+	}
+
+	const char* Motorcycle::GetVehicleType() const
+	{
+		return "Motorcycle";
 	}
 }

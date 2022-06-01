@@ -57,4 +57,9 @@ namespace assignment2
 
 		return bp;
 	}
+
+	const char* Boat::GetVehicleType() const
+	{
+		return "Boat";
+	}
 }

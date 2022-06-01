@@ -33,4 +33,9 @@ namespace assignment2
 		double result = 150.0 * exp(static_cast<double>(-x + 500) / 300.0);
 		return static_cast<unsigned int>(result + 0.5);
 	}
+
+	const char* Boatplane::GetVehicleType() const
+	{
+		return "Boatplane";
+	}
 }
