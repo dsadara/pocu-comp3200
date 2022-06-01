@@ -222,7 +222,6 @@ void SpecTestcase()
 
 	assert(a.GetPassengersCount() == 0);
 	assert(b.GetPassengersCount() == 0);
-
 	DeusExMachina* deusExMachina1 = DeusExMachina::GetInstance();
 	DeusExMachina* deusExMachina2 = DeusExMachina::GetInstance();
 

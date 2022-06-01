@@ -12,9 +12,12 @@ namespace assignment2
 		bool RemoveVehicle(unsigned int i);
 		const Vehicle* GetFurthestTravelled() const;
 	private:
-		Vehicle* Vehicles[10];
-		int currVehiclesIndex;
-		DeusExMachina() = default;
+		Vehicle* mVehicles[10];
+		unsigned int mCurrVehiclesIndex;
+		int mRemainRestTimes[10];
+		int mTravelDistance[10];
+		//DeusExMachina() = default;
+		DeusExMachina();
 		// 복사연산자 대입연산자 삭제
 		DeusExMachina(const DeusExMachina&) = delete;
 		DeusExMachina(DeusExMachina&&) = delete;

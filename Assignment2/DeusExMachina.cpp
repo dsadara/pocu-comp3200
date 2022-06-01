@@ -2,41 +2,64 @@
 
 namespace assignment2
 {
+	DeusExMachina::DeusExMachina()
+		: mCurrVehiclesIndex(0)
+		, mRemainRestTimes{-1, }
+		, mTravelDistance{-1, }
+	{
+	}
+
 	DeusExMachina* DeusExMachina::GetInstance()
 	{
 		static DeusExMachina* deus = new DeusExMachina();
-		deus->currVehiclesIndex = 0;
+
+		//deus->mCurrVehiclesIndex = 0;
 		return deus;
 	}
 
 	void DeusExMachina::Travel() const
 	{
+		for (int i = 0; i < mCurrVehiclesIndex; i++)
+		{
+
+		}
 	}
 
 	bool DeusExMachina::AddVehicle(Vehicle* vehicle)
 	{
-		if (currVehiclesIndex >= 10)
+		if (mCurrVehiclesIndex >= 10)
 		{
 			return false;
 		}
-		Vehicles[currVehiclesIndex++] = vehicle;
+		mVehicles[mCurrVehiclesIndex] = vehicle;
+		mRemainRestTimes[mCurrVehiclesIndex] = 0;
+		mTravelDistance[mCurrVehiclesIndex] = 0;
+		mCurrVehiclesIndex++;
 		return true;
 	}
 
 	bool DeusExMachina::RemoveVehicle(unsigned int i)
 	{
-		if (i >= currVehiclesIndex)
+		if (i >= mCurrVehiclesIndex)
 		{
 			return false;
 		}
 
-		delete Vehicles[i];
-		for (int j = i; j < currVehiclesIndex - 1; j++)
+		delete mVehicles[i];
+		for (int j = i; j < mCurrVehiclesIndex - 1; j++)
 		{
-			Vehicles[j] = Vehicles[j + 1];
+			mVehicles[j] = mVehicles[j + 1];
+		}
+		for (int j = i; j < mCurrVehiclesIndex - 1; j++)
+		{
+			mRemainRestTimes[j] = mRemainRestTimes[j + 1];
+		}
+		for (int j = i; j < mCurrVehiclesIndex - 1; j++)
+		{
+			mTravelDistance[j] = mTravelDistance[j + 1];
 		}
 
-		currVehiclesIndex--;
+		mCurrVehiclesIndex--;
 
 		return true;
 	}
