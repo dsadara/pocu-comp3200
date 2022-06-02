@@ -5,13 +5,13 @@ namespace assignment2
 	Sedan::Sedan()
 		: Vehicle(4)
 		, mTrailer(nullptr)
-		, mIsTrailerConnected(false)
+		, isTrailerConnected(false)
 	{
 	}
 
 	Sedan::~Sedan()
 	{
-		if (mIsTrailerConnected)
+		if (isTrailerConnected)
 		{
 			delete mTrailer;
 		}
@@ -50,25 +50,25 @@ namespace assignment2
 
 	bool Sedan::AddTrailer(const Trailer* trailer)
 	{
-		if (mIsTrailerConnected || trailer == nullptr)
+		if (isTrailerConnected || trailer == nullptr)
 		{
 			return false;
 		}
 
 		mTrailer = trailer;
-		mIsTrailerConnected = true;
+		isTrailerConnected = true;
 		return true;
 	}
 
 	bool Sedan::RemoveTrailer()
 	{
-		if (!mIsTrailerConnected)
+		if (!isTrailerConnected)
 		{
 			return false;
 		}
 
 		delete mTrailer;
-		mIsTrailerConnected = false;
+		isTrailerConnected = false;
 
 		return true;
 	}

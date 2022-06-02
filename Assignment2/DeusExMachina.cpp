@@ -19,7 +19,7 @@ namespace assignment2
 
 	void DeusExMachina::Travel() const
 	{
-		for (int i = 0; i < mCurrVehiclesIndex; i++)
+		for (unsigned int i = 0; i < mCurrVehiclesIndex; i++)
 		{
 
 		}
@@ -46,15 +46,15 @@ namespace assignment2
 		}
 
 		delete mVehicles[i];
-		for (int j = i; j < mCurrVehiclesIndex - 1; j++)
+		for (unsigned int j = i; j < mCurrVehiclesIndex - 1; j++)
 		{
 			mVehicles[j] = mVehicles[j + 1];
 		}
-		for (int j = i; j < mCurrVehiclesIndex - 1; j++)
+		for (unsigned int j = i; j < mCurrVehiclesIndex - 1; j++)
 		{
 			mRemainRestTimes[j] = mRemainRestTimes[j + 1];
 		}
-		for (int j = i; j < mCurrVehiclesIndex - 1; j++)
+		for (unsigned int j = i; j < mCurrVehiclesIndex - 1; j++)
 		{
 			mTravelDistance[j] = mTravelDistance[j + 1];
 		}
