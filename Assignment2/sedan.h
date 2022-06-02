@@ -19,6 +19,6 @@ namespace assignment2
 		bool RemoveTrailer();
 	private:
 		const Trailer* mTrailer;
-		bool isTrailerConnected;
+		bool misTrailerConnected;
 	};
 }
