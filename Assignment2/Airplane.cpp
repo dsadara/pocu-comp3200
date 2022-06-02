@@ -69,8 +69,13 @@ namespace assignment2
 		return flySpeed > driveSpeed ? flySpeed : driveSpeed;
 	}
 
-	const char* Airplane::GetVehicleType() const
+	char Airplane::GetVehicleType() const
 	{
-		return "Airplane";
+		return 'A';
+	}
+
+	bool Airplane::IsTrailerConnected() const
+	{
+		return false;
 	}
 }

@@ -24,7 +24,16 @@ namespace assignment2
 
 	unsigned int Sedan::GetDriveSpeed() const
 	{
-		unsigned int x = mTrailer->GetWeight() + GetPassengersWeightSum();
+		unsigned int x;
+		if (misTrailerConnected)
+		{
+			x = mTrailer->GetWeight() + GetPassengersWeightSum();
+		}
+		else
+		{
+			x = GetPassengersWeightSum();
+		}
+		
 
 		if (x <= 80)
 		{
@@ -73,8 +82,17 @@ namespace assignment2
 		return true;
 	}
 
-	const char* Sedan::GetVehicleType() const
+	char Sedan::GetVehicleType() const
 	{
-		return "Sedan";
+		return 'S';
+	}
+
+	bool Sedan::IsTrailerConnected() const
+	{
+		if (misTrailerConnected)
+		{
+			return true;
+		}
+		return false;
 	}
 }

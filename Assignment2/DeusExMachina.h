@@ -1,5 +1,6 @@
 #pragma once
 #include "Vehicle.h"
+#include <iostream>
 
 namespace assignment2
 {
@@ -11,11 +12,13 @@ namespace assignment2
 		bool AddVehicle(Vehicle* vehicle);
 		bool RemoveVehicle(unsigned int i);
 		const Vehicle* GetFurthestTravelled() const;
+		void PrintTravelTimes();
 	private:
 		Vehicle* mVehicles[10];
 		unsigned int mCurrVehiclesIndex;
-		int mRemainRestTimes[10];
-		int mTravelDistance[10];
+		static int mRemainRestTimes[10];
+		static int mRemainTravelTime[10];
+		static unsigned int mTravelDistance[10];
 		//DeusExMachina() = default;
 		DeusExMachina();
 		// 복사연산자 대입연산자 삭제

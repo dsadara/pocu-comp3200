@@ -181,6 +181,57 @@ int main()
 	bool bSame = deusExMachina1 == deusExMachina2; // true
 	assert(bSame);
 
+	deusExMachina1->AddVehicle(new Airplane(5));
+	deusExMachina1->AddVehicle(new Boat(5));
+	deusExMachina1->AddVehicle(new Boatplane(5));
+	deusExMachina1->AddVehicle(new Motorcycle());
+	deusExMachina1->AddVehicle(new Sedan());
+
+	Sedan* sedan1 = new Sedan();
+	sedan1->AddTrailer(new Trailer(50));
+
+	deusExMachina1->AddVehicle(sedan1);
+	deusExMachina1->AddVehicle(new UBoat());
+
+	std::cout << "0" << std::endl;
+	deusExMachina1->PrintTravelTimes();
+	deusExMachina1->Travel(); // 모든 운송 수단이 이동
+	std::cout << "1" << std::endl;
+	deusExMachina1->PrintTravelTimes();
+	deusExMachina1->Travel(); // Boat, Motorcycle, 두 Sedan, UBoat가 이동
+	std::cout << "2" << std::endl;
+	deusExMachina1->PrintTravelTimes();
+	deusExMachina1->Travel(); // Motorcycle, 두 Sedan이 이동
+	std::cout << "3" << std::endl;
+	deusExMachina1->PrintTravelTimes();
+	deusExMachina1->Travel(); // Boat, Motorcycle, 두 Sedan이 이동
+	std::cout << "4" << std::endl;
+	deusExMachina1->PrintTravelTimes();
+	deusExMachina1->Travel(); // UBoat만 빼고 모두 이동
+	std::cout << "5" << std::endl;
+	deusExMachina1->PrintTravelTimes();
+	deusExMachina1->Travel(); // 어떤 운송 수단도 움직이지 않음
+	std::cout << "6" << std::endl;
+	deusExMachina1->PrintTravelTimes();
+	deusExMachina1->Travel(); // Boat, Motorcycle, 트레일러 안 달린 Sedan, UBoat가 이동
+	std::cout << "7" << std::endl;
+	deusExMachina1->PrintTravelTimes();
+	deusExMachina1->Travel(); // Boat Motorcycle, 두 Sedan, UBoat가 이동
+	std::cout << "8" << std::endl;
+	deusExMachina1->PrintTravelTimes();
+	deusExMachina1->Travel(); // Airplane, Boatplane, Motorcycle, 두 Sedan 이 이동
+	std::cout << "9" << std::endl;
+	deusExMachina1->PrintTravelTimes();
+	deusExMachina1->Travel(); // Boat, Motorcycle, 두 Sedan이 이동
+	std::cout << "10" << std::endl;
+	deusExMachina1->PrintTravelTimes();
+	deusExMachina1->Travel(); // Boat, Motorcycle, 두 Sedan이 이동
+	std::cout << "11" << std::endl;
+	deusExMachina1->PrintTravelTimes();
+	deusExMachina1->Travel(); // 트레일러 달린 Sedan만 이동
+	std::cout << "12" << std::endl;
+	deusExMachina1->PrintTravelTimes();
+
 	return 0;
 }
 
@@ -225,6 +276,7 @@ void SpecTestcase()
 	DeusExMachina* deusExMachina1 = DeusExMachina::GetInstance();
 	DeusExMachina* deusExMachina2 = DeusExMachina::GetInstance();
 
+
 	bool bSame = deusExMachina1 == deusExMachina2;
 	assert(bSame);
 
@@ -267,19 +319,46 @@ void SpecTestcase()
 	bRemoved = deusExMachina1->RemoveVehicle(9);
 	assert(!bRemoved);
 
-	//deusExMachina1->Travel(); // 모든 운송 수단이 이동
-	//deusExMachina1->Travel(); // Boat, Motorcycle, 두 Sedan, UBoat가 이동
-	//deusExMachina1->Travel(); // Motorcycle, 두 Sedan이 이동
-	//deusExMachina1->Travel(); // Boat, Motorcycle, 두 Sedan이 이동
-	//deusExMachina1->Travel(); // UBoat만 빼고 전부 이동
-	//deusExMachina1->Travel(); // 어떤 운송 수단도 움직이지 않음
-	//deusExMachina1->Travel(); // Boat, Motorcycle, 트레일러 안 달린 Sedan, UBoat가 이동
-	//deusExMachina1->Travel(); // Boat, Motorcycle, 두 Sedan, UBoat가 이동
-	//deusExMachina1->Travel(); // Airplane, Boatplane, Motorcycle, 두 Sedan이 이동
-	//deusExMachina1->Travel(); // Boat, Motorcycle, 두 Sedan이 이동
-	//deusExMachina1->Travel(); // Boat, Motorcycle, 두 Sedan이 이동
-	//deusExMachina1->Travel(); // 트레일러 달린 Sedan만 이동
+	std::cout << "0" << std::endl;
+	deusExMachina1->PrintTravelTimes();
+	deusExMachina1->Travel(); // 모든 운송 수단이 이동
+	std::cout << "1" << std::endl;
+	deusExMachina1->PrintTravelTimes();
+	deusExMachina1->Travel(); // Boat, Motorcycle, 두 Sedan, UBoat가 이동
+	std::cout << "2" << std::endl;
+	deusExMachina1->PrintTravelTimes();
+	deusExMachina1->Travel(); // Motorcycle, 두 Sedan이 이동
+	std::cout << "3" << std::endl;
+	deusExMachina1->PrintTravelTimes();
+	deusExMachina1->Travel(); // Boat, Motorcycle, 두 Sedan이 이동
+	std::cout << "4" << std::endl;
+	deusExMachina1->PrintTravelTimes();
+	deusExMachina1->Travel(); // UBoat만 빼고 전부 이동
+	std::cout << "5" << std::endl;
+	deusExMachina1->PrintTravelTimes();
+	deusExMachina1->Travel(); // 어떤 운송 수단도 움직이지 않음
+	std::cout << "6" << std::endl;
+	deusExMachina1->PrintTravelTimes();
+	deusExMachina1->Travel(); // Boat, Motorcycle, 트레일러 안 달린 Sedan, UBoat가 이동
+	std::cout << "7" << std::endl;
+	deusExMachina1->PrintTravelTimes();
+	deusExMachina1->Travel(); // Boat, Motorcycle, 두 Sedan, UBoat가 이동
+	std::cout << "8" << std::endl;
+	deusExMachina1->PrintTravelTimes();
+	deusExMachina1->Travel(); // Airplane, Boatplane, Motorcycle, 두 Sedan이 이동
+	std::cout << "9" << std::endl;
+	deusExMachina1->PrintTravelTimes();
+	deusExMachina1->Travel(); // Boat, Motorcycle, 두 Sedan이 이동
+	std::cout << "10" << std::endl;
+	deusExMachina1->PrintTravelTimes();
+	deusExMachina1->Travel(); // Boat, Motorcycle, 두 Sedan이 이동
+	std::cout << "11" << std::endl;
+	deusExMachina1->PrintTravelTimes();
+	deusExMachina1->Travel(); // 트레일러 달린 Sedan만 이동
+	std::cout << "12" << std::endl;
+	deusExMachina1->PrintTravelTimes();
 
-	//assert(deusExMachina1->GetFurthestTravelled() == boat);
+	deusExMachina1->GetFurthestTravelled();
+	assert(deusExMachina1->GetFurthestTravelled() == boat);
 
 }

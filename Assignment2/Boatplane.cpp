@@ -34,8 +34,13 @@ namespace assignment2
 		return static_cast<unsigned int>(result + 0.5);
 	}
 
-	const char* Boatplane::GetVehicleType() const
+	char Boatplane::GetVehicleType() const
 	{
-		return "Boatplane";
+		return 'P';
+	}
+
+	bool Boatplane::IsTrailerConnected() const
+	{
+		return false;
 	}
 }

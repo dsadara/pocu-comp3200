@@ -33,8 +33,13 @@ namespace assignment2
 		unsigned int rhs = GetSailSpeed();
 		return lhs > rhs ? lhs : rhs;
 	}
-	const char* UBoat::GetVehicleType() const
+	char UBoat::GetVehicleType() const
 	{
-		return "UBoat";
+		return 'U';
+	}
+
+	bool UBoat::IsTrailerConnected() const
+	{
+		return false;
 	}
 }

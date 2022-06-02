@@ -17,7 +17,8 @@ namespace assignment2
 		unsigned int GetFlySpeed() const;
 		unsigned int GetDriveSpeed() const;
 		unsigned int GetMaxSpeed() const;
-		const char* GetVehicleType() const;
+		bool IsTrailerConnected() const;
+		char GetVehicleType() const;
 		Boatplane operator+(Boat& boat);
 	};
 }

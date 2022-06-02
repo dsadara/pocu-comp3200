@@ -14,7 +14,8 @@ namespace assignment2
 		~Sedan();
 		unsigned int GetMaxSpeed() const;
 		unsigned int GetDriveSpeed() const;
-		const char* GetVehicleType() const;
+		bool IsTrailerConnected() const;
+		char GetVehicleType() const;
 		bool AddTrailer(const Trailer* trailer);
 		bool RemoveTrailer();
 	private:

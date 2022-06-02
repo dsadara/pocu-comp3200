@@ -27,8 +27,13 @@ namespace assignment2
 		return static_cast<unsigned int>(result + 0.5);
 	}
 
-	const char* Motorcycle::GetVehicleType() const
+	char Motorcycle::GetVehicleType() const
 	{
-		return "Motorcycle";
+		return 'M';
+	}
+
+	bool Motorcycle::IsTrailerConnected() const
+	{
+		return false;
 	}
 }
