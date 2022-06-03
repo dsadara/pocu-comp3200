@@ -8,7 +8,7 @@ namespace assignment2
 	{
 	public:
 		Vehicle(unsigned int maxPassengersCount);
-		~Vehicle();
+		virtual ~Vehicle();
 		Vehicle(const Vehicle& other);
 		virtual unsigned int GetMaxSpeed() const = 0;
 		virtual char GetVehicleType() const = 0;

@@ -29,7 +29,6 @@ namespace assignment2
 			AddPassenger(new Person(*other.mPeople[i]));		// 복사생성자에 이렇게 매개변수롤 넣어도 잘 작동하나?
 		}
 
-
 		// 나 자신을 복사하는 경우도 생각 -> 이거는 대입 연산자에서 생각
 
 	}
