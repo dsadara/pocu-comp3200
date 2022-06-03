@@ -9,13 +9,17 @@
 #include "UBoat.h"
 #include "DeusExMachina.h"
 #include "Person.h"
+#include <iostream>
 
 using namespace assignment2;
 
 void SpecTestcase();
+void AssignTest();
 
 int main()
 {
+	AssignTest();
+
 	Person p("Bob", 85);	// "Bob"은 어떻게 될까? 상수 문자열이니까 신경 안써도 되는건가? 
 	p.GetName(); // "Bob"
 	p.GetWeight(); // 85
@@ -193,44 +197,44 @@ int main()
 	deusExMachina1->AddVehicle(sedan1);
 	deusExMachina1->AddVehicle(new UBoat());
 
-	std::cout << "0" << std::endl;
-	deusExMachina1->PrintTravelTimes();
-	deusExMachina1->Travel(); // 모든 운송 수단이 이동
-	std::cout << "1" << std::endl;
-	deusExMachina1->PrintTravelTimes();
-	deusExMachina1->Travel(); // Boat, Motorcycle, 두 Sedan, UBoat가 이동
-	std::cout << "2" << std::endl;
-	deusExMachina1->PrintTravelTimes();
-	deusExMachina1->Travel(); // Motorcycle, 두 Sedan이 이동
-	std::cout << "3" << std::endl;
-	deusExMachina1->PrintTravelTimes();
-	deusExMachina1->Travel(); // Boat, Motorcycle, 두 Sedan이 이동
-	std::cout << "4" << std::endl;
-	deusExMachina1->PrintTravelTimes();
-	deusExMachina1->Travel(); // UBoat만 빼고 모두 이동
-	std::cout << "5" << std::endl;
-	deusExMachina1->PrintTravelTimes();
-	deusExMachina1->Travel(); // 어떤 운송 수단도 움직이지 않음
-	std::cout << "6" << std::endl;
-	deusExMachina1->PrintTravelTimes();
-	deusExMachina1->Travel(); // Boat, Motorcycle, 트레일러 안 달린 Sedan, UBoat가 이동
-	std::cout << "7" << std::endl;
-	deusExMachina1->PrintTravelTimes();
-	deusExMachina1->Travel(); // Boat Motorcycle, 두 Sedan, UBoat가 이동
-	std::cout << "8" << std::endl;
-	deusExMachina1->PrintTravelTimes();
-	deusExMachina1->Travel(); // Airplane, Boatplane, Motorcycle, 두 Sedan 이 이동
-	std::cout << "9" << std::endl;
-	deusExMachina1->PrintTravelTimes();
-	deusExMachina1->Travel(); // Boat, Motorcycle, 두 Sedan이 이동
-	std::cout << "10" << std::endl;
-	deusExMachina1->PrintTravelTimes();
-	deusExMachina1->Travel(); // Boat, Motorcycle, 두 Sedan이 이동
-	std::cout << "11" << std::endl;
-	deusExMachina1->PrintTravelTimes();
-	deusExMachina1->Travel(); // 트레일러 달린 Sedan만 이동
-	std::cout << "12" << std::endl;
-	deusExMachina1->PrintTravelTimes();
+	//std::cout << "0" << std::endl;
+	//deusExMachina1->PrintTravelTimes();
+	//deusExMachina1->Travel(); // 모든 운송 수단이 이동
+	//std::cout << "1" << std::endl;
+	//deusExMachina1->PrintTravelTimes();
+	//deusExMachina1->Travel(); // Boat, Motorcycle, 두 Sedan, UBoat가 이동
+	//std::cout << "2" << std::endl;
+	//deusExMachina1->PrintTravelTimes();
+	//deusExMachina1->Travel(); // Motorcycle, 두 Sedan이 이동
+	//std::cout << "3" << std::endl;
+	//deusExMachina1->PrintTravelTimes();
+	//deusExMachina1->Travel(); // Boat, Motorcycle, 두 Sedan이 이동
+	//std::cout << "4" << std::endl;
+	//deusExMachina1->PrintTravelTimes();
+	//deusExMachina1->Travel(); // UBoat만 빼고 모두 이동
+	//std::cout << "5" << std::endl;
+	//deusExMachina1->PrintTravelTimes();
+	//deusExMachina1->Travel(); // 어떤 운송 수단도 움직이지 않음
+	//std::cout << "6" << std::endl;
+	//deusExMachina1->PrintTravelTimes();
+	//deusExMachina1->Travel(); // Boat, Motorcycle, 트레일러 안 달린 Sedan, UBoat가 이동
+	//std::cout << "7" << std::endl;
+	//deusExMachina1->PrintTravelTimes();
+	//deusExMachina1->Travel(); // Boat Motorcycle, 두 Sedan, UBoat가 이동
+	//std::cout << "8" << std::endl;
+	//deusExMachina1->PrintTravelTimes();
+	//deusExMachina1->Travel(); // Airplane, Boatplane, Motorcycle, 두 Sedan 이 이동
+	//std::cout << "9" << std::endl;
+	//deusExMachina1->PrintTravelTimes();
+	//deusExMachina1->Travel(); // Boat, Motorcycle, 두 Sedan이 이동
+	//std::cout << "10" << std::endl;
+	//deusExMachina1->PrintTravelTimes();
+	//deusExMachina1->Travel(); // Boat, Motorcycle, 두 Sedan이 이동
+	//std::cout << "11" << std::endl;
+	//deusExMachina1->PrintTravelTimes();
+	//deusExMachina1->Travel(); // 트레일러 달린 Sedan만 이동
+	//std::cout << "12" << std::endl;
+	//deusExMachina1->PrintTravelTimes();
 
 	return 0;
 }
@@ -319,46 +323,77 @@ void SpecTestcase()
 	bRemoved = deusExMachina1->RemoveVehicle(9);
 	assert(!bRemoved);
 
-	std::cout << "0" << std::endl;
-	deusExMachina1->PrintTravelTimes();
-	deusExMachina1->Travel(); // 모든 운송 수단이 이동
-	std::cout << "1" << std::endl;
-	deusExMachina1->PrintTravelTimes();
-	deusExMachina1->Travel(); // Boat, Motorcycle, 두 Sedan, UBoat가 이동
-	std::cout << "2" << std::endl;
-	deusExMachina1->PrintTravelTimes();
-	deusExMachina1->Travel(); // Motorcycle, 두 Sedan이 이동
-	std::cout << "3" << std::endl;
-	deusExMachina1->PrintTravelTimes();
-	deusExMachina1->Travel(); // Boat, Motorcycle, 두 Sedan이 이동
-	std::cout << "4" << std::endl;
-	deusExMachina1->PrintTravelTimes();
-	deusExMachina1->Travel(); // UBoat만 빼고 전부 이동
-	std::cout << "5" << std::endl;
-	deusExMachina1->PrintTravelTimes();
-	deusExMachina1->Travel(); // 어떤 운송 수단도 움직이지 않음
-	std::cout << "6" << std::endl;
-	deusExMachina1->PrintTravelTimes();
-	deusExMachina1->Travel(); // Boat, Motorcycle, 트레일러 안 달린 Sedan, UBoat가 이동
-	std::cout << "7" << std::endl;
-	deusExMachina1->PrintTravelTimes();
-	deusExMachina1->Travel(); // Boat, Motorcycle, 두 Sedan, UBoat가 이동
-	std::cout << "8" << std::endl;
-	deusExMachina1->PrintTravelTimes();
-	deusExMachina1->Travel(); // Airplane, Boatplane, Motorcycle, 두 Sedan이 이동
-	std::cout << "9" << std::endl;
-	deusExMachina1->PrintTravelTimes();
-	deusExMachina1->Travel(); // Boat, Motorcycle, 두 Sedan이 이동
-	std::cout << "10" << std::endl;
-	deusExMachina1->PrintTravelTimes();
-	deusExMachina1->Travel(); // Boat, Motorcycle, 두 Sedan이 이동
-	std::cout << "11" << std::endl;
-	deusExMachina1->PrintTravelTimes();
-	deusExMachina1->Travel(); // 트레일러 달린 Sedan만 이동
-	std::cout << "12" << std::endl;
-	deusExMachina1->PrintTravelTimes();
+	//std::cout << "0" << std::endl;
+	//deusExMachina1->PrintTravelTimes();
+	//deusExMachina1->Travel(); // 모든 운송 수단이 이동
+	//std::cout << "1" << std::endl;
+	//deusExMachina1->PrintTravelTimes();
+	//deusExMachina1->Travel(); // Boat, Motorcycle, 두 Sedan, UBoat가 이동
+	//std::cout << "2" << std::endl;
+	//deusExMachina1->PrintTravelTimes();
+	//deusExMachina1->Travel(); // Motorcycle, 두 Sedan이 이동
+	//std::cout << "3" << std::endl;
+	//deusExMachina1->PrintTravelTimes();
+	//deusExMachina1->Travel(); // Boat, Motorcycle, 두 Sedan이 이동
+	//std::cout << "4" << std::endl;
+	//deusExMachina1->PrintTravelTimes();
+	//deusExMachina1->Travel(); // UBoat만 빼고 전부 이동
+	//std::cout << "5" << std::endl;
+	//deusExMachina1->PrintTravelTimes();
+	//deusExMachina1->Travel(); // 어떤 운송 수단도 움직이지 않음
+	//std::cout << "6" << std::endl;
+	//deusExMachina1->PrintTravelTimes();
+	//deusExMachina1->Travel(); // Boat, Motorcycle, 트레일러 안 달린 Sedan, UBoat가 이동
+	//std::cout << "7" << std::endl;
+	//deusExMachina1->PrintTravelTimes();
+	//deusExMachina1->Travel(); // Boat, Motorcycle, 두 Sedan, UBoat가 이동
+	//std::cout << "8" << std::endl;
+	//deusExMachina1->PrintTravelTimes();
+	//deusExMachina1->Travel(); // Airplane, Boatplane, Motorcycle, 두 Sedan이 이동
+	//std::cout << "9" << std::endl;
+	//deusExMachina1->PrintTravelTimes();
+	//deusExMachina1->Travel(); // Boat, Motorcycle, 두 Sedan이 이동
+	//std::cout << "10" << std::endl;
+	//deusExMachina1->PrintTravelTimes();
+	//deusExMachina1->Travel(); // Boat, Motorcycle, 두 Sedan이 이동
+	//std::cout << "11" << std::endl;
+	//deusExMachina1->PrintTravelTimes();
+	//deusExMachina1->Travel(); // 트레일러 달린 Sedan만 이동
+	//std::cout << "12" << std::endl;
+	//deusExMachina1->PrintTravelTimes();
 
-	deusExMachina1->GetFurthestTravelled();
-	assert(deusExMachina1->GetFurthestTravelled() == boat);
+	/*deusExMachina1->GetFurthestTravelled();
+	assert(deusExMachina1->GetFurthestTravelled() == boat);*/
 
+}
+
+void AssignTest()
+{
+	Person* p = new Person("Bob", 85);
+
+	Person* p2 = new Person("James", 75);
+	Person* p3 = new Person("Tina", 52);
+
+	Person* p4 = new Person("Peter", 78);
+	Person* p5 = new Person("Jane", 48);
+	Person* p6 = new Person("Steve", 88);
+
+	Airplane a(5);
+	a.AddPassenger(p);
+	a.AddPassenger(p2);
+	a.AddPassenger(p3);
+	a.AddPassenger(p4);
+	a.AddPassenger(p5);
+	a.AddPassenger(p6);
+
+	Airplane b(5);
+	b.AddPassenger(new Person("Bob", 85));
+	b.AddPassenger(new Person("Bob", 85));
+	b.AddPassenger(new Person("Bob", 85));
+	b.AddPassenger(new Person("Bob", 85));
+	b.AddPassenger(new Person("Bob", 85));
+	b.AddPassenger(new Person("Bob", 85));
+	b = a;
+
+	a = a;
 }

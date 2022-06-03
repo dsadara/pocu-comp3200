@@ -38,6 +38,7 @@ namespace assignment2
 	{
 		size_t tmpCurrIndexOfPerson = mCurrIndexOfPerson;
 		size_t tmpMaxPassengersCount = mMaxPassengersCount;
+		size_t tmpRhsCurrIndexOfPerson = rhs.mCurrIndexOfPerson;
 		const Person** tmpPeople = new const Person * [tmpCurrIndexOfPerson];
 		mMaxPassengersCount = rhs.mMaxPassengersCount;
 		mCurrIndexOfPerson = 0;
@@ -49,7 +50,7 @@ namespace assignment2
 		}
 
 		// ¥Î¿‘
-		for (size_t i = 0; i < rhs.mCurrIndexOfPerson; i++)
+		for (size_t i = 0; i < tmpRhsCurrIndexOfPerson; i++)
 		{
 			AddPassenger(new Person(*rhs.mPeople[i]));
 		}

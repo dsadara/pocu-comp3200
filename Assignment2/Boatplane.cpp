@@ -29,8 +29,8 @@ namespace assignment2
 
 	unsigned int Boatplane::GetFlySpeed() const
 	{
-		int x = static_cast<int>(GetPassengersWeightSum());
-		double result = 150.0 * exp(static_cast<double>(500 - x) / 300.0);
+		unsigned int x = GetPassengersWeightSum();
+		double result = 150.0 * exp((500.0 - static_cast<double>(x)) / 300.0);
 		return static_cast<unsigned int>(result + 0.5);
 	}
 
