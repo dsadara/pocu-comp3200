@@ -5,13 +5,13 @@ namespace assignment2
 	Sedan::Sedan()
 		: Vehicle(4)
 		, mTrailer(nullptr)
-		, misTrailerConnected(false)
+		, mbTrailerConnected(false)
 	{
 	}
 
 	Sedan::~Sedan()
 	{
-		if (misTrailerConnected)
+		if (mbTrailerConnected)
 		{
 			delete mTrailer;
 		}
@@ -25,7 +25,7 @@ namespace assignment2
 	unsigned int Sedan::GetDriveSpeed() const
 	{
 		unsigned int x;
-		if (misTrailerConnected)
+		if (mbTrailerConnected)
 		{
 			x = mTrailer->GetWeight() + GetPassengersWeightSum();
 		}
@@ -59,25 +59,25 @@ namespace assignment2
 
 	bool Sedan::AddTrailer(const Trailer* trailer)
 	{
-		if (misTrailerConnected || trailer == nullptr)
+		if (mbTrailerConnected || trailer == nullptr)
 		{
 			return false;
 		}
 
 		mTrailer = trailer;
-		misTrailerConnected = true;
+		mbTrailerConnected = true;
 		return true;
 	}
 
 	bool Sedan::RemoveTrailer()
 	{
-		if (!misTrailerConnected)
+		if (!mbTrailerConnected)
 		{
 			return false;
 		}
 
 		delete mTrailer;
-		misTrailerConnected = false;
+		mbTrailerConnected = false;
 
 		return true;
 	}
@@ -89,7 +89,7 @@ namespace assignment2
 
 	bool Sedan::IsTrailerConnected() const
 	{
-		if (misTrailerConnected)
+		if (mbTrailerConnected)
 		{
 			return true;
 		}

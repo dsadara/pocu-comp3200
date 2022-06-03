@@ -224,7 +224,7 @@ namespace assignment2
 
 		int maxTravelledIndex = 0;
 
-		for (int i = 0; i < mCurrVehiclesIndex; i++)
+		for (unsigned int i = 0; i < mCurrVehiclesIndex; i++)
 		{
 			if (mTravelDistance[i] > mTravelDistance[maxTravelledIndex])
 			{
@@ -235,13 +235,13 @@ namespace assignment2
 		return mVehicles[maxTravelledIndex];
 	}
 
-	void DeusExMachina::PrintTravelTimes()
+	/*void DeusExMachina::PrintTravelTimes()
 	{
-		for (int i = 0; i < mCurrVehiclesIndex; i++)
+		for ( unsigned int i = 0; i < mCurrVehiclesIndex; i++
 		{
 			std::cout << i << ": " << mVehicles[i]->GetVehicleType() << ": " << mTravelDistance[i] << std::endl;
 		}
 
 		std::cout << "===Print END===" << std::endl;
-	}
+	}*/
 }
