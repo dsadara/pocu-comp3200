@@ -24,7 +24,7 @@ namespace assignment2
 		unsigned int x = GetPassengersWeightSum();
 		double lhs = 800.0 - 1.7 * static_cast<double>(x);
 		double rhs = 20.0;
-		return lhs > rhs ? static_cast<unsigned int>(lhs) : static_cast<unsigned int>(rhs);
+		return lhs > rhs ? static_cast<unsigned int>(lhs + 0.5) : static_cast<unsigned int>(rhs);
 	}
 
 	unsigned int Boatplane::GetFlySpeed() const
