@@ -35,29 +35,43 @@ namespace assignment2
 
 	void Vehicle::operator=(const Vehicle& rhs)
 	{
-		size_t tmpCurrIndexOfPerson = mCurrIndexOfPerson;
-		size_t tmpRhsCurrIndexOfPerson = rhs.mCurrIndexOfPerson;
-		const Person** tmpPeople = new const Person * [tmpCurrIndexOfPerson];
+		if (this == &rhs)
+		{
+			return;
+		}
+		for (unsigned int i = 0; i < mCurrIndexOfPerson; i++)
+		{
+			delete mPeople[i];
+		}
 		mCurrIndexOfPerson = 0;
-
-		// 내 자신 얕은 복사
-		for (size_t i = 0; i < tmpCurrIndexOfPerson; i++)
+		for (unsigned int i = 0; i < rhs.mCurrIndexOfPerson; i++)
 		{
-			tmpPeople[i] = mPeople[i];
+			AddPassenger(new Person(*rhs.GetPassenger(i)));
 		}
 
-		// 대입
-		for (size_t i = 0; i < tmpRhsCurrIndexOfPerson; i++)
-		{
-			AddPassenger(new Person(*rhs.mPeople[i]));
-		}
+		//size_t tmpCurrIndexOfPerson = mCurrIndexOfPerson;
+		//size_t tmpRhsCurrIndexOfPerson = rhs.mCurrIndexOfPerson;
+		//const Person** tmpPeople = new const Person * [tmpCurrIndexOfPerson];
+		//mCurrIndexOfPerson = 0;
 
-		// 이전 메모리 해제 
-		for (size_t i = 0; i < tmpCurrIndexOfPerson; i++)
-		{
-			delete tmpPeople[i];
-		}
-		delete[] tmpPeople;
+		//// 내 자신 얕은 복사
+		//for (size_t i = 0; i < tmpCurrIndexOfPerson; i++)
+		//{
+		//	tmpPeople[i] = mPeople[i];
+		//}
+
+		//// 대입
+		//for (size_t i = 0; i < tmpRhsCurrIndexOfPerson; i++)
+		//{
+		//	AddPassenger(new Person(*rhs.mPeople[i]));
+		//}
+
+		//// 이전 메모리 해제 
+		//for (size_t i = 0; i < tmpCurrIndexOfPerson; i++)
+		//{
+		//	delete tmpPeople[i];
+		//}
+		//delete[] tmpPeople;
 	}
 
 	bool Vehicle::AddPassenger(const Person* person)

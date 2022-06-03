@@ -98,6 +98,10 @@ namespace assignment2
 
 	void Sedan::operator=(const Sedan& rhs)
 	{
+		if (this == &rhs)
+		{
+			return;
+		}
 		Vehicle::operator=(rhs);
 		if (rhs.IsTrailerConnected())
 		{
