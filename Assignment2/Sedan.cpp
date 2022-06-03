@@ -95,4 +95,18 @@ namespace assignment2
 		}
 		return false;
 	}
+
+	void Sedan::operator=(const Sedan& rhs)
+	{
+		Vehicle::operator=(rhs);
+		if (rhs.IsTrailerConnected())
+		{
+			delete mTrailer;
+			mTrailer = new Trailer(rhs.mTrailer->GetWeight());
+		}
+		else
+		{
+			delete mTrailer;
+		}
+	}
 }

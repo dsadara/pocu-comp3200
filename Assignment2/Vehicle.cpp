@@ -36,10 +36,8 @@ namespace assignment2
 	void Vehicle::operator=(const Vehicle& rhs)
 	{
 		size_t tmpCurrIndexOfPerson = mCurrIndexOfPerson;
-		size_t tmpMaxPassengersCount = mMaxPassengersCount;
 		size_t tmpRhsCurrIndexOfPerson = rhs.mCurrIndexOfPerson;
 		const Person** tmpPeople = new const Person * [tmpCurrIndexOfPerson];
-		mMaxPassengersCount = rhs.mMaxPassengersCount;
 		mCurrIndexOfPerson = 0;
 
 		// 내 자신 얕은 복사
@@ -54,14 +52,12 @@ namespace assignment2
 			AddPassenger(new Person(*rhs.mPeople[i]));
 		}
 
-
 		// 이전 메모리 해제 
 		for (size_t i = 0; i < tmpCurrIndexOfPerson; i++)
 		{
 			delete tmpPeople[i];
 		}
 		delete[] tmpPeople;
-
 	}
 
 	bool Vehicle::AddPassenger(const Person* person)

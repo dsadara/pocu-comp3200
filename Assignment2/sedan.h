@@ -12,6 +12,7 @@ namespace assignment2
 	public:
 		Sedan();
 		~Sedan();
+		void operator=(const Sedan& rhs);
 		unsigned int GetMaxSpeed() const;
 		unsigned int GetDriveSpeed() const;
 		bool IsTrailerConnected() const;
