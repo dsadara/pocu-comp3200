@@ -12,7 +12,7 @@ namespace assignment2
 	public:
 		Sedan();
 		~Sedan();
-		Sedan(const Sedan& other);
+		//Sedan(const Sedan& other);
 		void operator=(const Sedan& rhs);
 		unsigned int GetMaxSpeed() const;
 		unsigned int GetDriveSpeed() const;
