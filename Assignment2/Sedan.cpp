@@ -17,6 +17,20 @@ namespace assignment2
 		}
 	}
 
+	Sedan::Sedan(const Sedan& other)
+		: Vehicle(other)
+	{
+		if (other.IsTrailerConnected())
+		{
+			mTrailer = new Trailer(other.mTrailer->GetWeight());
+			mbTrailerConnected = true;
+		}
+		else
+		{
+			mbTrailerConnected = false;
+		}
+	}
+
 	unsigned int Sedan::GetMaxSpeed() const
 	{
 		return GetDriveSpeed();
@@ -102,7 +116,6 @@ namespace assignment2
 		{
 			return;
 		}
-		Vehicle::operator=(rhs);
 		if (rhs.IsTrailerConnected())
 		{
 			delete mTrailer;
