@@ -14,9 +14,9 @@ namespace assignment2
 	unsigned int Boat::GetSailSpeed() const
 	{
 		unsigned int x = GetPassengersWeightSum();
-		unsigned int lhs = (800 - 10 * x);
-		unsigned int rhs = 20;
-		return  lhs > rhs ? lhs : rhs;
+		int lhs = (800 - 10 * static_cast<int>(x));
+		int rhs = 20;
+		return  lhs > rhs ? static_cast<unsigned int>(lhs) : static_cast<unsigned int>(rhs);
 	}
 
 	unsigned int Boat::GetMaxSpeed() const

@@ -22,15 +22,15 @@ namespace assignment2
 	unsigned int Boatplane::GetSailSpeed() const
 	{
 		unsigned int x = GetPassengersWeightSum();
-		double lhs = 800.0 - 1.7 * x;
-		double rhs = 20;
+		double lhs = 800.0 - 1.7 * static_cast<double>(x);
+		double rhs = 20.0;
 		return lhs > rhs ? static_cast<unsigned int>(lhs) : static_cast<unsigned int>(rhs);
 	}
 
 	unsigned int Boatplane::GetFlySpeed() const
 	{
 		int x = static_cast<int>(GetPassengersWeightSum());
-		double result = 150.0 * exp(static_cast<double>(-x + 500) / 300.0);
+		double result = 150.0 * exp(static_cast<double>(500 - x) / 300.0);
 		return static_cast<unsigned int>(result + 0.5);
 	}
 
