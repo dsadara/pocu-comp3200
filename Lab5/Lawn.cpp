@@ -25,10 +25,10 @@ namespace lab5
 		case BENTGRASS:
 			result = (static_cast<double>(area) * 300.0) / 100.0;
 			break;
-		case PERENNIAL_RYEGRASS: 
+		case PERENNIAL_RYEGRASS:
 			result = (static_cast<double>(area) * 250.0) / 100.0;
 			break;
-		case ST_AUGUSTINE: 
+		case ST_AUGUSTINE:
 			result = (static_cast<double>(area) * 450.0) / 100.0;
 			break;
 		default:

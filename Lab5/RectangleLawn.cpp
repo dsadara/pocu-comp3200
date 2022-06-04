@@ -9,7 +9,7 @@ namespace lab5
 	}
 
 	RectangleLawn::~RectangleLawn()
-	{	
+	{
 	}
 
 	unsigned int RectangleLawn::GetArea() const
