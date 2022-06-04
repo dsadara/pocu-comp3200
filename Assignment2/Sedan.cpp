@@ -116,6 +116,7 @@ namespace assignment2
 		{
 			return;
 		}
+		Vehicle::operator=(rhs);
 		if (rhs.IsTrailerConnected())
 		{
 			delete mTrailer;
