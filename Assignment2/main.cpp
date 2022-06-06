@@ -15,9 +15,11 @@ using namespace assignment2;
 
 void SpecTestcase();
 void AssignTest();
+void SedanTest();
 
 int main()
 {
+	SedanTest();
 	AssignTest();
 
 	Person p("Bob", 85);	// "Bob"은 어떻게 될까? 상수 문자열이니까 신경 안써도 되는건가? 
@@ -396,4 +398,36 @@ void AssignTest()
 	b = a;
 
 	a = a;
+}
+
+void SedanTest()
+{
+	Person* p = new Person("Bob", 85);
+
+	Person* p2 = new Person("James", 75);
+	Person* p3 = new Person("Tina", 52);
+
+	Person* p4 = new Person("Peter", 78);
+	Person* p5 = new Person("Jane", 48);
+	Person* p6 = new Person("Steve", 88);
+
+	Sedan* s = new Sedan();
+	
+	s->AddPassenger(p);
+	s->AddPassenger(p2);
+	s->AddPassenger(p3);
+	s->AddPassenger(p4);
+	s->AddPassenger(p5);
+	s->AddPassenger(p6);
+	Trailer* t = new Trailer(60);
+	s->AddTrailer(t);
+	//Sedan* s2 = new Sedan(*s);
+	Sedan s2(*s);
+
+	Trailer* t2 = new Trailer(70);
+	//Sedan* s3 = new Sedan();
+	Sedan s3;
+	s3.AddTrailer(t2);
+	//s3->operator=(*s2);
+	s3 = s2;
 }
