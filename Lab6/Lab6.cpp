@@ -82,9 +82,9 @@ namespace lab6
 		// put all elements in map
 		for (int i = 0; i < size; i++)
 		{
-			std::pair<std::map<int, int>::iterator, bool> p = m.insert(std::pair<int, int>(v[i], 1));
+			std::pair<std::map<int, int>::iterator, bool> bPair = m.insert(std::pair<int, int>(v[i], 1));
 			// 해당 키가 이미 들어가 있으면 
-			if (p.second == false)
+			if (bPair.second == false)
 			{
 				m[v[i]]++;
 			}
@@ -126,33 +126,6 @@ namespace lab6
 				}
 			}
 		}
-
-		//std::map<int, int, std::greater<int>> m;
-
-		//// put all elements in map
-		//for (int i = 0; i < size; i++)
-		//{
-		//	std::pair<std::map<int, int>::iterator, bool> p = m.insert(std::pair<int, int>(v[i], 1));
-		//	// 해당 키가 이미 들어가 있으면 
-		//	if (p.second == false)
-		//	{
-		//		m[v[i]]++;
-		//	}
-		//}
-
-		//// vector 모든 값 제거
-		//v.clear();
-
-		//// map 순서대로 vector에 대입
-
-
-		//for (std::map<int, int>::iterator iter = m.begin(); iter != m.end(); ++iter)
-		//{
-		//	for (int i = 0; i < iter->second; i++)
-		//	{
-		//		v.push_back(iter->first);
-		//	}
-		//}
 	}
 
 }
