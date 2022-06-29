@@ -86,8 +86,26 @@ namespace lab7
 			combined.push_back(v2[j]);
 		}
 
-		sort(combined.begin(), combined.end());
-		combined.erase(unique(combined.begin(), combined.end()), combined.end());
+		bool isErased = false;		// flag를 이용한 이중 continue
+
+		for (auto it = combined.begin(); it != combined.end();)
+		{
+			for (auto it2 = combined.begin(); it2 != it; ++it2)
+			{
+				if (*it2 == *it)
+				{
+					it = combined.erase(it);
+					isErased = true;
+					break;
+				}
+			}
+			if (isErased == true)
+			{
+				isErased = false;
+				continue;
+			}
+			it++;
+		}
 
 		return combined;
 	}
