@@ -86,7 +86,7 @@ namespace lab7
 			combined.push_back(v2[j]);
 		}
 
-		bool isErased = false;		// flag를 이용한 이중 continue
+		bool bErased = false;		// flag를 이용한 이중 continue
 
 		for (auto it = combined.begin(); it != combined.end();)
 		{
@@ -95,13 +95,13 @@ namespace lab7
 				if (*it2 == *it)
 				{
 					it = combined.erase(it);
-					isErased = true;
+					bErased = true;
 					break;
 				}
 			}
-			if (isErased == true)
+			if (bErased == true)
 			{
-				isErased = false;
+				bErased = false;
 				continue;
 			}
 			it++;
