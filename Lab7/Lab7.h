@@ -4,6 +4,7 @@
 #include <vector>
 #include <map>
 #include <set>
+#include <algorithm>
 
 namespace lab7
 {
@@ -74,23 +75,19 @@ namespace lab7
 	template <typename T>
 	std::vector<T> operator+(const std::vector<T>& v1, const std::vector<T>& v2)
 	{
-		std::set<T> vSet;
 		std::vector<T> combined;
 
-		for (int i = 0; i < v1.size(); i++)
+		for (unsigned int i = 0; i < v1.size(); i++)
 		{
-			vSet.insert(v1[i]);
+			combined.push_back(v1[i]);
+		}
+		for (unsigned int j = 0; j < v2.size(); j++)
+		{
+			combined.push_back(v2[j]);
 		}
 
-		for (int j = 0; j < v2.size(); j++)
-		{
-			vSet.insert(v2[j]);
-		}
-
-		for (typename std::set<T>::iterator it2 = vSet.begin(); it2 != vSet.end(); ++it2)
-		{
-			combined.push_back(*it2);
-		}
+		sort(combined.begin(), combined.end());
+		combined.erase(unique(combined.begin(), combined.end()), combined.end());
 
 		return combined;
 	}
@@ -116,7 +113,7 @@ namespace lab7
 	template<typename T>
 	std::ostream& operator<<(std::ostream& os, const std::vector<T>& v)
 	{
-		for (int i = 0; i < v.size(); i++)
+		for (unsigned int i = 0; i < v.size(); i++)
 		{
 			if (i == 0)
 			{
