@@ -1,6 +1,7 @@
 #pragma once
 #include <stack>
 #include <limits>
+#include <cmath>
 
 namespace assignment3
 {
@@ -31,33 +32,58 @@ namespace assignment3
 		std::stack<T> mMinStack;
 		T mMaxEle;
 		T mMinEle;
-
+		T mSum;
+		T mSquaredSum;
+		unsigned int mCount;
+		
 	};
 
 	template<typename T>
 	SmartStack<T>::SmartStack()
 		: mMaxEle(std::numeric_limits<T>::min())
 		, mMinEle(std::numeric_limits<T>::max())
+		, mSum(static_cast<T>(0))
+		, mSquaredSum(static_cast<T>(0))
+		, mCount(0u)
 	{
-
 	}
 
 	template<typename T>
 	SmartStack<T>::SmartStack(const SmartStack<T>& other)
+		: mMaxEle(other.mMaxEle)
+		, mMinEle(other.mMinEle)
+		, mMaxStack(other.mMaxStack)
+		, mMinStack(other.mMinStack)
+		, mActualStack(other.mActualStack)
+		, mSum(other.mSum)
+		, mSquaredSum(other.mSquaredSum)
+		, mCount(other.mCount)
 	{
-
 	}
 
 	template<typename T>
 	SmartStack<T>& SmartStack<T>::operator=(const SmartStack<T>& rhs)
 	{
-		return this;
+		if (this == &rhs)
+		{
+			return *this;
+		}
+
+		mMaxEle = rhs.mMaxEle;
+		mMinEle = rhs.mMinEle;
+		mMaxStack = rhs.mMaxStack;
+		mMinStack = rhs.mMinStack;
+		mActualStack = rhs.mActualStack;
+		mSum = rhs.mSum;
+		mSquaredSum = rhs.mSquaredSum;
+		mCount = rhs.mCount;
+
+		return *this;
 	}
 
 	template<typename T>
 	SmartStack<T>::~SmartStack()
 	{
-
 	}
 
 	template<typename T>
@@ -66,6 +92,9 @@ namespace assignment3
 		mActualStack.push(number);
 		pushMaxStack(number);
 		pushMinStack(number);
+		mCount++;
+		mSum += number;
+		mSquaredSum += number * number;
 	}
 
 	template<typename T>
@@ -122,12 +151,20 @@ namespace assignment3
 			mMinEle = static_cast<T>(2) * mMinEle - mMinStack.top();
 		}
 
+		T returnValue = mActualStack.top();
+		mSum -= returnValue;
+		mSquaredSum -= returnValue * returnValue;
+		mCount--;
 
+		mActualStack.pop();
 		mMaxStack.pop();
 		mMinStack.pop();
 
-		T returnValue = mActualStack.top();
-		mActualStack.pop();
+		if (mActualStack.empty())
+		{
+			mMaxEle = std::numeric_limits<T>::min();
+			mMinEle = std::numeric_limits<T>::max();
+		}
 
 		return returnValue;
 	}
@@ -151,36 +188,56 @@ namespace assignment3
 	}
 
 	template<typename T>
-	double GetAverage()
+	double SmartStack<T>::GetAverage()
 	{
+		if (mCount == 0u)
+		{
+			return 0.0;
+		}
 
-		return 0.0f;
+		return static_cast<double>(mSum) / static_cast<double>(mCount);
 	}
 
 	template<typename T>
-	T GetSum()
+	T SmartStack<T>::GetSum()
 	{
+		//T sum = static_cast<T>(0);
+		//unsigned int count = GetCount();
+		//T* tmp = new T[count];		// 동적 배열때문에 통과 못할 수도 있음, 안된다면 동적 배열 대신 std::stack을 사용
 
-		return static_Cast<T>(0);
+		//for (int i = 0; i < count; i++)
+		//{
+		//	tmp[i] = Pop();
+		//	sum += tmp[i];
+		//}
+		//for (int i = count - 1; i >= 0; i--)
+		//{
+		//	Push(tmp[i]);
+		//}
+		//
+		//delete tmp;
+		return mSum;
 	}
 
 	template<typename T>
-	double GetVariance()
+	double SmartStack<T>::GetVariance()
 	{
-
-		return 0.0f;
+		double squareAvg = static_cast<double>(mSquaredSum) / static_cast<double>(mCount);
+		double avgSquare = static_cast<double>(mSum) / static_cast<double>(mCount);
+		avgSquare = avgSquare * avgSquare;
+		return squareAvg - avgSquare;
 	}
 
 	template<typename T>
-	double GetStandardDeviation()
+	double SmartStack<T>::GetStandardDeviation()
 	{
-		return 0.0f;
+		return std::sqrt(GetVariance());
 	}
 
 	template<typename T>
-	unsigned int GetCount()
+	unsigned int SmartStack<T>::GetCount()
 	{
-		return 0u;
+		return mCount;
 	}
 }
 
