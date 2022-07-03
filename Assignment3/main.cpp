@@ -156,18 +156,123 @@ int main()
 
 	// ============SmartQueue=================
 
-	// Enqueue()
+	SmartQueue<int> q;
 
+	// Enqueue()
 	// Peek()
 
-	// Dequeue()
+	q.Enqueue(6);
+
+	assert(q.Peek() == 6);
+
+	q.Enqueue(5);
+
+	assert(q.Peek() == 6);
+
+	q.Enqueue(-2);
+
+	assert(q.Peek() == 6);
+
+	// GetMax() GetMin()
+
+	assert(q.GetMax() == 6);
+	assert(q.GetMin() == -2);
+
+	// GetAverage() GetSum() 
+
+	assert(q.GetAverage() == 3.0);
+	assert(q.GetSum() == 9);
+
+	// GetVariance() GetStandardDeviation() GetCount()
+
+	assert(std::abs(q.GetVariance() - 12.667) < 0.001);
+	assert(std::abs(q.GetStandardDeviation() -3.559) < 0.001);
+	assert(q.GetCount() == 3);
 
 	// constructor, copy constructor, assignment operator
 
-	SmartQueue<int> q;
-	SmartQueue<int>* qPtr = new SmartQueue<int>();
+	SmartQueue<int> p(q);
+	SmartQueue<int> r;
+
+	r = q;
+
+	assert(p.GetCount() == q.GetCount());
+	assert(r.GetCount() == q.GetCount());
+	assert(p.Peek() == q.Peek());
+	assert(r.Peek() == q.Peek());
+
+	// Dequeue()
+
+	assert(q.Dequeue() == 6);
+	assert(q.Dequeue() == 5);
+	assert(q.Dequeue() == -2);
+
+	// ============QueueStack=================
+
+	// Enqueue()  Peek()
+
+	QueueStack<int> qs(3);
+	qs.Enqueue(1); // [ [ 1 ] ]
+	assert(qs.Peek() == 1);
+	assert(qs.GetStackCount() == 1);
+	qs.Enqueue(2); // [ [ 1, 2 ] ]
+	assert(qs.Peek() == 2);
+	assert(qs.GetStackCount() == 1);
+	qs.Enqueue(3); // [ [ 1, 2, 3 ] ]
+	assert(qs.Peek() == 3);
+	assert(qs.GetStackCount() == 1);
+	qs.Enqueue(4); // [ [ 1, 2, 3 ], [ 4 ] ]
+	assert(qs.Peek() == 3);
+	assert(qs.GetStackCount() == 2);
+	qs.Enqueue(5); // [ [ 1, 2, 3 ], [ 4, 5 ] ]
+	assert(qs.Peek() == 3);
+	assert(qs.GetStackCount() == 2);
+
+	// Copy Constructor
+	QueueStack<int> qs2(qs);
+	assert(qs2.Peek() == qs.Peek());
+	assert(qs2.GetStackCount() == qs.GetStackCount());
+
+	// assignment operator
+	QueueStack<int> qs3 = qs;
+	assert(qs3.Peek() == qs.Peek());
+	assert(qs3.GetStackCount() == qs.GetStackCount());
+
+	assert(qs3.Peek() == qs2.Peek());
+	assert(qs3.GetStackCount() == qs2.GetStackCount());
+
+	qs3.Dequeue();
+
+	assert(qs3.Peek() != qs.Peek());
+
+	qs2.Dequeue();
+
+	assert(qs3.Peek() != qs.Peek());
+
+	assert(qs2.Peek() == qs3.Peek());
 
 
+	// Dequeue()
+
+	qs.Dequeue();
+	assert(qs.Peek() == 2);
+	assert(qs.GetStackCount() == 2);
+
+	qs.Dequeue();
+	assert(qs.Peek() == 1);
+	assert(qs.GetStackCount() == 2);
+
+	qs.Dequeue();
+	assert(qs.Peek() == 5);
+	assert(qs.GetStackCount() == 1);
+
+	qs.Dequeue();
+	assert(qs.Peek() == 4);
+	assert(qs.GetStackCount() == 1);
+
+	qs.Dequeue();
+
+	return 0;
 }
 
 void SpecTestCase()

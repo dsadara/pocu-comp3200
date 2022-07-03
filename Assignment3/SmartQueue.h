@@ -1,6 +1,7 @@
 #pragma once
 #include <queue>
 #include <cmath>
+#include "SmartStack.h"
 
 namespace assignment3
 {
@@ -25,24 +26,27 @@ namespace assignment3
 		unsigned int GetCount();
 	private:
 		std::queue<T> mQueue;
-		T mSum;
-		T mSquaredSum;
-		unsigned int mCount;
+		SmartStack<T> mSmartStack;
+		//T mSum;
+		//T mSquaredSum;
+		//unsigned int mCount;
 	};
 
 	template <typename T>
 	SmartQueue<T>::SmartQueue()
-		: mSum(static_cast<T>(0))
-		, mSquaredSum(static_cast<T>(0))
-		, mCount(0u)
+		//: mSum(static_cast<T>(0))
+		//, mSquaredSum(static_cast<T>(0))
+		//, mCount(0u)
 	{
 	}
 
 	template <typename T>
 	SmartQueue<T>::SmartQueue(const SmartQueue<T>& other)
-		: mSum(other.mSum)
+		: mQueue(other.mQueue)
+		, mSmartStack(other.mSmartStack)
+		/*, mSum(other.mSum)
 		, mSquaredSum(other.mSquaredSum)
-		, mCount(other.mCount)
+		, mCount(other.mCount)*/
 	{
 	}
 
@@ -55,9 +59,11 @@ namespace assignment3
 		}
 
 		mQueue = rhs.mQueue;
-		mSum = rhs.mSum;
-		mSquaredSum = rhs.mSquaredSum;
-		mCount = rhs.mCount;
+		mSmartStack = rhs.mSmartStack;
+		//mSum = rhs.mSum;
+		//mSquaredSum = rhs.mSquaredSum;
+		//mCount = rhs.mCount;
+		
 
 		return *this;
 	}
@@ -72,9 +78,10 @@ namespace assignment3
 	void SmartQueue<T>::Enqueue(T number)
 	{
 		mQueue.push(number);
-		mSum += number;
+		mSmartStack.Push(number);
+	/*	mSum += number;
 		mSquaredSum += number * number;
-		mCount++;
+		mCount++;*/
 	}
 
 	template <typename T>
@@ -87,9 +94,11 @@ namespace assignment3
 	T SmartQueue<T>::Dequeue()
 	{
 		T returnValue = mQueue.front();
-		mSum -= returnValue;
+		mSmartStack.Pop();
+		mQueue.pop();
+		/*mSum -= returnValue;
 		mSquaredSum -= returnValue * returnValue;
-		mCount--;
+		mCount--;*/
 
 		return returnValue;
 	}
@@ -97,98 +106,104 @@ namespace assignment3
 	template <typename T>
 	T SmartQueue<T>::GetMax()
 	{
-		if (mCount == 0)
+		if (mSmartStack.GetCount() == 0)
 		{
 			return std::numeric_limits<T>::min();
 		}
 
-		SmartStack<T> stack;
-		std::stack<T> stack2;
+		//SmartStack<T> stack;
+		//std::stack<T> stack2;
 
-		int count = static_cast<int>(mCount);	// 올바른 unsigned int to int casting 방법을 찾아보자 
-		for (int i = 0; i < count; i++)
-		{
-			stack.Push(Dequeue());
-		}
+		//int count = static_cast<int>(mCount);	// 올바른 unsigned int to int casting 방법을 찾아보자 
+		//for (int i = 0; i < count; i++)
+		//{
+		//	stack.Push(Dequeue());
+		//}
 
-		T max = stack.GetMax();
+		//T max = stack.GetMax();
 
-		for (int i = 0; i < count; i++)
-		{
-			stack2.push(stack.Pop());
-		}
+		//for (int i = 0; i < count; i++)
+		//{
+		//	stack2.push(stack.Pop());
+		//}
 
-		for (int i = 0; i < count; i++)
-		{
-			Enqueue(stack2.pop());
-		}
+		//for (int i = 0; i < count; i++)
+		//{
+		//	Enqueue(stack2.pop());
+		//}
 
-		return max;
+		return mSmartStack.GetMax();
 	}
 
 	template <typename T>
 	T SmartQueue<T>::GetMin()
 	{
-		if (mCount == 0)
+		if (mSmartStack.GetCount()  == 0)
 		{
 			return std::numeric_limits<T>::max();
 		}
 
-		SmartStack<T> stack;
-		std::stack<T> stack2;
+		//SmartStack<T> stack;
+		//std::stack<T> stack2;
 
-		int count = static_cast<int>(mCount);	// 올바른 unsigned int to int casting 방법을 찾아보자 
-		for (int i = 0; i < count; i++)
-		{
-			stack.Push(Dequeue());
-		}
+		//int count = static_cast<int>(mCount);	// 올바른 unsigned int to int casting 방법을 찾아보자 
+		//for (int i = 0; i < count; i++)
+		//{
+		//	stack.Push(Dequeue());
+		//}
 
-		T min = stack.GetMin();
+		//T min = stack.GetMin();
 
-		for (int i = 0; i < count; i++)
-		{
-			stack2.push(stack.Pop());
-		}
+		//for (int i = 0; i < count; i++)
+		//{
+		//	stack2.push(stack.Pop());
+		//}
 
-		for (int i = 0; i < count; i++)
-		{
-			Enqueue(stack2.pop());
-		}
+		//for (int i = 0; i < count; i++)
+		//{
+		//	Enqueue(stack2.pop());
+		//}
 
-		return min;
+		return mSmartStack.GetMin();
 	}
 
 	template <typename T>
 	double SmartQueue<T>::GetAverage()
 	{
-		return static_cast<double>(mSum) / static_cast<double>(mCount);
+		//return static_cast<double>(mSum) / static_cast<double>(mCount);
+		return mSmartStack.GetAverage();
 	}
 
 	template <typename T>
 	T SmartQueue<T>::GetSum()
 	{
-		return mSum;
+		//return mSum;
+		return mSmartStack.GetSum();
 	}
 
 	template <typename T>
 	double SmartQueue<T>::GetVariance()
 	{
-		double squareAvg = static_cast<double>(mSquaredSum) / static_cast<double>(mCount);
+		/*double squareAvg = static_cast<double>(mSquaredSum) / static_cast<double>(mCount);
 		double avgSquare = static_cast<double>(mSum) / static_cast<double>(mCount);
 		avgSquare = avgSquare * avgSquare;
-		return squareAvg - avgSquare;
+		return squareAvg - avgSquare;*/
+
+		return mSmartStack.GetVariance();
 	}
 
 	template <typename T>
 	double SmartQueue<T>::GetStandardDeviation()
 	{
-		return std::sqrt(GetVariance());
+		/*return std::sqrt(GetVariance());*/
+		return mSmartStack.GetStandardDeviation();
 	}
 
 	template <typename T>
 	unsigned int SmartQueue<T>::GetCount()
 	{
-		return mCount;
+		//return mCount;
+		return mSmartStack.GetCount();
 	}
 }
 
