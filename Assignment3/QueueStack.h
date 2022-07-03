@@ -1,6 +1,7 @@
 #pragma once
 #include <stack>
 #include <queue>
+#include <limits>
 
 namespace assignment3
 {
@@ -46,38 +47,28 @@ namespace assignment3
 		for (int i = 0; i < queueSize; i++)
 		{
 			std::stack<T>* frontStack = other.mQueue.front();
+			other.mQueue.pop();
+			tmpQueue.push(frontStack);
 			std::stack<T>* copiedStack = new std::stack<T>;
-			std::stack<T> tmpStack;
 			int stackSize = frontStack->size();
+			T* frontStackArray = new T[stackSize];
 
-			// frontStack -> tmpStack
+			// 동적 배열에 frontStack 대입
 			for (int i = 0; i < stackSize; i++)
 			{
-				T number = frontStack->top();
+				frontStackArray[i] = frontStack->top();
 				frontStack->pop();
-				tmpStack.push(number);
 			}
 
-			// tmpStack -> copiedStack
-
-			for (int i = 0; i < stackSize; i++)
+			// copiedStack에 대입, frontStack 다시 주워담기
+			for (int i = stackSize - 1; i >= 0; i--)
 			{
-				T number = tmpStack.top();
-				tmpStack.pop();
-				copiedStack->push(number);
+				copiedStack->push(frontStackArray[i]);
+				frontStack->push(frontStackArray[i]);
 			}
-
-
-			// 스택 다시 주워담기
-			for (int i = 0; i < stackSize; i++)
-			{
-				frontStack->push(tmpStack.top());
-				tmpStack.pop();
-			}
+			delete frontStackArray;
 
 			mQueue.push(copiedStack);
-			tmpQueue.push(other.mQueue.front());
-			other.mQueue.pop();
 		}
 
 		// 큐 다시 주워담기
@@ -91,24 +82,23 @@ namespace assignment3
 		if (other.mTmpStack->size() != 0)
 		{
 			int tmpStackSize = other.mTmpStack->size();
-			std::stack<T> tmpOfMTmpStack;
+			T* tmpStackArray = new T[tmpStackSize];
+
 			// 스택 복사
 			for (int i = 0; i < tmpStackSize; i++)
 			{
-				T element = other.mTmpStack->top();
-				mTmpStack->push(element);
-				tmpOfMTmpStack.push(element);
+				tmpStackArray[i] = other.mTmpStack->top();
 				other.mTmpStack->pop();
 			}
 
-			// 스택 다시 주워담기
-			for (int i = 0; i < tmpStackSize; i++)
+			// 대입, 스택 다시 주워담기
+			for (int i = tmpStackSize - 1; i >= 0; i--)
 			{
-				T element = tmpOfMTmpStack.top();
-				other.mTmpStack->push(element);
-				tmpOfMTmpStack.pop();
+				mTmpStack->push(tmpStackArray[i]);
+				other.mTmpStack->push(tmpStackArray[i]);
 			}
 
+			delete tmpStackArray;
 		}
 	}
 
@@ -122,50 +112,36 @@ namespace assignment3
 
 		mMaxStackSize = rhs.mMaxStackSize;
 		
-		// 기존 큐스택 지우기
-		int queueSize = static_cast<int>(GetStackCount());
-		for (int i = 0; i < queueSize; i++)
-		{
-			std::stack<T>* frontStack = mQueue.front();
-			delete frontStack;
-			mQueue.pop();
-		}
-		// mTmpStack 지우기
-		int mTmpStackSize = rhs.mTmpStack->size();
-		for (int i = 0; i < mTmpStackSize; i++)
-		{
-			mTmpStack->pop();
-		}
-
+		int queueSize = static_cast<int>(rhs.mQueue.size());
 		std::queue<std::stack<T>*> tmpQueue;
 		// 큐 순회하며 스택 복사
 		for (int i = 0; i < queueSize; i++)
 		{
 			std::stack<T>* frontStack = rhs.mQueue.front();
+			rhs.mQueue.pop();
+			tmpQueue.push(frontStack);
 			std::stack<T>* copiedStack = new std::stack<T>;
-			std::stack<T> tmpStack = std::stack<T>;
 			int stackSize = frontStack->size();
+			T* frontStackArray = new T[stackSize];
 
-			// 스택 복사
+			// 동적 배열에 frontStack 대입
 			for (int i = 0; i < stackSize; i++)
 			{
-				T number = frontStack->top();
+				frontStackArray[i] = frontStack->top();
 				frontStack->pop();
-				copiedStack->push(number);
-				tmpStack.push(number);
 			}
 
-			// 스택 다시 주워담기
-			for (int i = 0; i < stackSize; i++)
+			// copiedStack에 대입, frontStack 다시 주워담기
+			for (int i = stackSize - 1; i >= 0; i--)
 			{
-				frontStack->push(tmpStack.top());
-				tmpStack.pop();
+				copiedStack->push(frontStackArray[i]);
+				frontStack->push(frontStackArray[i]);
 			}
+			delete frontStackArray;
 
 			mQueue.push(copiedStack);
-			tmpQueue.push(rhs.mQueue.front());
-			rhs.mQueue.pop();
 		}
+
 		// 큐 다시 주워담기
 		for (int i = 0; i < queueSize; i++)
 		{
@@ -173,27 +149,27 @@ namespace assignment3
 			tmpQueue.pop();
 		}
 
-		// mTmpStack 복사
-		if (rhs.mTmpStack->size())
+		// mTmpStack도 복사
+		if (rhs.mTmpStack->size() != 0)
 		{
-			return *this;
-		}
-		int rhsmTmpStackSize = rhs.mTmpStack->size();
-		std::stack<T> tmpOfRhsMTmpOfStack;
-		// 스택 복사
-		for (int i = 0; i < rhsmTmpStackSize; i++)
-		{
-			T element = rhs.mTmpStack->top();
-			mTmpStack->push(element);
-			tmpOfRhsMTmpOfStack.push(element);
-			rhs.mTmpStack->pop();
-		}
-		// 스택 주워담기
-		for (int i = 0; i < rhsmTmpStackSize; i++)
-		{
-			T element = tmpOfRhsMTmpOfStack.top();
-			rhs.mTmpStack->push(element);
-			tmpOfRhsMTmpOfStack.pop();
+			int tmpStackSize = rhs.mTmpStack->size();
+			T* tmpStackArray = new T[tmpStackSize];
+
+			// 스택 복사
+			for (int i = 0; i < tmpStackSize; i++)
+			{
+				tmpStackArray[i] = rhs.mTmpStack->top();
+				rhs.mTmpStack->pop();
+			}
+
+			// 대입, 스택 다시 주워담기
+			for (int i = tmpStackSize - 1; i >= 0; i--)
+			{
+				mTmpStack->push(tmpStackArray[i]);
+				rhs.mTmpStack->push(tmpStackArray[i]);
+			}
+
+			delete tmpStackArray;
 		}
 
 		return *this;
