@@ -35,7 +35,7 @@ namespace assignment3
 		T mSum;
 		T mSquaredSum;
 		unsigned int mCount;
-		
+
 	};
 
 	template<typename T>

@@ -63,7 +63,7 @@ namespace assignment3
 		//mSum = rhs.mSum;
 		//mSquaredSum = rhs.mSquaredSum;
 		//mCount = rhs.mCount;
-		
+
 
 		return *this;
 	}
@@ -79,9 +79,9 @@ namespace assignment3
 	{
 		mQueue.push(number);
 		mSmartStack.Push(number);
-	/*	mSum += number;
-		mSquaredSum += number * number;
-		mCount++;*/
+		/*	mSum += number;
+			mSquaredSum += number * number;
+			mCount++;*/
 	}
 
 	template <typename T>
@@ -94,8 +94,20 @@ namespace assignment3
 	T SmartQueue<T>::Dequeue()
 	{
 		T returnValue = mQueue.front();
-		mSmartStack.Pop();
 		mQueue.pop();
+
+		// 스택은 맨 앞에 원소를 pop
+		int smartStackSize = mSmartStack.GetCount();
+		T* stackArray = new T[smartStackSize];
+		for (int i = 0; i < smartStackSize; i++)
+		{
+			stackArray[i] = mSmartStack.Pop();
+		}
+		for (int i = smartStackSize - 2; i >= 0; i--)
+		{
+			mSmartStack.Push(stackArray[i]);
+		}
+
 		/*mSum -= returnValue;
 		mSquaredSum -= returnValue * returnValue;
 		mCount--;*/
@@ -138,7 +150,7 @@ namespace assignment3
 	template <typename T>
 	T SmartQueue<T>::GetMin()
 	{
-		if (mSmartStack.GetCount()  == 0)
+		if (mSmartStack.GetCount() == 0)
 		{
 			return std::numeric_limits<T>::max();
 		}
