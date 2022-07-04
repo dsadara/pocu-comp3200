@@ -2,7 +2,6 @@
 #include <stack>
 #include <limits>
 #include <cmath>
-#include <type_traits>
 
 namespace assignment3
 {

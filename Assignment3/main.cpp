@@ -28,6 +28,9 @@ int main()
 
 	SmartStack<int> s4;
 
+	s4.GetVariance();
+	s4.GetStandardDeviation();
+
 	s4.Push(1);
 	assert(s4.Peek() == 1);
 	assert(s4.GetMax() == 1);
