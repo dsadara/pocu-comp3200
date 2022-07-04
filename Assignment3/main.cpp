@@ -432,9 +432,13 @@ void TestSmartStack()
 	assert(ss.Pop() == 123.456f);
 	assert(ss.GetCount() == 2u);
 	assert(ss.Peek() == 1.443f);
-	ss.GetMax();
+	double result = ss.GetMax() - 1.443f;
+	assert(result < EPSILON);
+	assert(ss.GetMax() == 1.443f);
+	assert(ss.GetMin() == 0.f);
+	/*
 	assert(std::abs(ss.GetMax() - 1.443f) <= EPSILON);
-	assert(std::abs(ss.GetMin() - 0.f) <= EPSILON);
+	assert(std::abs(ss.GetMin() - 0.f) <= EPSILON);*/
 	assert(std::abs(ss.GetSum() - 1.443f) <= EPSILON);
 	assert(std::abs(ss.GetAverage() - 0.7215) <= EPSILON);
 	assert(std::abs(ss.GetVariance() - 0.52056225) <= EPSILON);
