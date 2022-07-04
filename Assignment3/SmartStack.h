@@ -26,8 +26,6 @@ namespace assignment3
 		double GetStandardDeviation();
 		unsigned int GetCount();
 	private:
-		void pushMaxStack(T number);
-		void pushMinStack(T number);
 		std::stack<T> mMaxStack;
 		std::stack<T> mActualStack;
 		std::stack<T> mMinStack;
@@ -85,29 +83,17 @@ namespace assignment3
 	void SmartStack<T>::Push(T number)
 	{
 		mActualStack.push(number);
-		pushMaxStack(number);
-		pushMinStack(number);
-		mCount++;
-		mSum += number;
-		mSquaredSum += number * number;
-	}
-
-	template<typename T>
-	void SmartStack<T>::pushMaxStack(T number)
-	{
-		if (number > mMaxStack.top())
+		if (number >= mMaxStack.top())
 		{
 			mMaxStack.push(number);
 		}
-	}
-
-	template<typename T>
-	void SmartStack<T>::pushMinStack(T number)
-	{
-		if (number < mMinStack.top())
+		if (number <= mMinStack.top())
 		{
 			mMinStack.push(number);
 		}
+		mCount++;
+		mSum += number;
+		mSquaredSum += number * number;
 	}
 
 	template<typename T>

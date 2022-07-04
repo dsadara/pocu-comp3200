@@ -24,6 +24,49 @@ int main()
 
 	// ============SmartStack==================
 
+	// push same element test
+
+	SmartStack<int> s4;
+
+	s4.Push(1);
+	assert(s4.Peek() == 1);
+	assert(s4.GetMax() == 1);
+	assert(s4.GetMin() == 1);
+
+	s4.Push(9);
+	assert(s4.Peek() == 9);
+	assert(s4.GetMax() == 9);
+	assert(s4.GetMin() == 1);
+
+	s4.Push(9);
+	assert(s4.Peek() == 9);
+	assert(s4.GetMax() == 9);
+	assert(s4.GetMin() == 1);
+
+	s4.Push(9);
+	assert(s4.Peek() == 9);
+	assert(s4.GetMax() == 9);
+	assert(s4.GetMin() == 1);
+
+	s4.Pop();
+	assert(s4.Peek() == 9);
+	assert(s4.GetMax() == 9);
+	assert(s4.GetMin() == 1);
+
+	s4.Pop();
+	assert(s4.Peek() == 9);
+	assert(s4.GetMax() == 9);
+	assert(s4.GetMin() == 1);
+
+	s4.Pop();
+	assert(s4.Peek() == 1);
+	assert(s4.GetMax() == 1);
+	assert(s4.GetMin() == 1);
+
+	s4.Pop();
+	assert(s4.GetMax() == std::numeric_limits<int>::min());
+	assert(s4.GetMin() == std::numeric_limits<int>::max());
+
 	// test Push(), Pop(), GetMin(), GetMax(), Peek()
 	SmartStack<int> s;
 	SmartStack<int>* sPtr = new SmartStack<int>();
