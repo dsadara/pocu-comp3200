@@ -157,6 +157,11 @@ namespace assignment3
 	template<typename T>
 	double SmartStack<T>::GetVariance()
 	{
+		if (mCount == 0u)
+		{
+			return 0.0;
+		}
+
 		double squareAvg = static_cast<double>(mSquaredSum) / static_cast<double>(mCount);
 		double avgSquare = static_cast<double>(mSum) / static_cast<double>(mCount);
 		avgSquare = avgSquare * avgSquare;
@@ -166,6 +171,10 @@ namespace assignment3
 	template<typename T>
 	double SmartStack<T>::GetStandardDeviation()
 	{
+		if (mCount == 0u)
+		{
+			return 0.0;
+		}
 		return std::sqrt(GetVariance());
 	}
 
