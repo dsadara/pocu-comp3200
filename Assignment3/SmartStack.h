@@ -115,6 +115,13 @@ namespace assignment3
 
 		mActualStack.pop();
 
+		// 스택이 비어있을 때마다 0을 대입
+		if (mCount == 0)
+		{
+			mSquaredSum == 0.0;
+			mSum == 0.0;
+		}
+
 		return returnValue;
 	}
 

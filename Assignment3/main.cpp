@@ -28,9 +28,6 @@ int main()
 
 	SmartStack<int> s4;
 
-	s4.GetVariance();
-	s4.GetStandardDeviation();
-
 	s4.Push(1);
 	assert(s4.Peek() == 1);
 	assert(s4.GetMax() == 1);
@@ -69,6 +66,8 @@ int main()
 	s4.Pop();
 	assert(s4.GetMax() == std::numeric_limits<int>::min());
 	assert(s4.GetMin() == std::numeric_limits<int>::max());
+	assert(s4.GetSum() == 0.0);
+	assert(s4.GetVariance() == 0.0);
 
 	// test Push(), Pop(), GetMin(), GetMax(), Peek()
 	SmartStack<int> s;
