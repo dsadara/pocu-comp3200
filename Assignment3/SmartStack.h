@@ -28,16 +28,16 @@ namespace assignment3
 		std::stack<T> mMaxStack;
 		std::stack<T> mActualStack;
 		std::stack<T> mMinStack;
-		T mSum;
-		T mSquaredSum;
+		double mSum;
+		double mSquaredSum;
 		unsigned int mCount;
 
 	};
 
 	template<typename T>
 	SmartStack<T>::SmartStack()
-		: mSum(static_cast<T>(0))
-		, mSquaredSum(static_cast<T>(0))
+		: mSum(0.0)
+		, mSquaredSum(0.0)
 		, mCount(0u)
 	{
 		mMaxStack.push(std::numeric_limits<T>::lowest());
@@ -91,8 +91,8 @@ namespace assignment3
 			mMinStack.push(number);
 		}
 		mCount++;
-		mSum += number;
-		mSquaredSum += number * number;
+		mSum += static_cast<double>(number);
+		mSquaredSum += static_cast<double>(number) * static_cast<double>(number);
 	}
 
 	template<typename T>
@@ -109,8 +109,8 @@ namespace assignment3
 		}
 
 
-		mSum -= returnValue;
-		mSquaredSum -= returnValue * returnValue;
+		mSum -= static_cast<double>(returnValue);
+		mSquaredSum -= static_cast<double>(returnValue) * static_cast<double>(returnValue);
 		mCount--;
 
 		mActualStack.pop();
@@ -144,13 +144,13 @@ namespace assignment3
 			return 0.0;
 		}
 
-		return static_cast<double>(mSum) / static_cast<double>(mCount);
+		return mSum / mCount;
 	}
 
 	template<typename T>
 	T SmartStack<T>::GetSum()
 	{
-		return mSum;
+		return static_cast<T>(mSum);
 	}
 
 	template<typename T>
@@ -161,8 +161,8 @@ namespace assignment3
 			return 0.0;
 		}
 
-		double squareAvg = static_cast<double>(mSquaredSum) / static_cast<double>(mCount);
-		double avgSquare = static_cast<double>(mSum) / static_cast<double>(mCount);
+		double squareAvg = mSquaredSum / mCount;
+		double avgSquare = mSum / mCount;
 		avgSquare = avgSquare * avgSquare;
 		return squareAvg - avgSquare;
 	}
