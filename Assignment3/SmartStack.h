@@ -2,6 +2,7 @@
 #include <stack>
 #include <limits>
 #include <cmath>
+#include <type_traits>
 
 namespace assignment3
 {
@@ -40,7 +41,7 @@ namespace assignment3
 
 	template<typename T>
 	SmartStack<T>::SmartStack()
-		: mMaxEle(std::numeric_limits<T>::min())
+		: mMaxEle(std::numeric_limits<T>::lowest())
 		, mMinEle(std::numeric_limits<T>::max())
 		, mSum(static_cast<T>(0))
 		, mSquaredSum(static_cast<T>(0))
@@ -113,7 +114,7 @@ namespace assignment3
 		}
 		else
 		{
-			mMaxStack.push(static_cast<T>(2) * number - mMaxEle);
+			mMaxStack.push(static_cast<T>(2.0) * number - mMaxEle);
 			mMaxEle = number;
 		}
 	}
@@ -134,7 +135,7 @@ namespace assignment3
 		}
 		else
 		{
-			mMinStack.push(static_cast<T>(2) * number - mMinEle);
+			mMinStack.push(static_cast<T>(2.0) * number - mMinEle);
 			mMinEle = number;
 		}
 	}
@@ -162,7 +163,7 @@ namespace assignment3
 
 		if (mActualStack.empty())
 		{
-			mMaxEle = std::numeric_limits<T>::min();
+			mMaxEle = std::numeric_limits<T>::lowest();
 			mMinEle = std::numeric_limits<T>::max();
 		}
 
@@ -201,21 +202,6 @@ namespace assignment3
 	template<typename T>
 	T SmartStack<T>::GetSum()
 	{
-		//T sum = static_cast<T>(0);
-		//unsigned int count = GetCount();
-		//T* tmp = new T[count];		// 동적 배열때문에 통과 못할 수도 있음, 안된다면 동적 배열 대신 std::stack을 사용
-
-		//for (int i = 0; i < count; i++)
-		//{
-		//	tmp[i] = Pop();
-		//	sum += tmp[i];
-		//}
-		//for (int i = count - 1; i >= 0; i--)
-		//{
-		//	Push(tmp[i]);
-		//}
-		//
-		//delete tmp;
 		return mSum;
 	}
 

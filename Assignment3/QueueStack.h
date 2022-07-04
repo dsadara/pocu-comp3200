@@ -172,7 +172,7 @@ namespace assignment3
 			// 스택 복사
 			for (int i = 0; i < tmpStackSize; i++)
 			{
-				tmpStackArray[i] = rhs.mTmpStack->GetCount();
+				tmpStackArray[i] = rhs.mTmpStack->Peek();
 				rhs.mTmpStack->Pop();
 			}
 
@@ -252,7 +252,7 @@ namespace assignment3
 	template<typename T>
 	T QueueStack<T>::GetMax()
 	{
-		T max = std::numeric_limits<T>::min();
+		T max = std::numeric_limits<T>::lowest();
 		int mQueueSize = mQueue.size();
 		std::queue<SmartStack<T>*> tmpQueue;
 
