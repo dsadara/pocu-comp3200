@@ -25,8 +25,8 @@ namespace assignment3
 		unsigned int GetCount();
 		unsigned int GetStackCount();
 	private:
-		std::queue<SmartStack<T>*> mQueue;
-		SmartStack<T>* mTmpStack;
+		std::queue<SmartStack<T>> mQueue;
+		SmartStack<T> mTmpStack;
 		unsigned int mMaxStackSize;
 	};
 
@@ -34,38 +34,36 @@ namespace assignment3
 	QueueStack<T>::QueueStack(unsigned int maxStackSize)
 		: mMaxStackSize(maxStackSize)
 	{
-		mTmpStack = new SmartStack<T>;
 	}
 
 	template<typename T>
 	QueueStack<T>::QueueStack(QueueStack<T>& other)
 		: mMaxStackSize(other.mMaxStackSize)
 	{
-		mTmpStack = new SmartStack<T>;
 		int queueSize = static_cast<int>(other.mQueue.size());
-		std::queue<SmartStack<T>*> tmpQueue;
+		std::queue<SmartStack<T>> tmpQueue;
 		// 큐 순회하며 스택 복사
 		for (int i = 0; i < queueSize; i++)
 		{
-			SmartStack<T>* frontStack = other.mQueue.front();
+			SmartStack<T> frontStack = other.mQueue.front();
 			other.mQueue.pop();
 			tmpQueue.push(frontStack);
-			SmartStack<T>* copiedStack = new SmartStack<T>;
-			int stackSize = frontStack->GetCount();
+			SmartStack<T> copiedStack;
+			int stackSize = frontStack.GetCount();
 			T* frontStackArray = new T[stackSize];
 
 			// 동적 배열에 frontStack 대입
 			for (int i = 0; i < stackSize; i++)
 			{
-				frontStackArray[i] = frontStack->Peek();
-				frontStack->Pop();
+				frontStackArray[i] = frontStack.Peek();
+				frontStack.Pop();
 			}
 
 			// copiedStack에 대입, frontStack 다시 주워담기
 			for (int i = stackSize - 1; i >= 0; i--)
 			{
-				copiedStack->Push(frontStackArray[i]);
-				frontStack->Push(frontStackArray[i]);
+				copiedStack.Push(frontStackArray[i]);
+				frontStack.Push(frontStackArray[i]);
 			}
 			delete[] frontStackArray;
 
@@ -80,23 +78,23 @@ namespace assignment3
 		}
 
 		// mTmpStack도 복사
-		if (other.mTmpStack->GetCount() != 0)
+		if (other.mTmpStack.GetCount() != 0)
 		{
-			int tmpStackSize = static_cast<int>(other.mTmpStack->GetCount());
+			int tmpStackSize = static_cast<int>(other.mTmpStack.GetCount());
 			T* tmpStackArray = new T[tmpStackSize];
 
 			// 스택 복사
 			for (int i = 0; i < tmpStackSize; i++)
 			{
-				tmpStackArray[i] = other.mTmpStack->Peek();
-				other.mTmpStack->Pop();
+				tmpStackArray[i] = other.mTmpStack.Peek();
+				other.mTmpStack.Pop();
 			}
 
 			// 대입, 스택 다시 주워담기
 			for (int i = tmpStackSize - 1; i >= 0; i--)
 			{
-				mTmpStack->Push(tmpStackArray[i]);
-				other.mTmpStack->Push(tmpStackArray[i]);
+				mTmpStack.Push(tmpStackArray[i]);
+				other.mTmpStack.Push(tmpStackArray[i]);
 			}
 
 			delete[] tmpStackArray;
@@ -114,42 +112,41 @@ namespace assignment3
 		int thisQueueSize = static_cast<int>(mQueue.size());
 		for (int i = 0; i < thisQueueSize; i++)
 		{
-			SmartStack<T>* frontStack = mQueue.front();
-			delete frontStack;
+			SmartStack<T> frontStack = mQueue.front();
 			mQueue.pop();
 		}
-		int mTmpStackSize = mTmpStack->GetCount();
+		int mTmpStackSize = mTmpStack.GetCount();
 		for (int i = 0; i < mTmpStackSize; i++)
 		{
-			mTmpStack->Pop();
+			mTmpStack.Pop();
 		}
 
 		mMaxStackSize = rhs.mMaxStackSize;
 
 		int queueSize = static_cast<int>(rhs.mQueue.size());
-		std::queue<SmartStack<T>*> tmpQueue;
+		std::queue<SmartStack<T>> tmpQueue;
 		// 큐 순회하며 스택 복사
 		for (int i = 0; i < queueSize; i++)
 		{
-			SmartStack<T>* frontStack = rhs.mQueue.front();
+			SmartStack<T> frontStack = rhs.mQueue.front();
 			rhs.mQueue.pop();
 			tmpQueue.push(frontStack);
-			SmartStack<T>* copiedStack = new SmartStack<T>;
-			int stackSize = frontStack->GetCount();
+			SmartStack<T> copiedStack;
+			int stackSize = frontStack.GetCount();
 			T* frontStackArray = new T[stackSize];
 
 			// 동적 배열에 frontStack 대입
 			for (int i = 0; i < stackSize; i++)
 			{
-				frontStackArray[i] = frontStack->Peek();
-				frontStack->Pop();
+				frontStackArray[i] = frontStack.Peek();
+				frontStack.Pop();
 			}
 
 			// copiedStack에 대입, frontStack 다시 주워담기
 			for (int i = stackSize - 1; i >= 0; i--)
 			{
-				copiedStack->Push(frontStackArray[i]);
-				frontStack->Push(frontStackArray[i]);
+				copiedStack.Push(frontStackArray[i]);
+				frontStack.Push(frontStackArray[i]);
 			}
 			delete[] frontStackArray;
 
@@ -164,23 +161,23 @@ namespace assignment3
 		}
 
 		// mTmpStack도 복사
-		if (rhs.mTmpStack->GetCount() != 0)
+		if (rhs.mTmpStack.GetCount() != 0)
 		{
-			int tmpStackSize = rhs.mTmpStack->GetCount();
+			int tmpStackSize = rhs.mTmpStack.GetCount();
 			T* tmpStackArray = new T[tmpStackSize];
 
 			// 스택 복사
 			for (int i = 0; i < tmpStackSize; i++)
 			{
-				tmpStackArray[i] = rhs.mTmpStack->Peek();
-				rhs.mTmpStack->Pop();
+				tmpStackArray[i] = rhs.mTmpStack.Peek();
+				rhs.mTmpStack.Pop();
 			}
 
 			// 대입, 스택 다시 주워담기
 			for (int i = tmpStackSize - 1; i >= 0; i--)
 			{
-				mTmpStack->Push(tmpStackArray[i]);
-				rhs.mTmpStack->Push(tmpStackArray[i]);
+				mTmpStack.Push(tmpStackArray[i]);
+				rhs.mTmpStack.Push(tmpStackArray[i]);
 			}
 
 			delete[] tmpStackArray;
@@ -192,14 +189,6 @@ namespace assignment3
 	template<typename T>
 	QueueStack<T>::~QueueStack()
 	{
-		int mQueueSize = static_cast<int>(mQueue.size());
-		for (int i = 0; i < mQueueSize; i++)
-		{
-			SmartStack<T>* frontStack = mQueue.front();
-			delete frontStack;
-			mQueue.pop();
-		}
-		delete mTmpStack;
 	}
 
 	template<typename T>
@@ -210,11 +199,14 @@ namespace assignment3
 			return;
 		}
 
-		mTmpStack->Push(number);
-		if (mTmpStack->GetCount() == mMaxStackSize)
+		mTmpStack.Push(number);
+		if (mTmpStack.GetCount() == mMaxStackSize)
 		{
 			mQueue.push(mTmpStack);
-			mTmpStack = new SmartStack<T>;
+			for (int i = 0; i < mMaxStackSize; i++)
+			{
+				mTmpStack.Pop();
+			}
 		}
 	}
 
@@ -223,9 +215,9 @@ namespace assignment3
 	{
 		if (mQueue.size() == 0)
 		{
-			return mTmpStack->Peek();
+			return mTmpStack.Peek();
 		}
-		return mQueue.front()->Peek();
+		return mQueue.front().Peek();
 	}
 
 	template<typename T>
@@ -234,16 +226,15 @@ namespace assignment3
 		T result;
 		if (mQueue.size() == 0)
 		{
-			result = mTmpStack->Peek();
-			mTmpStack->Pop();
+			result = mTmpStack.Peek();
+			mTmpStack.Pop();
 			return result;
 		}
-		SmartStack<T>* frontStack = mQueue.front();
-		result = frontStack->Peek();
-		frontStack->Pop();
-		if (frontStack->GetCount() == 0)
+		SmartStack<T>& frontStack = mQueue.front();
+		result = frontStack.Peek();
+		frontStack.Pop();
+		if (frontStack.GetCount() == 0)
 		{
-			delete mQueue.front();
 			mQueue.pop();
 		}
 		return result;
@@ -254,11 +245,11 @@ namespace assignment3
 	{
 		T max = std::numeric_limits<T>::lowest();
 		int mQueueSize = mQueue.size();
-		std::queue<SmartStack<T>*> tmpQueue;
+		std::queue<SmartStack<T>> tmpQueue;
 
 		for (int i = 0; i < mQueueSize; i++)
 		{
-			T stackMax = mQueue.front()->GetMax();
+			T stackMax = mQueue.front().GetMax();
 			if (max < stackMax)
 			{
 				max = stackMax;
@@ -274,9 +265,9 @@ namespace assignment3
 		}
 
 
-		if (max < mTmpStack->GetMax())
+		if (max < mTmpStack.GetMax())
 		{
-			max = mTmpStack->GetMax();
+			max = mTmpStack.GetMax();
 		}
 
 		return max;
@@ -287,11 +278,11 @@ namespace assignment3
 	{
 		T min = std::numeric_limits<T>::max();
 		int mQueueSize = mQueue.size();
-		std::queue<SmartStack<T>*> tmpQueue;
+		std::queue<SmartStack<T>> tmpQueue;
 
 		for (int i = 0; i < mQueueSize; i++)
 		{
-			T stackMin = mQueue.front()->GetMin();
+			T stackMin = mQueue.front().GetMin();
 			if (min > stackMin)
 			{
 				min = stackMin;
@@ -306,9 +297,9 @@ namespace assignment3
 			tmpQueue.pop();
 		}
 
-		if (min > mTmpStack->GetMin())
+		if (min > mTmpStack.GetMin())
 		{
-			min = mTmpStack->GetMin();
+			min = mTmpStack.GetMin();
 		}
 
 		return min;
@@ -326,11 +317,11 @@ namespace assignment3
 	{
 		T sum = 0;
 		int mQueueSize = mQueue.size();
-		std::queue<SmartStack<T>*> tmpQueue;
+		std::queue<SmartStack<T>> tmpQueue;
 
 		for (int i = 0; i < mQueueSize; i++)
 		{
-			sum += mQueue.front()->GetSum();
+			sum += mQueue.front().GetSum();
 			tmpQueue.push(mQueue.front());
 			mQueue.pop();
 		}
@@ -341,7 +332,7 @@ namespace assignment3
 			tmpQueue.pop();
 		}
 
-		sum += mTmpStack->GetSum();
+		sum += mTmpStack.GetSum();
 
 		return sum;
 	}
@@ -351,11 +342,11 @@ namespace assignment3
 	{
 		int count = 0;
 		int mQueueSize = mQueue.size();
-		std::queue<SmartStack<T>*> tmpQueue;
+		std::queue<SmartStack<T>> tmpQueue;
 
 		for (int i = 0; i < mQueueSize; i++)
 		{
-			count += mQueue.front()->GetCount();
+			count += mQueue.front().GetCount();
 			tmpQueue.push(mQueue.front());
 			mQueue.pop();
 		}
@@ -366,7 +357,7 @@ namespace assignment3
 			tmpQueue.pop();
 		}
 
-		count += mTmpStack->GetCount();
+		count += mTmpStack.GetCount();
 
 		return count;
 	}
@@ -374,7 +365,7 @@ namespace assignment3
 	template<typename T>
 	unsigned int QueueStack<T>::GetStackCount()
 	{
-		if (mTmpStack->GetCount() == 0)
+		if (mTmpStack.GetCount() == 0)
 			return mQueue.size();
 
 		return mQueue.size() + 1;

@@ -634,7 +634,6 @@ void TestQueueStack()
 	assert(qs.GetCount() == 0u);
 	assert(qs.GetStackCount() == 0u);
 	assert(qs.GetSum() == 0);
-	qs.GetMax();
 	assert(qs.GetMax() == std::numeric_limits<int>::min());
 	assert(qs.GetMin() == std::numeric_limits<int>::max());
 
