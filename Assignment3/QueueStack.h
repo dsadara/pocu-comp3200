@@ -125,7 +125,7 @@ namespace assignment3
 	{
 		T result = mQueue.front().top();
 		mQueue.front().pop();
-		if (mQueue.front().size() == 0)
+		if (mQueue.front().size() == 0u)
 		{
 			mQueue.pop();
 		}
@@ -136,7 +136,7 @@ namespace assignment3
 	T QueueStack<T>::GetMax()
 	{
 		T max = std::numeric_limits<T>::lowest();
-		int mQueueSize = mQueue.size();
+		int mQueueSize = static_cast<int>(mQueue.size());
 		std::queue<std::stack<T>> tmpQueue;
 
 		for (int i = 0; i < mQueueSize; i++)
@@ -146,7 +146,7 @@ namespace assignment3
 			tmpQueue.push(mQueue.front());
 
 			// 스택 안 max 찾기
-			int tmpSize = mQueue.front().size();
+			int tmpSize = static_cast<int>(mQueue.front().size());
 			for (int i = 0; i < tmpSize; i++)
 			{
 				if (max < mQueue.front().top())
@@ -171,7 +171,7 @@ namespace assignment3
 	T QueueStack<T>::GetMin()
 	{
 		T min = std::numeric_limits<T>::max();
-		int mQueueSize = mQueue.size();
+		int mQueueSize = static_cast<int>(mQueue.size());
 		std::queue<std::stack<T>> tmpQueue;
 
 		for (int i = 0; i < mQueueSize; i++)
@@ -181,7 +181,7 @@ namespace assignment3
 			tmpQueue.push(mQueue.front());
 
 			// 스택 안 min 찾기
-			int tmpSize = mQueue.front().size();
+			int tmpSize = static_cast<int>(mQueue.front().size());
 			for (int i = 0; i < tmpSize; i++)
 			{
 				if (min > mQueue.front().top())
@@ -213,13 +213,13 @@ namespace assignment3
 	T QueueStack<T>::GetSum()
 	{
 		T sum = static_cast<T>(0);
-		int mQueueSize = mQueue.size();
+		int mQueueSize = static_cast<int>(mQueue.size());
 		std::queue<std::stack<T>> tmpQueue;
 
 		for (int i = 0; i < mQueueSize; i++)
 		{
 			tmpQueue.push(mQueue.front());
-			int frontStackSize = mQueue.front().size();
+			int frontStackSize = static_cast<int>(mQueue.front().size());
 			for (int i = 0; i < frontStackSize; i++)
 			{
 				sum += mQueue.front().top();
@@ -240,7 +240,7 @@ namespace assignment3
 	unsigned int QueueStack<T>::GetCount()
 	{
 		unsigned int count = 0u;
-		int mQueueSize = mQueue.size();
+		int mQueueSize = static_cast<int>(mQueue.size());
 		std::queue<std::stack<T>> tmpQueue;
 
 		for (int i = 0; i < mQueueSize; i++)
@@ -261,7 +261,7 @@ namespace assignment3
 	template<typename T>
 	unsigned int QueueStack<T>::GetStackCount()
 	{
-		if (mQueue.back().size() == 0)
+		if (mQueue.back().size() == 0u)
 		{
 			return mQueue.size() - 1;
 		}
