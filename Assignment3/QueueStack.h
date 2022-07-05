@@ -32,8 +32,7 @@ namespace assignment3
 	QueueStack<T>::QueueStack(unsigned int maxStackSize)
 		: mMaxStackSize(maxStackSize)
 	{
-		std::stack<T> stack;
-		mQueue.push(stack);
+		mQueue.push(std::stack<T>());
 	}
 
 	template<typename T>
@@ -45,10 +44,9 @@ namespace assignment3
 		// 큐 순회하며 스택 복사
 		for (int i = 0; i < queueSize; i++)
 		{
-			std::stack<T> frontStack = other.mQueue.front();
+			tmpQueue.push(other.mQueue.front());
+			mQueue.push(other.mQueue.front());
 			other.mQueue.pop();
-			tmpQueue.push(frontStack);
-			mQueue.push(frontStack);
 		}
 
 		// 큐 다시 주워담기
@@ -75,19 +73,18 @@ namespace assignment3
 		}
 
 		mMaxStackSize = rhs.mMaxStackSize;
-		int queueSize = static_cast<int>(rhs.mQueue.size());
+		int rhsQueueSize = static_cast<int>(rhs.mQueue.size());
 		std::queue<std::stack<T>> tmpQueue;
 		// 큐 순회하며 스택 복사
-		for (int i = 0; i < queueSize; i++)
+		for (int i = 0; i < rhsQueueSize; i++)
 		{
-			std::stack<T> frontStack = rhs.mQueue.front();
+			tmpQueue.push(rhs.mQueue.front());
+			mQueue.push(rhs.mQueue.front());
 			rhs.mQueue.pop();
-			tmpQueue.push(frontStack);
-			mQueue.push(frontStack);
 		}
 
 		// 큐 다시 주워담기
-		for (int i = 0; i < queueSize; i++)
+		for (int i = 0; i < rhsQueueSize; i++)
 		{
 			rhs.mQueue.push(tmpQueue.front());
 			tmpQueue.pop();
@@ -112,8 +109,7 @@ namespace assignment3
 		mQueue.back().push(number);
 		if (mQueue.back().size() == mMaxStackSize)
 		{
-			std::stack<T> stack;
-			mQueue.push(stack);
+			mQueue.push(std::stack<T>());
 		}
 
 	}
@@ -143,25 +139,23 @@ namespace assignment3
 		int mQueueSize = mQueue.size();
 		std::queue<std::stack<T>> tmpQueue;
 
-		std::stack<T> tmp;
 		for (int i = 0; i < mQueueSize; i++)
 		{
 			// 스택 pop 하며 max값 찾기
 			// 스택 도로 집어넣기
-			tmp = mQueue.front();
 			tmpQueue.push(mQueue.front());
-			mQueue.pop();
 
 			// 스택 안 max 찾기
-			int tmpSize = tmp.size();
+			int tmpSize = mQueue.front().size();
 			for (int i = 0; i < tmpSize; i++)
 			{
-				if (max < tmp.top())
+				if (max < mQueue.front().top())
 				{
-					max = tmp.top();
+					max = mQueue.front().top();
 				}
-				tmp.pop();
+				mQueue.front().pop();
 			}
+			mQueue.pop();
 		}
 		// 스택 주워 담기 
 		for (int i = 0; i < mQueueSize; i++)
@@ -180,25 +174,23 @@ namespace assignment3
 		int mQueueSize = mQueue.size();
 		std::queue<std::stack<T>> tmpQueue;
 
-		std::stack<T> tmp;
 		for (int i = 0; i < mQueueSize; i++)
 		{
 			// 스택 pop 하며 min값 찾기
 			// 스택 도로 집어넣기
-			tmp = mQueue.front();
 			tmpQueue.push(mQueue.front());
-			mQueue.pop();
 
 			// 스택 안 min 찾기
-			int tmpSize = tmp.size();
+			int tmpSize = mQueue.front().size();
 			for (int i = 0; i < tmpSize; i++)
 			{
-				if (min > tmp.top())
+				if (min > mQueue.front().top())
 				{
-					min = tmp.top();
+					min = mQueue.front().top();
 				}
-				tmp.pop();
+				mQueue.front().pop();
 			}
+			mQueue.pop();
 		}
 		// 스택 주워 담기 
 		for (int i = 0; i < mQueueSize; i++)
@@ -226,15 +218,14 @@ namespace assignment3
 
 		for (int i = 0; i < mQueueSize; i++)
 		{
-			std::stack<T> frontStack = mQueue.front();
 			tmpQueue.push(mQueue.front());
-			mQueue.pop();
-			int frontStackSize = frontStack.size();
+			int frontStackSize = mQueue.front().size();
 			for (int i = 0; i < frontStackSize; i++)
 			{
-				sum += frontStack.top();
-				frontStack.pop();
+				sum += mQueue.front().top();
+				mQueue.front().pop();
 			}
+			mQueue.pop();
 		}
 		for (int i = 0; i < mQueueSize; i++)
 		{
@@ -270,11 +261,7 @@ namespace assignment3
 	template<typename T>
 	unsigned int QueueStack<T>::GetStackCount()
 	{
-		/*	if (mQueue.size() == 1 && mQueue.front().size() == 0)
-			{
-				return 0u;
-			}*/
-		if (mQueue.back().size() == 0 || mQueue.front().size() == 0)
+		if (mQueue.back().size() == 0)
 		{
 			return mQueue.size() - 1;
 		}
