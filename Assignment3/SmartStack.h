@@ -30,15 +30,12 @@ namespace assignment3
 		std::stack<T> mMinStack;
 		double mSum;
 		double mSquaredSum;
-		unsigned int mCount;
-
 	};
 
 	template<typename T>
 	SmartStack<T>::SmartStack()
 		: mSum(0.0)
 		, mSquaredSum(0.0)
-		, mCount(0u)
 	{
 		mMaxStack.push(std::numeric_limits<T>::lowest());
 		mMinStack.push(std::numeric_limits<T>::max());
@@ -51,7 +48,6 @@ namespace assignment3
 		, mActualStack(other.mActualStack)
 		, mSum(other.mSum)
 		, mSquaredSum(other.mSquaredSum)
-		, mCount(other.mCount)
 	{
 	}
 
@@ -68,7 +64,6 @@ namespace assignment3
 		mActualStack = rhs.mActualStack;
 		mSum = rhs.mSum;
 		mSquaredSum = rhs.mSquaredSum;
-		mCount = rhs.mCount;
 
 		return *this;
 	}
@@ -90,7 +85,6 @@ namespace assignment3
 		{
 			mMinStack.push(number);
 		}
-		mCount++;
 		mSum += static_cast<double>(number);
 		mSquaredSum += static_cast<double>(number) * static_cast<double>(number);
 	}
@@ -111,7 +105,6 @@ namespace assignment3
 
 		mSum -= static_cast<double>(returnValue);
 		mSquaredSum -= static_cast<double>(returnValue) * static_cast<double>(returnValue);
-		mCount--;
 
 		mActualStack.pop();
 
@@ -139,12 +132,13 @@ namespace assignment3
 	template<typename T>
 	double SmartStack<T>::GetAverage()
 	{
-		if (mCount == 0u)
+		unsigned int count = mActualStack.size();
+		if (count == 0u)
 		{
 			return 0.0;
 		}
 
-		return mSum / mCount;
+		return mSum / static_cast<double>(count);
 	}
 
 	template<typename T>
@@ -156,13 +150,14 @@ namespace assignment3
 	template<typename T>
 	double SmartStack<T>::GetVariance()
 	{
-		if (mCount == 0u)
+		unsigned int count = mActualStack.size();
+		if (count == 0u)
 		{
 			return 0.0;
 		}
 
-		double squareAvg = mSquaredSum / mCount;
-		double avgSquare = mSum / mCount;
+		double squareAvg = mSquaredSum / static_cast<double>(count);
+		double avgSquare = mSum / static_cast<double>(count);
 		avgSquare = avgSquare * avgSquare;
 		return squareAvg - avgSquare;
 	}
@@ -170,7 +165,7 @@ namespace assignment3
 	template<typename T>
 	double SmartStack<T>::GetStandardDeviation()
 	{
-		if (mCount == 0u)
+		if (mActualStack.size() == 0u)
 		{
 			return 0.0;
 		}
@@ -180,7 +175,7 @@ namespace assignment3
 	template<typename T>
 	unsigned int SmartStack<T>::GetCount()
 	{
-		return mCount;
+		return mActualStack.size();
 	}
 }
 
