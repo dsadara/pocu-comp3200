@@ -654,6 +654,7 @@ void TestQueueStack()
 	assert(qs.GetSum() == 4);
 	assert(qs.GetAverage() == 2);
 	assert(qs.GetCount() == 2u);
+	qs.GetStackCount();
 	assert(qs.GetStackCount() == 1u);
 
 	qs.Enqueue(-3);

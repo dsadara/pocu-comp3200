@@ -25,7 +25,6 @@ namespace assignment3
 		unsigned int GetStackCount();
 	private:
 		std::queue<std::stack<T>> mQueue;
-		std::stack<T> mTmpStack;
 		unsigned int mMaxStackSize;
 	};
 
@@ -33,6 +32,8 @@ namespace assignment3
 	QueueStack<T>::QueueStack(unsigned int maxStackSize)
 		: mMaxStackSize(maxStackSize)
 	{
+		std::stack<T> stack;
+		mQueue.push(stack);
 	}
 
 	template<typename T>
@@ -56,12 +57,6 @@ namespace assignment3
 			other.mQueue.push(tmpQueue.front());
 			tmpQueue.pop();
 		}
-
-		// mTmpStack도 복사
-		if (other.mTmpStack.size() != 0)
-		{
-			mTmpStack = other.mTmpStack;	// 얕은복사? 깊은복사?
-		}
 	}
 
 	template<typename T>
@@ -77,11 +72,6 @@ namespace assignment3
 		for (int i = 0; i < thisQueueSize; i++)
 		{
 			mQueue.pop();
-		}
-		int mTmpStackSize = static_cast<int>(mTmpStack.size());
-		for (int i = 0; i < mTmpStackSize; i++)
-		{
-			mTmpStack.pop();
 		}
 
 		mMaxStackSize = rhs.mMaxStackSize;
@@ -103,12 +93,6 @@ namespace assignment3
 			tmpQueue.pop();
 		}
 
-		// mTmpStack도 복사
-		if (rhs.mTmpStack.size() != 0)
-		{
-			mTmpStack = rhs.mTmpStack;
-		}
-
 		return *this;
 	}
 
@@ -125,41 +109,27 @@ namespace assignment3
 			return;
 		}
 
-		mTmpStack.push(number);
-		if (mTmpStack.size() == mMaxStackSize)
+		mQueue.back().push(number);
+		if (mQueue.back().size() == mMaxStackSize)
 		{
-			mQueue.push(mTmpStack);
-			for (unsigned int i = 0; i < mMaxStackSize; i++)
-			{
-				mTmpStack.pop();
-			}
+			std::stack<T> stack;
+			mQueue.push(stack);
 		}
+
 	}
 
 	template<typename T>
 	T QueueStack<T>::Peek()
 	{
-		if (mQueue.size() == 0)
-		{
-			return mTmpStack.top();
-		}
 		return mQueue.front().top();
 	}
 
 	template<typename T>
 	T QueueStack<T>::Dequeue()
 	{
-		T result;
-		if (mQueue.size() == 0)
-		{
-			result = mTmpStack.top();
-			mTmpStack.pop();
-			return result;
-		}
-		std::stack<T>& frontStack = mQueue.front();
-		result = frontStack.top();
-		frontStack.pop();
-		if (frontStack.size() == 0)
+		T result = mQueue.front().top();
+		mQueue.front().pop();
+		if (mQueue.front().size() == 0)
 		{
 			mQueue.pop();
 		}
@@ -200,23 +170,6 @@ namespace assignment3
 			tmpQueue.pop();
 		}
 
-		// mTmpStack의 max 비교
-		int mTmpStackSize = mTmpStack.size();
-		T* mTmpStackArray = new T[mTmpStackSize];
-		for (int i = 0; i < mTmpStackSize; i++)
-		{
-			mTmpStackArray[i] = mTmpStack.top();
-			if (max < mTmpStack.top())
-			{
-				max = mTmpStack.top();
-			}
-			mTmpStack.pop();
-		}
-		for (int i = mTmpStackSize - 1; i >= 0; i--)
-		{
-			mTmpStack.push(mTmpStackArray[i]);
-		}
-
 		return max;
 	}
 
@@ -254,23 +207,6 @@ namespace assignment3
 			tmpQueue.pop();
 		}
 
-		// mTmpStack의 min 비교
-		int mTmpStackSize = mTmpStack.size();
-		T* mTmpStackArray = new T[mTmpStackSize];
-		for (int i = 0; i < mTmpStackSize; i++)
-		{
-			mTmpStackArray[i] = mTmpStack.top();
-			if (min > mTmpStack.top())
-			{
-				min = mTmpStack.top();
-			}
-			mTmpStack.pop();
-		}
-		for (int i = mTmpStackSize - 1; i >= 0; i--)
-		{
-			mTmpStack.push(mTmpStackArray[i]);
-		}
-
 		return min;
 	}
 
@@ -306,19 +242,6 @@ namespace assignment3
 			tmpQueue.pop();
 		}
 
-		int mTmpStackSize = mTmpStack.size();
-		T* mTmpStackArray = new T[mTmpStackSize];
-		for (int i = 0; i < mTmpStackSize; i++)
-		{
-			sum += mTmpStack.top();
-			mTmpStackArray[i] = mTmpStack.top();
-			mTmpStack.pop();
-		}
-		for (int i = mTmpStackSize - 1; i >= 0; --i)
-		{
-			mTmpStack.push(mTmpStackArray[i]);
-		}
-
 		return sum;
 	}
 
@@ -341,18 +264,21 @@ namespace assignment3
 			tmpQueue.pop();
 		}
 
-		count += mTmpStack.size();
-
 		return count;
 	}
 
 	template<typename T>
 	unsigned int QueueStack<T>::GetStackCount()
 	{
-		if (mTmpStack.size() == 0)
-			return mQueue.size();
-
-		return mQueue.size() + 1;
+		/*	if (mQueue.size() == 1 && mQueue.front().size() == 0)
+			{
+				return 0u;
+			}*/
+		if (mQueue.back().size() == 0 || mQueue.front().size() == 0)
+		{
+			return mQueue.size() - 1;
+		}
+		return mQueue.size();
 	}
 
 }
