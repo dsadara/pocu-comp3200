@@ -91,7 +91,7 @@ namespace assignment3
 		{
 			mSmartStack.Push(stackArray[i]);
 		}
-
+		delete[] stackArray;
 		return returnValue;
 	}
 
