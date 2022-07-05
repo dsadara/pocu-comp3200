@@ -203,7 +203,7 @@ namespace assignment3
 		if (mTmpStack.GetCount() == mMaxStackSize)
 		{
 			mQueue.push(mTmpStack);
-			for (int i = 0; i < mMaxStackSize; i++)
+			for (unsigned int i = 0; i < mMaxStackSize; i++)
 			{
 				mTmpStack.Pop();
 			}
@@ -315,7 +315,7 @@ namespace assignment3
 	template<typename T>
 	T QueueStack<T>::GetSum()
 	{
-		T sum = 0;
+		T sum = static_cast<T>(0);
 		int mQueueSize = mQueue.size();
 		std::queue<SmartStack<T>> tmpQueue;
 
@@ -340,7 +340,7 @@ namespace assignment3
 	template<typename T>
 	unsigned int QueueStack<T>::GetCount()
 	{
-		int count = 0;
+		unsigned int count = 0u;
 		int mQueueSize = mQueue.size();
 		std::queue<SmartStack<T>> tmpQueue;
 
