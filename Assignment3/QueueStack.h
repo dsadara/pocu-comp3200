@@ -248,7 +248,8 @@ namespace assignment3
 
 		for (int i = 0; i < mQueueSize; i++)
 		{
-			sum += mQueue.front().GetSum();
+			SmartStack<T>& frontStack = mQueue.front();
+			sum += frontStack.GetSum();
 			tmpQueue.push(mQueue.front());
 			mQueue.pop();
 		}
