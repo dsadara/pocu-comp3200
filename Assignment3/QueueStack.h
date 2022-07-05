@@ -48,26 +48,7 @@ namespace assignment3
 			SmartStack<T> frontStack = other.mQueue.front();
 			other.mQueue.pop();
 			tmpQueue.push(frontStack);
-			SmartStack<T> copiedStack;
-			int stackSize = frontStack.GetCount();
-			T* frontStackArray = new T[stackSize];
-
-			// 동적 배열에 frontStack 대입
-			for (int i = 0; i < stackSize; i++)
-			{
-				frontStackArray[i] = frontStack.Peek();
-				frontStack.Pop();
-			}
-
-			// copiedStack에 대입, frontStack 다시 주워담기
-			for (int i = stackSize - 1; i >= 0; i--)
-			{
-				copiedStack.Push(frontStackArray[i]);
-				frontStack.Push(frontStackArray[i]);
-			}
-			delete[] frontStackArray;
-
-			mQueue.push(copiedStack);
+			mQueue.push(frontStack);
 		}
 
 		// 큐 다시 주워담기
@@ -80,24 +61,7 @@ namespace assignment3
 		// mTmpStack도 복사
 		if (other.mTmpStack.GetCount() != 0)
 		{
-			int tmpStackSize = static_cast<int>(other.mTmpStack.GetCount());
-			T* tmpStackArray = new T[tmpStackSize];
-
-			// 스택 복사
-			for (int i = 0; i < tmpStackSize; i++)
-			{
-				tmpStackArray[i] = other.mTmpStack.Peek();
-				other.mTmpStack.Pop();
-			}
-
-			// 대입, 스택 다시 주워담기
-			for (int i = tmpStackSize - 1; i >= 0; i--)
-			{
-				mTmpStack.Push(tmpStackArray[i]);
-				other.mTmpStack.Push(tmpStackArray[i]);
-			}
-
-			delete[] tmpStackArray;
+			mTmpStack = other.mTmpStack;
 		}
 	}
 
@@ -109,20 +73,19 @@ namespace assignment3
 			return *this;
 		}
 
+		// mQueue, mTmpStack 비우기 
 		int thisQueueSize = static_cast<int>(mQueue.size());
 		for (int i = 0; i < thisQueueSize; i++)
 		{
-			SmartStack<T> frontStack = mQueue.front();
 			mQueue.pop();
 		}
-		int mTmpStackSize = mTmpStack.GetCount();
+		int mTmpStackSize = static_cast<int>(mTmpStack.GetCount());
 		for (int i = 0; i < mTmpStackSize; i++)
 		{
 			mTmpStack.Pop();
 		}
 
 		mMaxStackSize = rhs.mMaxStackSize;
-
 		int queueSize = static_cast<int>(rhs.mQueue.size());
 		std::queue<SmartStack<T>> tmpQueue;
 		// 큐 순회하며 스택 복사
@@ -131,26 +94,7 @@ namespace assignment3
 			SmartStack<T> frontStack = rhs.mQueue.front();
 			rhs.mQueue.pop();
 			tmpQueue.push(frontStack);
-			SmartStack<T> copiedStack;
-			int stackSize = frontStack.GetCount();
-			T* frontStackArray = new T[stackSize];
-
-			// 동적 배열에 frontStack 대입
-			for (int i = 0; i < stackSize; i++)
-			{
-				frontStackArray[i] = frontStack.Peek();
-				frontStack.Pop();
-			}
-
-			// copiedStack에 대입, frontStack 다시 주워담기
-			for (int i = stackSize - 1; i >= 0; i--)
-			{
-				copiedStack.Push(frontStackArray[i]);
-				frontStack.Push(frontStackArray[i]);
-			}
-			delete[] frontStackArray;
-
-			mQueue.push(copiedStack);
+			mQueue.push(frontStack);
 		}
 
 		// 큐 다시 주워담기
@@ -163,24 +107,7 @@ namespace assignment3
 		// mTmpStack도 복사
 		if (rhs.mTmpStack.GetCount() != 0)
 		{
-			int tmpStackSize = rhs.mTmpStack.GetCount();
-			T* tmpStackArray = new T[tmpStackSize];
-
-			// 스택 복사
-			for (int i = 0; i < tmpStackSize; i++)
-			{
-				tmpStackArray[i] = rhs.mTmpStack.Peek();
-				rhs.mTmpStack.Pop();
-			}
-
-			// 대입, 스택 다시 주워담기
-			for (int i = tmpStackSize - 1; i >= 0; i--)
-			{
-				mTmpStack.Push(tmpStackArray[i]);
-				rhs.mTmpStack.Push(tmpStackArray[i]);
-			}
-
-			delete[] tmpStackArray;
+			mTmpStack = rhs.mTmpStack;
 		}
 
 		return *this;
