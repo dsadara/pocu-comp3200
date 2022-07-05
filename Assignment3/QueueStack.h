@@ -39,10 +39,10 @@ namespace assignment3
 	QueueStack<T>::QueueStack(QueueStack<T>& other)
 		: mMaxStackSize(other.mMaxStackSize)
 	{
-		int queueSize = static_cast<int>(other.mQueue.size());
+		unsigned int queueSize = other.mQueue.size();
 		std::queue<std::stack<T>> tmpQueue;
 		// 큐 순회하며 스택 복사
-		for (int i = 0; i < queueSize; i++)
+		for (unsigned int i = 0; i < queueSize; i++)
 		{
 			tmpQueue.push(other.mQueue.front());
 			mQueue.push(other.mQueue.front());
@@ -50,7 +50,7 @@ namespace assignment3
 		}
 
 		// 큐 다시 주워담기
-		for (int i = 0; i < queueSize; i++)
+		for (unsigned int i = 0; i < queueSize; i++)
 		{
 			other.mQueue.push(tmpQueue.front());
 			tmpQueue.pop();
@@ -66,17 +66,17 @@ namespace assignment3
 		}
 
 		// mQueue, mTmpStack 비우기 
-		int thisQueueSize = static_cast<int>(mQueue.size());
-		for (int i = 0; i < thisQueueSize; i++)
+		unsigned int thisQueueSize = mQueue.size();
+		for (unsigned int i = 0; i < thisQueueSize; i++)
 		{
 			mQueue.pop();
 		}
 
 		mMaxStackSize = rhs.mMaxStackSize;
-		int rhsQueueSize = static_cast<int>(rhs.mQueue.size());
+		unsigned int rhsQueueSize = rhs.mQueue.size();
 		std::queue<std::stack<T>> tmpQueue;
 		// 큐 순회하며 스택 복사
-		for (int i = 0; i < rhsQueueSize; i++)
+		for (unsigned int i = 0; i < rhsQueueSize; i++)
 		{
 			tmpQueue.push(rhs.mQueue.front());
 			mQueue.push(rhs.mQueue.front());
@@ -84,7 +84,7 @@ namespace assignment3
 		}
 
 		// 큐 다시 주워담기
-		for (int i = 0; i < rhsQueueSize; i++)
+		for (unsigned int i = 0; i < rhsQueueSize; i++)
 		{
 			rhs.mQueue.push(tmpQueue.front());
 			tmpQueue.pop();
@@ -136,10 +136,10 @@ namespace assignment3
 	T QueueStack<T>::GetMax()
 	{
 		T max = std::numeric_limits<T>::lowest();
-		int mQueueSize = static_cast<int>(mQueue.size());
+		unsigned int mQueueSize = mQueue.size();
 		std::queue<std::stack<T>> tmpQueue;
 
-		for (int i = 0; i < mQueueSize; i++)
+		for (unsigned int i = 0; i < mQueueSize; i++)
 		{
 			// 스택 pop 하며 max값 찾기
 			// 스택 도로 집어넣기
@@ -158,7 +158,7 @@ namespace assignment3
 			mQueue.pop();
 		}
 		// 스택 주워 담기 
-		for (int i = 0; i < mQueueSize; i++)
+		for (unsigned int i = 0; i < mQueueSize; i++)
 		{
 			mQueue.push(tmpQueue.front());
 			tmpQueue.pop();
@@ -171,18 +171,18 @@ namespace assignment3
 	T QueueStack<T>::GetMin()
 	{
 		T min = std::numeric_limits<T>::max();
-		int mQueueSize = static_cast<int>(mQueue.size());
+		unsigned int mQueueSize = mQueue.size();
 		std::queue<std::stack<T>> tmpQueue;
 
-		for (int i = 0; i < mQueueSize; i++)
+		for (unsigned int i = 0; i < mQueueSize; i++)
 		{
 			// 스택 pop 하며 min값 찾기
 			// 스택 도로 집어넣기
 			tmpQueue.push(mQueue.front());
 
 			// 스택 안 min 찾기
-			int tmpSize = static_cast<int>(mQueue.front().size());
-			for (int i = 0; i < tmpSize; i++)
+			unsigned int tmpSize = mQueue.front().size();
+			for (unsigned int i = 0; i < tmpSize; i++)
 			{
 				if (min > mQueue.front().top())
 				{
@@ -193,7 +193,7 @@ namespace assignment3
 			mQueue.pop();
 		}
 		// 스택 주워 담기 
-		for (int i = 0; i < mQueueSize; i++)
+		for (unsigned int i = 0; i < mQueueSize; i++)
 		{
 			mQueue.push(tmpQueue.front());
 			tmpQueue.pop();
@@ -213,13 +213,13 @@ namespace assignment3
 	T QueueStack<T>::GetSum()
 	{
 		T sum = static_cast<T>(0);
-		int mQueueSize = static_cast<int>(mQueue.size());
+		unsigned int mQueueSize = mQueue.size();
 		std::queue<std::stack<T>> tmpQueue;
 
-		for (int i = 0; i < mQueueSize; i++)
+		for (unsigned int i = 0; i < mQueueSize; i++)
 		{
 			tmpQueue.push(mQueue.front());
-			int frontStackSize = static_cast<int>(mQueue.front().size());
+			unsigned int frontStackSize = mQueue.front().size();
 			for (int i = 0; i < frontStackSize; i++)
 			{
 				sum += mQueue.front().top();
@@ -227,7 +227,7 @@ namespace assignment3
 			}
 			mQueue.pop();
 		}
-		for (int i = 0; i < mQueueSize; i++)
+		for (unsigned int i = 0; i < mQueueSize; i++)
 		{
 			mQueue.push(tmpQueue.front());
 			tmpQueue.pop();
@@ -240,16 +240,16 @@ namespace assignment3
 	unsigned int QueueStack<T>::GetCount()
 	{
 		unsigned int count = 0u;
-		int mQueueSize = static_cast<int>(mQueue.size());
+		unsigned int mQueueSize = mQueue.size();
 		std::queue<std::stack<T>> tmpQueue;
 
-		for (int i = 0; i < mQueueSize; i++)
+		for (unsigned int i = 0; i < mQueueSize; i++)
 		{
 			count += mQueue.front().size();
 			tmpQueue.push(mQueue.front());
 			mQueue.pop();
 		}
-		for (int i = 0; i < mQueueSize; i++)
+		for (unsigned int i = 0; i < mQueueSize; i++)
 		{
 			mQueue.push(tmpQueue.front());
 			tmpQueue.pop();
