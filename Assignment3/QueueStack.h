@@ -27,11 +27,13 @@ namespace assignment3
 	private:
 		std::queue<SmartStack<T>> mQueue;
 		unsigned int mMaxStackSize;
+		T mSum;
 	};
 
 	template<typename T>
 	QueueStack<T>::QueueStack(unsigned int maxStackSize)
 		: mMaxStackSize(maxStackSize)
+		, mSum(static_cast<T>(0))
 	{
 		mQueue.push(SmartStack<T>());
 	}
@@ -39,8 +41,9 @@ namespace assignment3
 	template<typename T>
 	QueueStack<T>::QueueStack(QueueStack<T>& other)
 		: mMaxStackSize(other.mMaxStackSize)
+		, mSum(other.mSum)
+		, mQueue(other.mQueue)	// 이거 안 될 수도 있음
 	{
-		mQueue = other.mQueue;
 	}
 
 	template<typename T>
@@ -53,6 +56,7 @@ namespace assignment3
 
 		mQueue = rhs.mQueue;
 		mMaxStackSize = rhs.mMaxStackSize;
+		mSum = rhs.mSum;
 		return *this;
 	}
 
@@ -70,6 +74,7 @@ namespace assignment3
 		}
 
 		mQueue.back().Push(number);
+		mSum += number;
 		if (mQueue.back().GetCount() == mMaxStackSize)
 		{
 			mQueue.push(SmartStack<T>());
@@ -87,6 +92,7 @@ namespace assignment3
 	T QueueStack<T>::Dequeue()
 	{
 		T result = mQueue.front().Peek();
+		mSum -= result;
 		mQueue.front().Pop();
 		if (mQueue.size() != 1 && mQueue.front().GetCount() == 0u)
 		{
@@ -158,23 +164,7 @@ namespace assignment3
 	template<typename T>
 	T QueueStack<T>::GetSum()
 	{
-		T sum = static_cast<T>(0);
-		unsigned int mQueueSize = mQueue.size();
-		SmartStack<T>* tmpStacks = new SmartStack<T>[mQueueSize];
-
-		for (unsigned int i = 0; i < mQueueSize; i++)
-		{
-			sum += mQueue.front().GetSum();
-			tmpStacks[i] = mQueue.front();
-			mQueue.pop();
-		}
-		// 스택 다시 담기
-		for (unsigned int i = 0; i < mQueueSize; i++)
-		{
-			mQueue.push(tmpStacks[i]);
-		}
-		delete[] tmpStacks;
-		return sum;
+		return mSum;
 	}
 
 	template<typename T>
