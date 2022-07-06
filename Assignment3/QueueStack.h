@@ -100,12 +100,12 @@ namespace assignment3
 	{
 		T max = std::numeric_limits<T>::lowest();
 		unsigned int mQueueSize = mQueue.size();
-		std::queue<SmartStack<T>> tmpQueue;
+		SmartStack<T>* tmpStacks = new SmartStack<T>[mQueueSize];
 
 		for (unsigned int i = 0; i < mQueueSize; i++)
 		{
 			T stackMax = mQueue.front().GetMax();
-			tmpQueue.push(mQueue.front());
+			tmpStacks[i] = mQueue.front();
 			mQueue.pop();
 			if (max < stackMax)
 			{
@@ -115,9 +115,9 @@ namespace assignment3
 		// 스택 주워 담기
 		for (unsigned int i = 0; i < mQueueSize; i++)
 		{
-			mQueue.push(tmpQueue.front());
-			tmpQueue.pop();
+			mQueue.push(tmpStacks[i]);
 		}
+		delete[] tmpStacks;
 
 		return max;
 	}
@@ -127,12 +127,12 @@ namespace assignment3
 	{
 		T min = std::numeric_limits<T>::max();
 		unsigned int mQueueSize = mQueue.size();
-		std::queue<SmartStack<T>> tmpQueue;
+		SmartStack<T>* tmpStacks = new SmartStack<T>[mQueueSize];
 
 		for (unsigned int i = 0; i < mQueueSize; i++)
 		{
 			T stackMin = mQueue.front().GetMin();
-			tmpQueue.push(mQueue.front());
+			tmpStacks[i] = mQueue.front();
 			mQueue.pop();
 			if (min > stackMin)
 			{
@@ -142,9 +142,9 @@ namespace assignment3
 		// 스택 주워 담기
 		for (unsigned int i = 0; i < mQueueSize; i++)
 		{
-			mQueue.push(tmpQueue.front());
-			tmpQueue.pop();
+			mQueue.push(tmpStacks[i]);
 		}
+		delete[] tmpStacks;
 		return min;
 	}
 
@@ -160,20 +160,20 @@ namespace assignment3
 	{
 		T sum = static_cast<T>(0);
 		unsigned int mQueueSize = mQueue.size();
-		std::queue<SmartStack<T>> tmpQueue;
+		SmartStack<T>* tmpStacks = new SmartStack<T>[mQueueSize];
 
 		for (unsigned int i = 0; i < mQueueSize; i++)
 		{
 			sum += mQueue.front().GetSum();
-			tmpQueue.push(mQueue.front());
+			tmpStacks[i] = mQueue.front();
 			mQueue.pop();
 		}
 		// 스택 다시 담기
 		for (unsigned int i = 0; i < mQueueSize; i++)
 		{
-			mQueue.push(tmpQueue.front());
-			tmpQueue.pop();
+			mQueue.push(tmpStacks[i]);
 		}
+		delete[] tmpStacks;
 		return sum;
 	}
 
@@ -182,19 +182,19 @@ namespace assignment3
 	{
 		unsigned int count = 0u;
 		unsigned int mQueueSize = mQueue.size();
-		std::queue<SmartStack<T>> tmpQueue;
+		SmartStack<T>* tmpStacks = new SmartStack<T>[mQueueSize];
 
 		for (unsigned int i = 0; i < mQueueSize; i++)
 		{
 			count += mQueue.front().GetCount();
-			tmpQueue.push(mQueue.front());
+			tmpStacks[i] = mQueue.front();
 			mQueue.pop();
 		}
 		for (unsigned int i = 0; i < mQueueSize; i++)
 		{
-			mQueue.push(tmpQueue.front());
-			tmpQueue.pop();
+			mQueue.push(tmpStacks[i]);
 		}
+		delete[] tmpStacks;
 		return count;
 	}
 
