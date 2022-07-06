@@ -39,22 +39,7 @@ namespace assignment3
 	QueueStack<T>::QueueStack(QueueStack<T>& other)
 		: mMaxStackSize(other.mMaxStackSize)
 	{
-		unsigned int queueSize = other.mQueue.size();
-		std::queue<std::stack<T>> tmpQueue;
-		// 큐 순회하며 스택 복사
-		for (unsigned int i = 0; i < queueSize; i++)
-		{
-			tmpQueue.push(other.mQueue.front());
-			mQueue.push(other.mQueue.front());
-			other.mQueue.pop();
-		}
-
-		// 큐 다시 주워담기
-		for (unsigned int i = 0; i < queueSize; i++)
-		{
-			other.mQueue.push(tmpQueue.front());
-			tmpQueue.pop();
-		}
+		mQueue = other.mQueue;
 	}
 
 	template<typename T>
@@ -65,31 +50,8 @@ namespace assignment3
 			return *this;
 		}
 
-		// mQueue, mTmpStack 비우기 
-		unsigned int thisQueueSize = mQueue.size();
-		for (unsigned int i = 0; i < thisQueueSize; i++)
-		{
-			mQueue.pop();
-		}
-
+		mQueue = rhs.mQueue;
 		mMaxStackSize = rhs.mMaxStackSize;
-		unsigned int rhsQueueSize = rhs.mQueue.size();
-		std::queue<std::stack<T>> tmpQueue;
-		// 큐 순회하며 스택 복사
-		for (unsigned int i = 0; i < rhsQueueSize; i++)
-		{
-			tmpQueue.push(rhs.mQueue.front());
-			mQueue.push(rhs.mQueue.front());
-			rhs.mQueue.pop();
-		}
-
-		// 큐 다시 주워담기
-		for (unsigned int i = 0; i < rhsQueueSize; i++)
-		{
-			rhs.mQueue.push(tmpQueue.front());
-			tmpQueue.pop();
-		}
-
 		return *this;
 	}
 
