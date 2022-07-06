@@ -106,24 +106,23 @@ namespace assignment3
 	{
 		T max = std::numeric_limits<T>::lowest();
 		unsigned int mQueueSize = mQueue.size();
-		SmartStack<T>* tmpStacks = new SmartStack<T>[mQueueSize];
+		std::queue<SmartStack<T>> tmpQueue;
 
 		for (unsigned int i = 0; i < mQueueSize; i++)
 		{
-			T stackMax = mQueue.front().GetMax();
-			tmpStacks[i] = mQueue.front();
-			mQueue.pop();
-			if (max < stackMax)
+			tmpQueue.push(mQueue.front());
+			if (max < mQueue.front().GetMax())
 			{
-				max = stackMax;
+				max = mQueue.front().GetMax();
 			}
+			mQueue.pop();
 		}
 		// 스택 주워 담기
 		for (unsigned int i = 0; i < mQueueSize; i++)
 		{
-			mQueue.push(tmpStacks[i]);
+			mQueue.push(tmpQueue.front());
+			tmpQueue.pop();
 		}
-		delete[] tmpStacks;
 
 		return max;
 	}
@@ -133,24 +132,23 @@ namespace assignment3
 	{
 		T min = std::numeric_limits<T>::max();
 		unsigned int mQueueSize = mQueue.size();
-		SmartStack<T>* tmpStacks = new SmartStack<T>[mQueueSize];
+		std::queue<SmartStack<T>> tmpQueue;
 
 		for (unsigned int i = 0; i < mQueueSize; i++)
 		{
-			T stackMin = mQueue.front().GetMin();
-			tmpStacks[i] = mQueue.front();
-			mQueue.pop();
-			if (min > stackMin)
+			tmpQueue.push(mQueue.front());
+			if (min > mQueue.front().GetMin())
 			{
-				min = stackMin;
+				min = mQueue.front().GetMin();
 			}
+			mQueue.pop();
 		}
 		// 스택 주워 담기
 		for (unsigned int i = 0; i < mQueueSize; i++)
 		{
-			mQueue.push(tmpStacks[i]);
+			mQueue.push(tmpQueue.front());
+			tmpQueue.pop();
 		}
-		delete[] tmpStacks;
 		return min;
 	}
 
@@ -170,22 +168,15 @@ namespace assignment3
 	template<typename T>
 	unsigned int QueueStack<T>::GetCount()
 	{
-		unsigned int count = 0u;
-		unsigned int mQueueSize = mQueue.size();
-		SmartStack<T>* tmpStacks = new SmartStack<T>[mQueueSize];
-
-		for (unsigned int i = 0; i < mQueueSize; i++)
+		if (mQueue.size() == 1)
 		{
-			count += mQueue.front().GetCount();
-			tmpStacks[i] = mQueue.front();
-			mQueue.pop();
+			return mQueue.front().GetCount();
 		}
-		for (unsigned int i = 0; i < mQueueSize; i++)
+		if (mQueue.size() == 2)
 		{
-			mQueue.push(tmpStacks[i]);
+			return mQueue.front().GetCount() + mQueue.back().GetCount();
 		}
-		delete[] tmpStacks;
-		return count;
+		return  mMaxStackSize * (mQueue.size() - 2) + mQueue.front().GetCount() + mQueue.back().GetCount();
 	}
 
 	template<typename T>
