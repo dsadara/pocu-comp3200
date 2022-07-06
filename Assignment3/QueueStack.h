@@ -106,22 +106,15 @@ namespace assignment3
 	{
 		T max = std::numeric_limits<T>::lowest();
 		unsigned int mQueueSize = mQueue.size();
-		std::queue<SmartStack<T>> tmpQueue;
 
 		for (unsigned int i = 0; i < mQueueSize; i++)
 		{
-			tmpQueue.push(mQueue.front());
 			if (max < mQueue.front().GetMax())
 			{
 				max = mQueue.front().GetMax();
 			}
+			mQueue.push(mQueue.front());
 			mQueue.pop();
-		}
-		// 스택 주워 담기
-		for (unsigned int i = 0; i < mQueueSize; i++)
-		{
-			mQueue.push(tmpQueue.front());
-			tmpQueue.pop();
 		}
 
 		return max;
@@ -132,23 +125,17 @@ namespace assignment3
 	{
 		T min = std::numeric_limits<T>::max();
 		unsigned int mQueueSize = mQueue.size();
-		std::queue<SmartStack<T>> tmpQueue;
 
 		for (unsigned int i = 0; i < mQueueSize; i++)
 		{
-			tmpQueue.push(mQueue.front());
 			if (min > mQueue.front().GetMin())
 			{
 				min = mQueue.front().GetMin();
 			}
+			mQueue.push(mQueue.front());
 			mQueue.pop();
 		}
-		// 스택 주워 담기
-		for (unsigned int i = 0; i < mQueueSize; i++)
-		{
-			mQueue.push(tmpQueue.front());
-			tmpQueue.pop();
-		}
+
 		return min;
 	}
 
