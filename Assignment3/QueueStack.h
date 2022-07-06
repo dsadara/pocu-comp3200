@@ -35,7 +35,6 @@ namespace assignment3
 		: mMaxStackSize(maxStackSize)
 		, mSum(static_cast<T>(0))
 	{
-		mQueue.push(SmartStack<T>());
 	}
 
 	template<typename T>
@@ -72,6 +71,10 @@ namespace assignment3
 		{
 			return;
 		}
+		if (mQueue.size() == 0)
+		{
+			mQueue.push(SmartStack<T>());
+		}
 
 		mQueue.back().Push(number);
 		mSum += number;
@@ -94,7 +97,7 @@ namespace assignment3
 		T result = mQueue.front().Peek();
 		mSum -= result;
 		mQueue.front().Pop();
-		if (mQueue.size() != 1 && mQueue.front().GetCount() == 0u)
+		if (mQueue.front().GetCount() == 0u)
 		{
 			mQueue.pop();
 		}
@@ -155,6 +158,10 @@ namespace assignment3
 	template<typename T>
 	unsigned int QueueStack<T>::GetCount()
 	{
+		if (mQueue.size() == 0)
+		{
+			return 0u;
+		}
 		if (mQueue.size() == 1)
 		{
 			return mQueue.front().GetCount();
@@ -169,6 +176,10 @@ namespace assignment3
 	template<typename T>
 	unsigned int QueueStack<T>::GetStackCount()
 	{
+		if (mQueue.size() == 0)
+		{
+			return 0u;
+		}
 		if (mQueue.back().GetCount() == 0u)
 		{
 			return mQueue.size() - 1;
