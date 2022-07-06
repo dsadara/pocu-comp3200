@@ -212,6 +212,7 @@ int main()
 
 	SmartQueue<int> q;
 
+
 	// Enqueue()
 	// Peek()
 
@@ -263,9 +264,16 @@ int main()
 
 	// ============QueueStack=================
 
+	// 빈 std::queue에 back()이 호출되는 경우
+	QueueStack<int> qs10(3);
+	qs10.Enqueue(3);
+	qs10.Dequeue();
+	qs10.Enqueue(3);
+	qs10.GetStackCount();
 	// Enqueue()  Peek()
 
 	QueueStack<int> qs(3);
+
 	qs.Enqueue(1); // [ [ 1 ] ]
 	assert(qs.Peek() == 1);
 	assert(qs.GetStackCount() == 1);

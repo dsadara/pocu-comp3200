@@ -125,7 +125,7 @@ namespace assignment3
 	{
 		T result = mQueue.front().top();
 		mQueue.front().pop();
-		if (mQueue.front().size() == 0u)
+		if (mQueue.size() != 1 && mQueue.front().size() == 0u)
 		{
 			mQueue.pop();
 		}
@@ -220,7 +220,7 @@ namespace assignment3
 		{
 			tmpQueue.push(mQueue.front());
 			unsigned int frontStackSize = mQueue.front().size();
-			for (int i = 0; i < frontStackSize; i++)
+			for (unsigned int i = 0; i < frontStackSize; i++)
 			{
 				sum += mQueue.front().top();
 				mQueue.front().pop();
