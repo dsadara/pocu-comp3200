@@ -99,13 +99,13 @@ namespace assignment3
 	{
 		T max = std::numeric_limits<T>::lowest();
 		unsigned int mQueueSize = mQueue.size();
-		std::queue<std::stack<T>> tmpQueue;
+		std::queue<std::stack<T>>* tmpQueue = new std::queue<std::stack<T>>;
 
 		for (unsigned int i = 0; i < mQueueSize; i++)
 		{
 			// 스택 pop 하며 max값 찾기
 			// 스택 도로 집어넣기
-			tmpQueue.push(mQueue.front());
+			tmpQueue->push(mQueue.front());
 
 			// 스택 안 max 찾기
 			int tmpSize = static_cast<int>(mQueue.front().size());
@@ -122,9 +122,10 @@ namespace assignment3
 		// 스택 주워 담기 
 		for (unsigned int i = 0; i < mQueueSize; i++)
 		{
-			mQueue.push(tmpQueue.front());
-			tmpQueue.pop();
+			mQueue.push(tmpQueue->front());
+			tmpQueue->pop();
 		}
+		delete tmpQueue;
 
 		return max;
 	}
@@ -134,13 +135,13 @@ namespace assignment3
 	{
 		T min = std::numeric_limits<T>::max();
 		unsigned int mQueueSize = mQueue.size();
-		std::queue<std::stack<T>> tmpQueue;
+		std::queue<std::stack<T>>* tmpQueue = new std::queue<std::stack<T>>;
 
 		for (unsigned int i = 0; i < mQueueSize; i++)
 		{
 			// 스택 pop 하며 min값 찾기
 			// 스택 도로 집어넣기
-			tmpQueue.push(mQueue.front());
+			tmpQueue->push(mQueue.front());
 
 			// 스택 안 min 찾기
 			unsigned int tmpSize = mQueue.front().size();
@@ -157,9 +158,10 @@ namespace assignment3
 		// 스택 주워 담기 
 		for (unsigned int i = 0; i < mQueueSize; i++)
 		{
-			mQueue.push(tmpQueue.front());
-			tmpQueue.pop();
+			mQueue.push(tmpQueue->front());
+			tmpQueue->pop();
 		}
+		delete tmpQueue;
 
 		return min;
 	}
@@ -176,11 +178,11 @@ namespace assignment3
 	{
 		T sum = static_cast<T>(0);
 		unsigned int mQueueSize = mQueue.size();
-		std::queue<std::stack<T>> tmpQueue;
+		std::queue<std::stack<T>>* tmpQueue = new std::queue<std::stack<T>>;
 
 		for (unsigned int i = 0; i < mQueueSize; i++)
 		{
-			tmpQueue.push(mQueue.front());
+			tmpQueue->push(mQueue.front());
 			unsigned int frontStackSize = mQueue.front().size();
 			for (unsigned int i = 0; i < frontStackSize; i++)
 			{
@@ -191,9 +193,10 @@ namespace assignment3
 		}
 		for (unsigned int i = 0; i < mQueueSize; i++)
 		{
-			mQueue.push(tmpQueue.front());
-			tmpQueue.pop();
+			mQueue.push(tmpQueue->front());
+			tmpQueue->pop();
 		}
+		delete tmpQueue;
 
 		return sum;
 	}
@@ -203,19 +206,20 @@ namespace assignment3
 	{
 		unsigned int count = 0u;
 		unsigned int mQueueSize = mQueue.size();
-		std::queue<std::stack<T>> tmpQueue;
+		std::queue<std::stack<T>>* tmpQueue = new std::queue<std::stack<T>>;
 
 		for (unsigned int i = 0; i < mQueueSize; i++)
 		{
 			count += mQueue.front().size();
-			tmpQueue.push(mQueue.front());
+			tmpQueue->push(mQueue.front());
 			mQueue.pop();
 		}
 		for (unsigned int i = 0; i < mQueueSize; i++)
 		{
-			mQueue.push(tmpQueue.front());
-			tmpQueue.pop();
+			mQueue.push(tmpQueue->front());
+			tmpQueue->pop();
 		}
+		delete tmpQueue;
 
 		return count;
 	}
