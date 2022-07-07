@@ -8,10 +8,10 @@ namespace lab8
 	public:
 		FixedVector();
 		bool Add(T& t);
-		bool Remove(T t);
+		bool Remove(T& t);
 		const T& Get(unsigned int index);
 		T& operator[](unsigned int index);
-		int GetIndex(T t);
+		int GetIndex(T& t);
 		size_t GetSize();
 		size_t GetCapacity();
 	private:
@@ -37,7 +37,7 @@ namespace lab8
 	}
 
 	template<typename T, size_t N>
-	bool FixedVector<T, N>::Remove(T t)
+	bool FixedVector<T, N>::Remove(T& t)
 	{
 		int i = GetIndex(t);
 		if (i == -1)
@@ -65,7 +65,7 @@ namespace lab8
 	}
 
 	template<typename T, size_t N>
-	int FixedVector<T, N>::GetIndex(T t)
+	int FixedVector<T, N>::GetIndex(T& t)
 	{
 		for (size_t i = 0; i < mSize; i++)
 		{
