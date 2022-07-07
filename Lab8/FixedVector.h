@@ -7,6 +7,9 @@ namespace lab8
 	{
 	public:
 		FixedVector();
+		FixedVector(const FixedVector& other);
+		~FixedVector();
+		FixedVector& operator=(const FixedVector& rhs);
 		bool Add(const T& t);
 		bool Remove(const T& t);
 		const T& Get(unsigned int index);
@@ -23,6 +26,31 @@ namespace lab8
 	FixedVector<T, N>::FixedVector()
 		: mSize(0)
 	{
+	}
+
+	template<typename T, size_t N>
+	FixedVector<T, N>::FixedVector(const FixedVector<T, N>& other)
+		: mSize(other.mSize)
+	{
+		for (unsigned int i = 0; i < N; i++)
+		{
+			mArray[i] = other.mArray[i];
+		}
+	}
+
+	template<typename T, size_t N>
+	FixedVector<T, N>::~FixedVector()
+	{
+	}
+
+	template<typename T, size_t N>
+	FixedVector<T, N>& FixedVector<T, N>::operator=(const FixedVector<T, N>& rhs)
+	{
+		mSize = rhs.mSize;
+		for (unsigned int i = 0; i < N; i++)
+		{
+			mArray[i] = rhs.mArray[i];
+		}
 	}
 
 	template<typename T, size_t N>
