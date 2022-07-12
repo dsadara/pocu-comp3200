@@ -1,5 +1,6 @@
 #pragma once
 #include <queue>
+#include <memory>
 
 namespace lab9
 {
@@ -18,7 +19,7 @@ namespace lab9
 		size_t GetMaxFreeObjectCount();
 	private:
 		size_t mMaxPoolSize;
-		std::queue<T*> mObjectPool;
+		std::queue<std::unique_ptr<T>> mObjectPool;
 		int mCurrPoolIndex;
 	};
 
@@ -32,12 +33,6 @@ namespace lab9
 	template <typename T>
 	ObjectPool<T>::~ObjectPool()
 	{
-		// queue는 range base for 쓸수 없음
-		while (mObjectPool.size() != 0)
-		{
-			delete mObjectPool.front();
-			mObjectPool.pop();
-		}
 	}
 
 	template <typename T>
@@ -48,10 +43,10 @@ namespace lab9
 			return new T();
 		}
 
-		T* returnValue = mObjectPool.front();
+		std::unique_ptr<T> UPtr = std::move(mObjectPool.front());
 		mObjectPool.pop();
-
-		return returnValue;
+		T* rPtr = UPtr.release();
+		return rPtr;
 	}
 
 	template <typename T>
@@ -62,8 +57,8 @@ namespace lab9
 			delete object;
 			return;
 		}
-
-		mObjectPool.push(object);
+		std::unique_ptr<T> obj(object);
+		mObjectPool.push(std::move(obj));
 	}
 
 	template <typename T>
