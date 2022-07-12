@@ -43,9 +43,9 @@ namespace lab9
 			return new T();
 		}
 
-		std::unique_ptr<T> UPtr = std::move(mObjectPool.front());
+		std::unique_ptr<T> uPtr = std::move(mObjectPool.front());
 		mObjectPool.pop();
-		T* rPtr = UPtr.release();
+		T* rPtr = uPtr.release();
 		return rPtr;
 	}
 
