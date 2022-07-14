@@ -43,9 +43,8 @@ namespace lab9
 			return new T();
 		}
 
-		std::unique_ptr<T> uPtr = std::move(mObjectPool.front());
+		T* rPtr = std::move(mObjectPool.front()).release(); // 어차피 반환값 대입만 할꺼니까 rvalue로 꺼내는게 좋을듯
 		mObjectPool.pop();
-		T* rPtr = uPtr.release();
 		return rPtr;
 	}
 
@@ -57,8 +56,7 @@ namespace lab9
 			delete object;
 			return;
 		}
-		std::unique_ptr<T> obj(object);
-		mObjectPool.push(std::move(obj));
+		mObjectPool.push(std::unique_ptr<T>(object));	// 임시개체로 변경
 	}
 
 	template <typename T>
