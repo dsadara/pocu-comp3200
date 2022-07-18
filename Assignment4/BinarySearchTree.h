@@ -18,9 +18,9 @@ namespace assignment4
 		bool Search(const T& data);
 		bool Delete(const T& data);
 		const std::weak_ptr<TreeNode<T>> GetRootNode() const;
-		bool SearchRecursive(const T& data, TreeNode<T>& node);
 
 		static std::vector<T> TraverseInOrder(const std::shared_ptr<TreeNode<T>> startNode);
+		static void TraverseRecursive(const std::shared_ptr<TreeNode<T>> node, std::vector<T>& result);
 	private:
 		std::shared_ptr<TreeNode<T>> mBST;
 	};
@@ -86,7 +86,7 @@ namespace assignment4
 	{
 		if (mBST->IsEmptyTree())
 		{
-			return nullptr;
+			return mBST;
 		}
 		return mBST->Left;
 	}
@@ -123,23 +123,29 @@ namespace assignment4
 	template<typename T>
 	std::vector<T> BinarySearchTree<T>::TraverseInOrder(const std::shared_ptr<TreeNode<T>> startNode)
 	{
-		std::vector<T> v;
-		return v;
+		std::vector<T> result;
+
+		TraverseRecursive(startNode, result);
+
+		return result;
 	}
 
 	template<typename T>
-	bool BinarySearchTree<T>::SearchRecursive(const T& data, TreeNode<T>& node)
+	void BinarySearchTree<T>::TraverseRecursive(const std::shared_ptr<TreeNode<T>> node, std::vector<T>& result)
 	{
-		// 현재 노드 방문
-		if (*node.Data == data)
-		{ 
-			return true;
+		if (node == nullptr)
+		{
+			return;
 		}
 
-		// 오른쪽 자식 방문
-		SearchRecursive(data, node.Right);
+		// 왼쪽 자식 방문
+		TraverseRecursive(node->Left, result);
 
-		// 왼쪽 자식 방문 
-		SearchRecursive(data, node.Right);
+		// 현재 노드 방문
+		result.push_back(*node->Data);
+
+		// 오른쪽 자식 방문 
+		TraverseRecursive(node->Right, result);
+		
 	}
 }
