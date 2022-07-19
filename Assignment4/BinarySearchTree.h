@@ -117,6 +117,73 @@ namespace assignment4
 	template<typename T>
 	bool BinarySearchTree<T>::Delete(const T& data)
 	{
+		auto currNode = mBST;
+		while (currNode != nullptr)
+		{
+			if (*currNode->Data > data)
+			{
+				currNode = currNode->Left;
+			}
+			else if (*currNode->Data < data)
+			{
+				currNode = currNode->Right;
+			}
+			else  // *currNode.Data == data
+			{
+				// no child (루트 삭제 케이스 고려 안 해도 될듯 psuedo node가 있으니까)
+				if (currNode->Right.use_count() == 0 && currNode->Left.use_count() == 0)
+				{
+					auto parent = currNode->Parent.lock();
+					if (parent->Left == currNode)
+					{
+						parent->Left = nullptr;	// shared_ptr 해제
+					}
+					else
+					{
+						parent->Right = nullptr;
+					}
+					return true;
+				}
+				else if (currNode->Right.use_count() == 0)
+				{
+					// 1 Left child
+					auto parent = currNode->Parent.lock();
+					auto tmpNode = currNode->Left;
+
+					parent->Right = tmpNode;	// 이러면 알아서 shared_ptr 해제??
+					tmpNode->Parent = parent;
+					return true;
+				}
+				else if (currNode->Left.use_count() == 0)
+				{
+					// 1 Right child
+					auto parent = currNode->Parent.lock();
+					auto tmpNode = currNode->Right;
+
+					parent->Left = tmpNode;
+					tmpNode->Parent = parent;
+					return true;
+				}
+				// 2 child 
+				
+				// get inorder successor
+				auto minValueNode = currNode->Right;
+				while (minValueNode != nullptr && minValueNode->Left != nullptr)	// minValueNode == nullptr || minValueNode->Left == nullptr
+				{
+					minValueNode = minValueNode->Left;
+				}
+
+				// copy successor's data
+				currNode->Data = std::move(minValueNode->Data);
+
+				// delete successor 
+				auto successorParent = minValueNode->Parent.lock();
+				successorParent->Left = nullptr;
+
+				return true;
+			}
+		}
+
 		return false;
 	}
 
