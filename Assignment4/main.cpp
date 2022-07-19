@@ -148,7 +148,7 @@ void Test_Insert_GetRoot()
 
 	std::shared_ptr<TreeNode<int>> test0 = tree.GetRootNode().lock();
 	assert(*test0->Data.get() == 10);
-	//assert(test0->Parent.lock().get() == nullptr);
+	assert(test0->Parent.lock().get() == nullptr);
 	std::shared_ptr<TreeNode<int>> test1 = test0->Left;
 	assert(*test1->Data.get() == 5);
 	assert(*test1->Parent.lock()->Data.get() == 10);

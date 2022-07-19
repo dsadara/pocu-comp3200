@@ -23,6 +23,7 @@ namespace assignment4
 		static void TraverseRecursive(const std::shared_ptr<TreeNode<T>> node, std::vector<T>& result);
 	private:
 		std::shared_ptr<TreeNode<T>> mBST;
+
 	};
 	
 	template<typename T>
@@ -72,11 +73,26 @@ namespace assignment4
 
 		if (*data > *parentNode->Data)
 		{
-			parentNode->Right = std::make_shared<TreeNode<T>>(parentNode, std::move(data));
+			if (*parentNode->Data == std::numeric_limits<T>::max())
+			{
+				parentNode->Right = std::make_shared<TreeNode<T>>(std::move(data));
+			}
+			else
+			{
+				parentNode->Right = std::make_shared<TreeNode<T>>(parentNode, std::move(data));
+			}
 		}
 		else  // data <= *currNode.Data
 		{
-			parentNode->Left = std::make_shared<TreeNode<T>>(parentNode, std::move(data));
+			if (*parentNode->Data == std::numeric_limits<T>::max())
+			{
+				parentNode->Left = std::make_shared<TreeNode<T>>(std::move(data));
+			}
+			else
+			{
+				parentNode->Left = std::make_shared<TreeNode<T>>(parentNode, std::move(data));
+			}
+			
 		}
 
 	}
@@ -209,7 +225,10 @@ namespace assignment4
 		TraverseRecursive(node->Left, result);
 
 		// 현재 노드 방문
-		result.push_back(*node->Data);
+		if (*node->Data != std::numeric_limits<T>::max())
+		{
+			result.push_back(*node->Data);
+		}
 
 		// 오른쪽 자식 방문 
 		TraverseRecursive(node->Right, result);
