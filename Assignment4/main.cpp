@@ -69,7 +69,7 @@ int main()
 	// 2.6 BinarySearchTree 클래스의 GetRootNode() 메서드 구현하기
 
 	std::shared_ptr<TreeNode<int>> result = tree.GetRootNode().lock();
-	
+
 	assert(*result->Data == 10); // 10
 	BinarySearchTree<int> tree2;
 	result = tree2.GetRootNode().lock();
@@ -237,6 +237,15 @@ void Test_Delete()
 	assert(!tree.Search(17));	// 삭제 확인
 	assert(!tree.Delete(17));	// 비어있는 상태에서 삭제
 
+	assert(tree.Delete(15));	// Right만 있는 노드 삭제
+	assert(!tree.Search(15));	// 삭제 확인
+	assert(tree.Delete(5)); 	// Left, Right 모두 있는 노드 삭제
+	assert(!tree.Search(5));
+	assert(!tree.Delete(5));	// 존재하지 않는 노드 삭제
+
+  //	Head
+	assert(tree.Delete(10)); 	// Left, Right 모두 있는 헤드 삭제
+	assert(!tree.Search(10));	// 삭제 확인
 
 	for (size_t i = 0; i < 9; i++)
 	{

@@ -30,7 +30,7 @@ namespace assignment4
 	TreeNode<T>::TreeNode()
 		: Data(std::move(std::make_unique<T>(std::numeric_limits<T>::max())))
 	{
-	
+
 	}
 	template<typename T>
 	TreeNode<T>::TreeNode(std::shared_ptr<TreeNode<T>> parent, std::unique_ptr<T> data)

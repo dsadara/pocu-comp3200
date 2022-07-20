@@ -25,7 +25,7 @@ namespace assignment4
 		std::shared_ptr<TreeNode<T>> mBST;
 
 	};
-	
+
 	template<typename T>
 	BinarySearchTree<T>::BinarySearchTree()
 		: mBST(new TreeNode<T>())
@@ -48,7 +48,7 @@ namespace assignment4
 		}
 
 		// 삽입할 위치로 이동
- 		while (currNode != nullptr)
+		while (currNode != nullptr)
 		{
 			if (*data > *currNode->Data)
 			{
@@ -92,7 +92,7 @@ namespace assignment4
 			{
 				parentNode->Left = std::make_shared<TreeNode<T>>(parentNode, std::move(data));
 			}
-			
+
 		}
 
 	}
@@ -150,7 +150,11 @@ namespace assignment4
 				if (currNode->Right.use_count() == 0 && currNode->Left.use_count() == 0)
 				{
 					auto parent = currNode->Parent.lock();
-					if (parent->Left == currNode)
+					if (parent.use_count() == 0)	// delete root node, root node doesn't refer psuedo root
+					{
+						mBST->Left = nullptr;
+					}
+					else if (parent->Left == currNode)
 					{
 						parent->Left = nullptr;	// shared_ptr 해제
 					}
@@ -166,8 +170,21 @@ namespace assignment4
 					auto parent = currNode->Parent.lock();
 					auto tmpNode = currNode->Left;
 
-					parent->Right = tmpNode;	// 이러면 알아서 shared_ptr 해제??
-					tmpNode->Parent = parent;
+					if (parent.use_count() == 0)	// delete root node, root node doesn't refer psuedo root
+					{
+						mBST->Left = tmpNode;
+						tmpNode->Parent = mBST;
+					}
+					else if (parent->Left == currNode)
+					{
+						parent->Left = tmpNode;
+						tmpNode->Parent = parent;
+					}
+					else
+					{
+						parent->Right = tmpNode;
+						tmpNode->Parent = parent;
+					}
 					return true;
 				}
 				else if (currNode->Left.use_count() == 0)
@@ -176,12 +193,25 @@ namespace assignment4
 					auto parent = currNode->Parent.lock();
 					auto tmpNode = currNode->Right;
 
-					parent->Left = tmpNode;
-					tmpNode->Parent = parent;
+					if (parent.use_count() == 0)	// delete root node, root node doesn't refer psuedo root
+					{
+						mBST->Left = tmpNode;
+						tmpNode->Parent = mBST;
+					}
+					else if (parent->Left == currNode)
+					{
+						parent->Left = tmpNode;
+						tmpNode->Parent = parent;
+					}
+					else
+					{
+						parent->Right = tmpNode;
+						tmpNode->Parent = parent;
+					}
 					return true;
 				}
 				// 2 child 
-				
+
 				// get inorder successor
 				auto minValueNode = currNode->Right;
 				while (minValueNode != nullptr && minValueNode->Left != nullptr)	// minValueNode == nullptr || minValueNode->Left == nullptr
@@ -189,12 +219,22 @@ namespace assignment4
 					minValueNode = minValueNode->Left;
 				}
 
-				// copy successor's data
-				currNode->Data = std::move(minValueNode->Data);
+				if (minValueNode->Parent.lock() == currNode)
+				{
+					currNode->Data = std::move(minValueNode->Data);
 
-				// delete successor 
-				auto successorParent = minValueNode->Parent.lock();
-				successorParent->Left = nullptr;
+					auto successorParent = minValueNode->Parent.lock();
+					successorParent->Right = nullptr;
+				}
+				else
+				{
+					// copy successor's data
+					currNode->Data = std::move(minValueNode->Data);
+
+					// delete successor 
+					auto successorParent = minValueNode->Parent.lock();
+					successorParent->Left = nullptr;
+				}
 
 				return true;
 			}
@@ -232,6 +272,6 @@ namespace assignment4
 
 		// 오른쪽 자식 방문 
 		TraverseRecursive(node->Right, result);
-		
+
 	}
 }
