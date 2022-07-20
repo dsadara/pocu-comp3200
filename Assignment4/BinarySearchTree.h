@@ -55,15 +55,6 @@ namespace assignment4
 				parentNode = currNode;
 				currNode = currNode->Right;
 			}
-			else if (*data == *currNode->Data)
-			{
-				// currNode ¿ŞÂÊ¿¡ »õ ³ëµå »ğÀÔ
-				auto tmpNode = currNode->Left;
-				currNode->Left = std::make_shared<TreeNode<T>>(currNode, std::move(data));
-				currNode->Left->Left = tmpNode;
-				tmpNode->Parent = currNode->Left;
-				return;
-			}
 			else // data < *currNode.Data
 			{
 				parentNode = currNode;

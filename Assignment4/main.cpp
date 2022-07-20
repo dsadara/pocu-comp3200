@@ -83,7 +83,7 @@ int main()
 	tree2.Insert(std::make_unique<int>(15));
 	tree2.Insert(std::make_unique<int>(5));
 	tree2.Insert(std::make_unique<int>(10));
-	tree2.Delete(10);
+	//tree2.Delete(10);
 
 	std::vector<int> result2 = BinarySearchTree<int>::TraverseInOrder(tree2.GetRootNode().lock());
 	for (int num : result2)
