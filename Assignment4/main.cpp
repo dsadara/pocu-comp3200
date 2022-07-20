@@ -11,6 +11,8 @@ void Test_Insert_GetRoot();
 void Test_Search();
 void Test_Delete();
 void Test_Traverse();
+void Test_Delete_0hoo();
+
 
 int main()
 {
@@ -81,6 +83,7 @@ int main()
 	tree2.Insert(std::make_unique<int>(15));
 	tree2.Insert(std::make_unique<int>(5));
 	tree2.Insert(std::make_unique<int>(10));
+	tree2.Delete(10);
 
 	std::vector<int> result2 = BinarySearchTree<int>::TraverseInOrder(tree2.GetRootNode().lock());
 	for (int num : result2)
@@ -88,6 +91,8 @@ int main()
 		std::cout << num << " ";
 	}
 	std::cout << std::endl;
+
+	assert(tree2.Search(10));
 
 	return 0;
 }
@@ -352,4 +357,27 @@ void Test_Traverse()
 	assert(v8.empty());
 
 	return;
+}
+
+void Test_Delete_0hoo()
+{
+	bool bDelete = false;
+	bool bSearch = false;
+	BinarySearchTree<int> tree;
+	std::vector<int> traverseResult;
+
+	bDelete = tree.Delete(15);
+	bSearch = tree.Search(15);
+	traverseResult = tree.TraverseInOrder(tree.GetRootNode().lock());
+	assert(!bDelete);
+	assert(!bSearch);
+	assert(traverseResult.empty());
+
+	tree.Insert(std::make_unique<int>(15));
+	traverseResult = tree.TraverseInOrder(tree.GetRootNode().lock());
+	bDelete = tree.Delete(15);
+	assert(bDelete);
+	assert(traverseResult.size() == 1);
+	assert(traverseResult[0] == 15);
+	assert(tree.GetRootNode().lock());
 }
