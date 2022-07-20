@@ -42,6 +42,6 @@ namespace assignment4
 	template<typename T>
 	bool TreeNode<T>::IsEmptyTree()
 	{
-		return Left == nullptr ? true : false;
+		return Left.use_count() == 0 ? true : false;
 	}
 }

@@ -100,10 +100,10 @@ namespace assignment4
 	template<typename T>
 	const std::weak_ptr<TreeNode<T>> BinarySearchTree<T>::GetRootNode() const
 	{
-		if (mBST->IsEmptyTree())
+		/*if (mBST->IsEmptyTree())
 		{
 			return mBST;
-		}
+		}*/
 		return mBST->Left;
 	}
 

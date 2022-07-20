@@ -73,7 +73,16 @@ int main()
 	assert(*result->Data == 10); // 10
 	BinarySearchTree<int> tree2;
 	result = tree2.GetRootNode().lock();
-	assert(*result->Data == std::numeric_limits<int>::max());
+	//assert(*result->Data == std::numeric_limits<int>::max());
+	assert(result.use_count() == 0);
+
+	tree.Insert(std::make_unique<int>(10));
+	tree.Insert(std::make_unique<int>(15));
+	tree.Insert(std::make_unique<int>(5));
+	tree.Insert(std::make_unique<int>(10));
+
+
+
 
 	return 0;
 }
@@ -274,6 +283,7 @@ void Test_Traverse()
 
 	// ºó Æ®¸®
 	std::vector<int> v1 = tree.TraverseInOrder(tree.GetRootNode().lock());
+	tree.GetRootNode();
 	assert(v1.size() == 0);
 	assert(v1.empty());
 
