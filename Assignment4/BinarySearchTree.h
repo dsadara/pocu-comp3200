@@ -59,9 +59,9 @@ namespace assignment4
 			{
 				// currNode 왼쪽에 새 노드 삽입
 				auto tmpNode = currNode->Left;
-				currNode->Left = currNode;	// 이렇게 해도 참조 카운트가 1이 줄어들까? 
+				currNode->Left = std::make_shared<TreeNode<T>>(currNode, std::move(data));
 				currNode->Left->Left = tmpNode;
-				//bInserted = true;
+				tmpNode->Parent = currNode->Left;
 				return;
 			}
 			else // data < *currNode.Data

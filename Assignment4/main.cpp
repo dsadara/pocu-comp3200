@@ -2,6 +2,7 @@
 #include "TreeNode.h"
 #include "BinarySearchTree.h"
 #include <limits>
+#include <iostream>
 
 using namespace assignment4;
 
@@ -76,13 +77,17 @@ int main()
 	//assert(*result->Data == std::numeric_limits<int>::max());
 	assert(result.use_count() == 0);
 
-	tree.Insert(std::make_unique<int>(10));
-	tree.Insert(std::make_unique<int>(15));
-	tree.Insert(std::make_unique<int>(5));
-	tree.Insert(std::make_unique<int>(10));
+	tree2.Insert(std::make_unique<int>(10));
+	tree2.Insert(std::make_unique<int>(15));
+	tree2.Insert(std::make_unique<int>(5));
+	tree2.Insert(std::make_unique<int>(10));
 
-
-
+	std::vector<int> result2 = BinarySearchTree<int>::TraverseInOrder(tree2.GetRootNode().lock());
+	for (int num : result2)
+	{
+		std::cout << num << " ";
+	}
+	std::cout << std::endl;
 
 	return 0;
 }
