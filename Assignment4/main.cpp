@@ -12,6 +12,8 @@ void Test_Search();
 void Test_Delete();
 void Test_Traverse();
 void Test_Delete_0hoo();
+void Test_Delete_TwoChild();
+void Print_Tree(BinarySearchTree<int>& tree);
 
 
 int main()
@@ -22,6 +24,7 @@ int main()
 	Test_Search();
 	Test_Delete();
 	Test_Traverse();
+	Test_Delete_TwoChild();
 
 	// 2.1 TreeNode 클래스 구현하기
 
@@ -380,4 +383,79 @@ void Test_Delete_0hoo()
 	assert(traverseResult.size() == 1);
 	assert(traverseResult[0] == 15);
 	assert(tree.GetRootNode().lock());
+}
+
+void Test_Delete_TwoChild()
+{
+	int arr[3] = { 10, 5, 15 };
+	int arr2[4] = { 10, 5, 4, 7 };
+	int arr3[4] = { 10, 15, 12, 19 };
+	int arr4[6] = { 5, 10, 15, 19, 17, 20 };
+	int arr5[7] = { 10, 10, 15, 4, 7, 12, 19 };
+
+	BinarySearchTree<int> tree1;
+	BinarySearchTree<int> tree2;
+	BinarySearchTree<int> tree3;
+	BinarySearchTree<int> tree4;
+	BinarySearchTree<int> tree5;
+
+	std::cout << "Delete two child node1" << std::endl;
+
+	for (int num : arr)
+	{
+		tree1.Insert(std::make_unique<int>(num));
+	}
+	Print_Tree(tree1);
+	tree1.Delete(10);
+	Print_Tree(tree1);
+
+	std::cout << "Delete two child node2" << std::endl;
+
+	for (int num : arr2)
+	{
+		tree2.Insert(std::make_unique<int>(num));
+	}
+	Print_Tree(tree2);
+	tree2.Delete(5);
+	Print_Tree(tree2);
+
+	std::cout << "Delete two child node3" << std::endl;
+
+	for (int num : arr3)
+	{
+		tree3.Insert(std::make_unique<int>(num));
+	}
+	Print_Tree(tree3);
+	tree3.Delete(15);
+	Print_Tree(tree3);
+
+	std::cout << "Delete two child node4" << std::endl;
+
+	for (int num : arr4)
+	{
+		tree4.Insert(std::make_unique<int>(num));
+	}
+	Print_Tree(tree4);
+	tree4.Delete(19);
+	Print_Tree(tree4);
+
+	std::cout << "Delete two child node5" << std::endl;
+
+	for (int num : arr5)
+	{
+		tree5.Insert(std::make_unique<int>(num));
+	}
+	Print_Tree(tree5);
+	tree5.Delete(10);
+	Print_Tree(tree5);
+}
+
+void Print_Tree(BinarySearchTree<int>& tree)
+{
+	std::vector<int> result2 = BinarySearchTree<int>::TraverseInOrder(tree.GetRootNode().lock());
+	for (int num : result2)
+	{
+		std::cout << num << " ";
+	}
+	std::cout << std::endl;
 }

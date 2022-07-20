@@ -201,7 +201,7 @@ namespace assignment4
 
 				// get inorder successor
 				auto minValueNode = currNode->Right;
-				while (minValueNode != nullptr && minValueNode->Left != nullptr)	// minValueNode == nullptr || minValueNode->Left == nullptr
+				while (minValueNode->Left != nullptr)	// minValueNode == nullptr || minValueNode->Left == nullptr
 				{
 					minValueNode = minValueNode->Left;
 				}
@@ -211,7 +211,7 @@ namespace assignment4
 					currNode->Data = std::move(minValueNode->Data);
 
 					auto successorParent = minValueNode->Parent.lock();
-					successorParent->Right = nullptr;
+					successorParent->Right = minValueNode->Right;
 				}
 				else
 				{
@@ -220,9 +220,8 @@ namespace assignment4
 
 					// delete successor 
 					auto successorParent = minValueNode->Parent.lock();
-					successorParent->Left = nullptr;
+					successorParent->Left = minValueNode->Right ;
 				}
-
 				return true;
 			}
 		}
