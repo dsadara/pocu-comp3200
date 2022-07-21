@@ -3,6 +3,7 @@
 #include "BinarySearchTree.h"
 #include <limits>
 #include <iostream>
+#include <random>
 
 using namespace assignment4;
 
@@ -14,6 +15,7 @@ void Test_Traverse();
 void Test_Delete_0hoo();
 void Test_Delete_TwoChild();
 void Print_Tree(BinarySearchTree<int>& tree);
+void Test_Randomly();
 
 
 int main()
@@ -24,7 +26,8 @@ int main()
 	Test_Search();
 	Test_Delete();
 	Test_Traverse();
-	Test_Delete_TwoChild();
+	//Test_Delete_TwoChild();
+	Test_Randomly();
 
 	// 2.1 TreeNode 클래스 구현하기
 
@@ -409,6 +412,8 @@ void Test_Delete_TwoChild()
 	tree1.Delete(10);
 	Print_Tree(tree1);
 
+
+
 	std::cout << "Delete two child node2" << std::endl;
 
 	for (int num : arr2)
@@ -458,4 +463,44 @@ void Print_Tree(BinarySearchTree<int>& tree)
 		std::cout << num << " ";
 	}
 	std::cout << std::endl;
+}
+
+void Test_Randomly()
+{
+	std::vector<int> a;
+	std::random_device	rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<int> dis(0, 99);
+
+	for (int i = 0; i < 1000; i++)
+	{
+		int iterateNum = dis(gen) % 10;
+		for (i = 0; i < iterateNum; i++)
+		{
+			a.push_back(dis(gen));
+		}
+
+		BinarySearchTree<int> tree;
+
+		// insert
+		for (int num : a)
+		{
+			tree.Insert(std::make_unique<int>(num));
+		}
+		Print_Tree(tree);
+
+		// delete
+		for (int num : a)
+		{
+			tree.Delete(num);
+		}
+		Print_Tree(tree);
+
+		a.clear();
+
+		// error case 25 26 34 57 58 76 77 94
+		// 16 36 43 50 53 77 77 87 99
+		// 8 19 28 61 62 76 81 94 96
+
+	}
 }

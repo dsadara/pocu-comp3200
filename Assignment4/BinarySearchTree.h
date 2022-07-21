@@ -130,7 +130,7 @@ namespace assignment4
 			else if (*currNode->Data < data)
 			{
 				currNode = currNode->Right;
-			}
+			}	
 			else  // *currNode.Data == data
 			{
 				// no child (루트 삭제 케이스 고려 안 해도 될듯 psuedo node가 있으니까)
@@ -201,15 +201,17 @@ namespace assignment4
 
 				// get inorder successor
 				auto minValueNode = currNode->Right;
-				while (minValueNode->Left != nullptr)	// minValueNode == nullptr || minValueNode->Left == nullptr
+				while (minValueNode->Left != nullptr)
 				{
 					minValueNode = minValueNode->Left;
 				}
 
-				if (minValueNode->Parent.lock() == currNode)
+				if (minValueNode->Parent.lock() == currNode)	// 
 				{
+					// copy successor's data
 					currNode->Data = std::move(minValueNode->Data);
 
+					// delete successor 
 					auto successorParent = minValueNode->Parent.lock();
 					successorParent->Right = minValueNode->Right;
 				}
@@ -225,7 +227,6 @@ namespace assignment4
 				return true;
 			}
 		}
-
 		return false;
 	}
 
