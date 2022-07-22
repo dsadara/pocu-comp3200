@@ -212,8 +212,11 @@ namespace assignment4
 					currNode->Data = std::move(minValueNode->Data);
 
 					// delete successor 
-					auto successorParent = minValueNode->Parent.lock();
-					successorParent->Right = minValueNode->Right;
+					currNode->Right = minValueNode->Right;
+					if (minValueNode->Right != nullptr)
+					{
+						minValueNode->Right->Parent = currNode;
+					}
 				}
 				else
 				{
@@ -222,7 +225,11 @@ namespace assignment4
 
 					// delete successor 
 					auto successorParent = minValueNode->Parent.lock();
-					successorParent->Left = minValueNode->Right ;
+					successorParent->Left = minValueNode->Right;
+					if (minValueNode->Right != nullptr)
+					{
+						minValueNode->Right->Parent = successorParent;
+					}
 				}
 				return true;
 			}

@@ -16,18 +16,20 @@ void Test_Delete_0hoo();
 void Test_Delete_TwoChild();
 void Print_Tree(BinarySearchTree<int>& tree);
 void Test_Randomly();
+void Test_ErrorCase();
 
 
 int main()
 {
 
-	SpecTestCase();
+	/*SpecTestCase();
 	Test_Insert_GetRoot();
 	Test_Search();
 	Test_Delete();
-	Test_Traverse();
+	Test_Traverse();*/
 	//Test_Delete_TwoChild();
 	Test_Randomly();
+	//Test_ErrorCase();
 
 	// 2.1 TreeNode 클래스 구현하기
 
@@ -501,6 +503,44 @@ void Test_Randomly()
 		// error case 25 26 34 57 58 76 77 94
 		// 16 36 43 50 53 77 77 87 99
 		// 8 19 28 61 62 76 81 94 96
-
+		// 8 45 49 58 82 83
+		// 1 6 21 27 51 52 67 78 80
 	}
+}
+
+void Test_ErrorCase()
+{
+	int a[] = {25, 26, 34, 57, 58, 76, 77, 94};
+
+	BinarySearchTree<int> tree;
+
+	for (int num : a)
+	{
+		tree.Insert(std::make_unique<int>(num));
+	}
+
+	Print_Tree(tree);
+
+	for (int num : a)
+	{
+		tree.Delete(num);
+	}
+
+	int b[] = { 16, 36, 43, 50, 53, 77, 77, 87, 99 };
+
+	BinarySearchTree<int> tree2;
+
+	for (int num : b)
+	{
+		tree2.Insert(std::make_unique<int>(num));
+	}
+
+	Print_Tree(tree2);
+
+	for (int num : b)
+	{
+		tree2.Delete(num);
+	}
+
+	
 }
