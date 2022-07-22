@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <iostream>
 
 namespace lab10
 {
@@ -19,9 +20,9 @@ namespace lab10
 
 		std::shared_ptr<Node<T>> operator[](unsigned int index) const;
 		unsigned int GetLength() const;
-
+		void PrintList();
 	private:
-		std::shared_ptr<Node<T>> root;
+		std::shared_ptr<Node<T>> mRoot;
 		int length;
 	};
 
@@ -35,14 +36,14 @@ namespace lab10
 	void DoublyLinkedList<T>::Insert(std::unique_ptr<T> data)
 	{
 		// insert Root
-		if (root == nullptr)
+		if (mRoot == nullptr)
 		{
-			root = std::make_shared<Node<T>>(std::move(data));
+			mRoot = std::make_shared<Node<T>>(std::move(data));
 			length++;
 			return;
 		}
 
-		std::shared_ptr<Node<T>> currNode = root;
+		std::shared_ptr<Node<T>> currNode = mRoot;
 
 		while (currNode->Next != nullptr)	// go to last node;
 		{
@@ -59,15 +60,19 @@ namespace lab10
 		if (length - 1 < static_cast<int>(index))
 		{
 			Insert(std::move(data));
+			return;
 		}
 		else if (index == 0)// if insert at 0 index
 		{
-			root->Next = root;
-			root = std::make_shared<Node<T>>(std::move(data));
+			auto next = mRoot;
+			mRoot = std::make_shared<Node<T>>(std::move(data));
+			mRoot->Next = next;
+			next->Previous = mRoot;
 			length++;
+			return;
 		}
 
-		auto currNode = root;
+		auto currNode = mRoot;
 
 		for (int i = 0; i < static_cast<int>(index); i++)
 		{
@@ -94,22 +99,23 @@ namespace lab10
 		// 루트 노드만 존재할 때
 		if (length == 1)
 		{
-			root = nullptr;
+			mRoot = nullptr;
+			length--;
 			return true;
 		}
 		// 루트 노드를 삭제하는 경우
-		if (*root->Data == data)
+		if (*mRoot->Data == data)
 		{
-			auto nextNode = root->Next;
+			auto nextNode = mRoot->Next;
 			nextNode->Previous.reset();
-			/*root->Next = nullptr;
-			root->Data.release();*/
-			root = nextNode;
+			/*mRoot->Next = nullptr;
+			mRoot->Data.release();*/
+			mRoot = nextNode;
 			length--;
 			return true;
 		}
 
-		auto currNode = root;
+		auto currNode = mRoot;
 
 		while (currNode != nullptr)
 		{
@@ -142,7 +148,7 @@ namespace lab10
 	template<typename T>
 	bool DoublyLinkedList<T>::Search(const T& data) const
 	{
-		auto currNode = root;
+		auto currNode = mRoot;
 
 		while (currNode != nullptr)
 		{
@@ -163,7 +169,7 @@ namespace lab10
 			return nullptr;
 		}
 
-		auto currNode = root;
+		auto currNode = mRoot;
 
 		for (int i = 0; i < static_cast<int>(index); i++)
 		{
@@ -177,5 +183,18 @@ namespace lab10
 	unsigned int DoublyLinkedList<T>::GetLength() const
 	{
 		return length;
+	}
+
+	template<typename T>
+	void DoublyLinkedList<T>::PrintList()
+	{
+		auto currNode = mRoot;
+
+		while (currNode != nullptr)
+		{
+			std::cout << *currNode->Data << "-> ";
+			currNode = currNode->Next;
+		}
+		std::cout << std::endl;
 	}
 }
