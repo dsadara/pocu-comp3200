@@ -2,6 +2,7 @@
 #include "DoublyLinkedList.h"
 #include <cassert>
 #include <iostream>
+#include <limits>
 
 using namespace lab10;
 
@@ -52,6 +53,8 @@ int main()
 	list3.Insert(std::make_unique<int>(1)); // 1
 	list3.Insert(std::make_unique<int>(2)); // 1 -> 2
 	list3.Insert(std::make_unique<int>(3)); // 1 -> 2 -> 3
+
+	assert(list3[std::numeric_limits<unsigned int>::max()] == nullptr);
 
 	assert(list3.Search(2)); // true를 반환
 	assert(!list3.Search(5)); // false를 반환

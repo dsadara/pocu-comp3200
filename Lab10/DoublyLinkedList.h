@@ -164,7 +164,11 @@ namespace lab10
 	template<typename T>
 	std::shared_ptr<Node<T>> DoublyLinkedList<T>::operator[](unsigned int index) const
 	{
-		if (length - 1 < static_cast<int>(index))
+		if (length == 0)
+		{
+			return nullptr;
+		}
+		if (static_cast<unsigned int>(length) - 1 < index)
 		{
 			return nullptr;
 		}
