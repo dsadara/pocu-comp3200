@@ -103,7 +103,7 @@ namespace lab11
 		{
 			return *this;
 		}
-
+		delete[] mMem;
 		mMem = rhs.mMem;
 		mLength = rhs.mLength;
 		mReturnPtr.release();
