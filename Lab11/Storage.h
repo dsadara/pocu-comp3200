@@ -90,6 +90,8 @@ namespace lab11
 		mLength = rhs.mLength;
 		delete[] mMem;
 		mMem = new T[mLength];
+		mReturnPtr.release();
+		mReturnPtr.reset(mMem);
 		memcpy(mMem, rhs.mMem, mLength * sizeof(T));
 		return *this;
 	}
@@ -104,6 +106,8 @@ namespace lab11
 
 		mMem = rhs.mMem;
 		mLength = rhs.mLength;
+		mReturnPtr.release();
+		mReturnPtr.reset(mMem);
 
 		rhs.mMem = nullptr;
 		rhs.mLength = 0;
